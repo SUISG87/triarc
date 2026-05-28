@@ -1,0 +1,7 @@
+.DS_Store
+.vercel
+node_modules
+*.log
+
+# Local-only design exploration
+index-v2.html
