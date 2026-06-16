@@ -41,6 +41,7 @@
     }
 
     * { box-sizing: border-box; }
+    a { color: inherit; text-decoration: none; }
 
     html, body {
       margin: 0;
@@ -287,6 +288,19 @@
       color: var(--ink-soft);
     }
 
+    .peek-lede {
+      font-family: var(--serif);
+      font-style: italic;
+      font-weight: 300;
+      font-size: clamp(18px, 2.2vw, 25px);
+      line-height: 1.4;
+      text-align: center;
+      color: var(--ink);
+      max-width: 30em;
+      margin: 0 auto 48px;
+    }
+    .peek-lede .accent { color: var(--gold); font-style: normal; }
+
     .instruments {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -355,6 +369,74 @@
       color: var(--ink);
       margin: 6px 0 0;
       max-width: 32ch;
+    }
+    .instrument .detail-link {
+      align-self: flex-start;
+      margin-top: 4px;
+      padding: 8px 0 3px;
+      border-bottom: 1px solid var(--accent);
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--ink);
+      text-decoration: none;
+      transition: color 180ms ease, border-color 180ms ease;
+    }
+    .instrument .detail-link:hover {
+      color: var(--accent);
+      border-color: currentColor;
+    }
+    .instrument .detail-link {
+      align-self: flex-start;
+      margin-top: 4px;
+      padding: 8px 0 3px;
+      border-bottom: 1px solid var(--accent);
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--ink);
+      text-decoration: none;
+      transition: color 180ms ease, border-color 180ms ease;
+    }
+    .instrument .detail-link:hover {
+      color: var(--accent);
+      border-color: currentColor;
+    }
+    .instrument .detail-link {
+      align-self: flex-start;
+      margin-top: 4px;
+      padding: 8px 0 3px;
+      border-bottom: 1px solid var(--accent);
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--ink);
+      text-decoration: none;
+      transition: color 180ms ease, border-color 180ms ease;
+    }
+    .instrument .detail-link:hover {
+      color: var(--accent);
+      border-color: currentColor;
+    }
+    .instrument .detail-link {
+      align-self: flex-start;
+      margin-top: 4px;
+      padding: 8px 0 3px;
+      border-bottom: 1px solid var(--accent);
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--ink);
+      text-decoration: none;
+      transition: color 180ms ease, border-color 180ms ease;
+    }
+    .instrument .detail-link:hover {
+      color: var(--accent);
+      border-color: currentColor;
     }
 
     /* Footer — three product names + meta */
@@ -496,12 +578,14 @@
         <span class="rule" aria-hidden="true"></span>
       </div>
 
+      <p class="peek-lede">Not one application for everyone. Tell us how your house runs — we find the right instrument and shape it around your work. And if none of the four fits, <span class="accent">we build what you need.</span></p>
+
       <div class="instruments">
 
         <article class="instrument" style="--accent: var(--aurora);">
           <div class="accent-rule" aria-hidden="true"></div>
           <span class="eyebrow"><span class="roman">I</span>Point of sale</span>
-          <h2 class="name">Aurora<span class="stop">.</span></h2>
+          <h2 class="name"><a href="aurora-detail.html">Aurora<span class="stop">.</span></a></h2>
           <p class="hero">Next-gen revenue &amp; sales POS.</p>
           <p class="role">The cash register, reimagined.</p>
           <p class="body">
@@ -509,12 +593,13 @@
             same calm whether the room is empty or six-deep. Built for hospitality first, not
             adapted from a retail POS.
           </p>
+          <a class="detail-link" href="aurora-detail.html">Read the instrument</a>
         </article>
 
         <article class="instrument" style="--accent: var(--nova);">
           <div class="accent-rule" aria-hidden="true"></div>
           <span class="eyebrow"><span class="roman">II</span>Staffing loop</span>
-          <h2 class="name">Nova<span class="stop">.</span></h2>
+          <h2 class="name"><a href="nova-detail.html">Nova<span class="stop">.</span></a></h2>
           <p class="hero">Every shift in its orbit.</p>
           <p class="role">The schedule that survives the week.</p>
           <p class="body">
@@ -522,24 +607,26 @@
             surface before they bite; the calendar holds. For managers who never wanted to be
             schedulers.
           </p>
+          <a class="detail-link" href="nova-detail.html">Read the instrument</a>
         </article>
 
         <article class="instrument" style="--accent: var(--zenith);">
           <div class="accent-rule" aria-hidden="true"></div>
           <span class="eyebrow"><span class="roman">III</span>Hygiene &amp; compliance</span>
-          <h2 class="name">Zenith<span class="stop">.</span></h2>
+          <h2 class="name"><a href="zenith-detail.html">Zenith<span class="stop">.</span></a></h2>
           <p class="hero">Your kitchen's true north.</p>
           <p class="role">HACCP logging that doesn't fight you.</p>
           <p class="body">
             Temperatures, cleaning checks, supplier batches — one quiet feed. Audit-ready every
             day, not the night before the inspector arrives. The paperwork, without the paper.
           </p>
+          <a class="detail-link" href="zenith-detail.html">Read the instrument</a>
         </article>
 
         <article class="instrument" style="--accent: var(--ceres);">
           <div class="accent-rule" aria-hidden="true"></div>
           <span class="eyebrow"><span class="roman">IV</span>Menu &amp; production</span>
-          <h2 class="name">Ceres<span class="stop">.</span></h2>
+          <h2 class="name"><a href="ceres-detail.html">Ceres<span class="stop">.</span></a></h2>
           <p class="hero">From harvest to plate, planned.</p>
           <p class="role">The prep list that counts itself.</p>
           <p class="body">
@@ -547,6 +634,7 @@
             dish, then writes the supplier order itself — nothing over-prepped, nothing over-bought.
             Planning that ends before the shift starts.
           </p>
+          <a class="detail-link" href="ceres-detail.html">Read the instrument</a>
         </article>
 
       </div>
@@ -556,15 +644,16 @@
   <footer>
     <div class="siblings" aria-label="Triarc instruments">
       <span class="sep" aria-hidden="true"></span>
-      <span class="name">Aurora</span>
+      <a class="name" href="aurora-detail.html">Aurora</a>
       <span class="sep" aria-hidden="true"></span>
-      <span class="name">Nova</span>
+      <a class="name" href="nova-detail.html">Nova</a>
       <span class="sep" aria-hidden="true"></span>
-      <span class="name">Zenith</span>
+      <a class="name" href="zenith-detail.html">Zenith</a>
       <span class="sep" aria-hidden="true"></span>
-      <span class="name">Ceres</span>
+      <a class="name" href="ceres-detail.html">Ceres</a>
       <span class="sep" aria-hidden="true"></span>
     </div>
+    <a class="name" href="gruender.html" style="font-family:var(--mono);font-size:10px;letter-spacing:0.24em;text-transform:uppercase;color:var(--ink-soft);border-bottom:1px solid var(--gold);padding-bottom:2px;transition:color 180ms ease;">Der Gründer →</a>
     <span class="copyright">© Triarc 2026 · St. Gallen · Switzerland</span>
   </footer>
 

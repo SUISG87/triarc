@@ -1,0 +1,7 @@
+# Internal / sensitive — never deploy publicly
+offerte/
+worldline/
+positioning-brief.md
+*.pdf
+.git/
+.DS_Store

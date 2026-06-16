@@ -1,0 +1,882 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ceres — Menüplanung, Produktion &amp; Einkauf | Triarc</title>
+  <meta name="description" content="Ceres rechnet aus dem Menüplan automatisch die Kochmenge und die Bestellung pro Lieferant — ohne Überproduktion, ohne Rechnen von Hand. Früher Stand: der Rechen-Kern ist live und getestet, die Oberfläche im Aufbau." />
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23f7f4ed'/><g fill='none' stroke='%23b8943a' stroke-width='6' stroke-linecap='round'><path d='M 90 50 A 40 40 0 0 1 36.32 87.59'/><path d='M 30 84.64 A 40 40 0 0 1 24.29 19.36'/><path d='M 30 15.36 A 40 40 0 0 1 89.39 43.05'/></g><polygon points='50,44 56,50 50,56 44,50' fill='%23b8943a'/></svg>" />
+
+  <meta property="og:title" content="Ceres — Menüplanung, Produktion &amp; Einkauf by Triarc" />
+  <meta property="og:description" content="Plan für 200. Bestellung für genau 200. Der Rechen-Kern ist live — der Rest entsteht ehrlich nach Roadmap." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://triarc.ch/ceres-detail.html" />
+  <meta property="og:site_name" content="Triarc" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Newsreader:ital,wght@0,300;0,400;1,300;1,400&family=Geist+Mono:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --paper: #f7f4ed;
+      --paper-deep: #ede7d8;
+      --ink: #1a1814;
+      --ink-soft: #5a544a;
+      --gold: #b8943a;
+      --gold-soft: #c8a84b;
+      --rule: rgba(26, 24, 20, 0.12);
+      --aurora: #7B2CBF;
+      --nova: #22D3EE;
+      --zenith: #3B82F6;
+      --ceres: #B45309;
+      --accent: var(--ceres);
+      --accent-wash: rgba(180, 83, 9, 0.07);
+      --sans: "Inter", system-ui, -apple-system, "Helvetica Neue", Helvetica, Arial, sans-serif;
+      --serif: "Newsreader", "Times New Roman", Georgia, serif;
+      --mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+    }
+
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-weight: 300;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(ellipse at 50% 0%, rgba(184, 148, 58, 0.04) 0%, transparent 50%),
+        var(--paper);
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* ---- top meta register ---- */
+    .meta {
+      padding: 28px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+    }
+    .meta .left { display: flex; gap: 16px; align-items: center; }
+    .meta .dot {
+      width: 5px; height: 5px; border-radius: 50%;
+      background: var(--gold);
+      box-shadow: 0 0 8px rgba(184, 148, 58, 0.5);
+    }
+    .meta .right { display: flex; align-items: center; gap: 18px; }
+    .meta .right a { color: var(--ink-soft); transition: color 180ms ease; }
+    .meta .right a:hover { color: var(--gold); }
+
+    main {
+      width: min(1120px, calc(100% - 64px));
+      margin: 0 auto;
+      padding: 18px 0 24px;
+    }
+
+    /* ---- shared section atoms ---- */
+    .section-kicker {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.34em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin: 0 0 16px;
+    }
+    .pull {
+      font-family: var(--serif);
+      font-style: italic;
+      font-weight: 300;
+      font-size: clamp(26px, 3.6vw, 44px);
+      line-height: 1.08;
+      margin: 0;
+      max-width: 13em;
+    }
+    .lede {
+      font-size: 17px;
+      line-height: 1.75;
+      color: var(--ink);
+      max-width: 42rem;
+    }
+
+    /* ---- hero ---- */
+    .instrument-hero {
+      display: grid;
+      grid-template-columns: minmax(260px, 0.74fr) minmax(320px, 1fr);
+      gap: clamp(40px, 7vw, 96px);
+      align-items: end;
+      padding: 30px 0 52px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .mark { width: 76px; height: 76px; margin-bottom: 30px; }
+    .mark svg { width: 100%; height: 100%; display: block; }
+    .eyebrow {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      margin: 0 0 14px;
+    }
+    .eyebrow .roman { color: var(--accent); margin-right: 10px; }
+    h1 {
+      font-family: var(--serif);
+      font-weight: 300;
+      font-size: clamp(68px, 12vw, 156px);
+      line-height: 0.86;
+      letter-spacing: -0.01em;
+      margin: 0;
+    }
+    h1 .stop { color: var(--accent); }
+    .role {
+      font-family: var(--serif);
+      font-style: italic;
+      font-weight: 300;
+      font-size: clamp(23px, 3vw, 34px);
+      line-height: 1.22;
+      margin: 0 0 22px;
+      color: var(--ink);
+    }
+    .hero-intro {
+      font-size: 17px;
+      line-height: 1.75;
+      color: var(--ink);
+      max-width: 42rem;
+      margin: 0 0 30px;
+    }
+
+    /* ---- status tag (early-phase honesty) ---- */
+    .status-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 22px;
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+    }
+    .status-tag .led {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 8px rgba(180, 83, 9, 0.45);
+    }
+    .status-tag b { color: var(--ink); font-weight: 400; }
+
+    /* ---- buttons ---- */
+    .btn-row { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 15px 26px;
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      background: var(--accent);
+      color: #fff;
+      border: 1px solid var(--accent);
+      transition: background 180ms ease, transform 180ms ease;
+    }
+    .btn:hover { background: #93420a; transform: translateY(-1px); }
+    .btn .arr { transition: transform 220ms cubic-bezier(0.2,0.8,0.2,1); }
+    .btn:hover .arr { transform: translateX(4px); }
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 15px 22px;
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--ink);
+      border: 1px solid var(--rule);
+      transition: border-color 180ms ease, color 180ms ease;
+    }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ---- founder trust strip ---- */
+    .trust-strip {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px 20px;
+      padding: 22px 0;
+      border-bottom: 1px solid var(--rule);
+      font-family: var(--mono);
+      font-size: 10.5px;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+    }
+    .trust-strip .who strong { color: var(--ink); font-weight: 400; }
+    .trust-strip .items { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 0; }
+    .trust-strip .items span { display: inline-flex; align-items: center; }
+    .trust-strip .items span::before {
+      content: "◆";
+      color: var(--gold);
+      font-size: 6px;
+      margin: 0 14px 0 0;
+      transform: translateY(-1px);
+    }
+    .trust-strip a {
+      margin-left: auto;
+      color: var(--ink);
+      border-bottom: 1px solid var(--gold);
+      padding-bottom: 2px;
+      transition: color 180ms ease;
+    }
+    .trust-strip a:hover { color: var(--gold); }
+    .founder-line {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 18px;
+      line-height: 1.5;
+      color: var(--ink-soft);
+      margin: 0 0 26px;
+      padding-left: 18px;
+      border-left: 2px solid var(--gold);
+      max-width: 46rem;
+    }
+    .founder-line a { color: var(--ink); border-bottom: 1px solid var(--gold); }
+    .founder-line a:hover { color: var(--gold); }
+    @media (max-width: 820px) {
+      .trust-strip a { margin-left: 0; }
+    }
+
+    /* ---- generic two-column section (problem) ---- */
+    .split {
+      display: grid;
+      grid-template-columns: 0.82fr 1.18fr;
+      gap: clamp(38px, 6vw, 76px);
+      padding: 56px 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .split p.body {
+      margin: 0 0 16px;
+      font-size: 16px;
+      line-height: 1.72;
+      color: var(--ink);
+    }
+    .split p.body:last-child { margin-bottom: 0; }
+    .split .body strong { font-weight: 500; }
+
+    /* ---- outcomes ---- */
+    .block { padding: 56px 0; border-bottom: 1px solid var(--rule); }
+    .block-head { margin: 0 0 38px; }
+    .block-head .pull { max-width: 16em; }
+    .outcomes {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px 56px;
+    }
+    .outcome .accent-rule { width: 34px; height: 2px; background: var(--accent); margin: 0 0 16px; }
+    .outcome h3 {
+      font-family: var(--serif);
+      font-weight: 400;
+      font-size: 23px;
+      line-height: 1.2;
+      margin: 0 0 10px;
+    }
+    .outcome p {
+      margin: 0;
+      font-size: 15px;
+      line-height: 1.68;
+      color: var(--ink-soft);
+      max-width: 34ch;
+    }
+
+    /* ---- capabilities (what's possible) ---- */
+    .cap-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2px;
+      background: var(--rule);
+      border: 1px solid var(--rule);
+    }
+    .cap {
+      background: var(--paper);
+      padding: 26px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+    .cap .num {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      color: var(--accent);
+    }
+    .cap h3 {
+      font-family: var(--sans);
+      font-weight: 500;
+      font-size: 16px;
+      margin: 0;
+      color: var(--ink);
+    }
+    .cap p {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.62;
+      color: var(--ink-soft);
+    }
+    .cap .soon {
+      align-self: flex-start;
+      margin-top: 2px;
+      font-family: var(--mono);
+      font-size: 8.5px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid var(--gold);
+      border-radius: 999px;
+      padding: 2px 9px;
+      opacity: 0.85;
+    }
+
+    /* ---- signature callout ---- */
+    .nachweis {
+      margin: 56px 0;
+      padding: clamp(34px, 5vw, 54px);
+      border: 1px solid var(--rule);
+      background: var(--accent-wash);
+      display: grid;
+      grid-template-columns: 1fr 0.9fr;
+      gap: clamp(34px, 5vw, 60px);
+      align-items: start;
+    }
+    .nachweis h2 {
+      font-family: var(--serif);
+      font-weight: 300;
+      font-size: clamp(28px, 3.6vw, 46px);
+      line-height: 1.04;
+      margin: 14px 0 18px;
+    }
+    .nachweis p { margin: 0 0 16px; font-size: 15.5px; line-height: 1.7; color: var(--ink); max-width: 40ch; }
+    .nachweis p:last-child { margin-bottom: 0; }
+    .doc-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 11px;
+    }
+    .doc-list .lbl {
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      margin: 0 0 6px;
+    }
+    .doc-list li {
+      position: relative;
+      padding-left: 22px;
+      font-size: 14.5px;
+      line-height: 1.5;
+      color: var(--ink);
+    }
+    .doc-list li::before {
+      content: "";
+      position: absolute;
+      left: 0; top: 0.62em;
+      width: 6px; height: 6px;
+      background: var(--accent);
+      transform: rotate(45deg);
+    }
+
+    /* ---- audience ---- */
+    .audience-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      border-top: 1px solid var(--rule);
+      border-left: 1px solid var(--rule);
+    }
+    .aud {
+      padding: 24px 22px 28px;
+      border-right: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+    }
+    .aud .ic { font-family: var(--serif); font-size: 28px; color: var(--accent); line-height: 1; }
+    .aud h3 { font-family: var(--sans); font-weight: 500; font-size: 15px; margin: 16px 0 6px; }
+    .aud p { margin: 0; font-size: 13.5px; line-height: 1.55; color: var(--ink-soft); }
+    .audience-note {
+      margin: 26px 0 0;
+      padding-left: 18px;
+      border-left: 2px solid var(--gold);
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 17px;
+      line-height: 1.5;
+      color: var(--ink-soft);
+      max-width: 46rem;
+    }
+
+    /* ---- integration / part of triarc ---- */
+    .integration p.body { font-size: 16px; line-height: 1.72; color: var(--ink); margin: 0 0 24px; max-width: 44rem; }
+    .wiring { display: grid; gap: 14px; }
+    .wire {
+      display: grid;
+      grid-template-columns: 150px 1fr auto;
+      gap: 20px;
+      align-items: baseline;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .wire:last-child { border-bottom: 0; }
+    .wire .pair { font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink); }
+    .wire .pair b { color: var(--accent); font-weight: 400; }
+    .wire .desc { font-size: 14.5px; line-height: 1.5; color: var(--ink-soft); }
+    .wire .tag {
+      font-family: var(--mono);
+      font-size: 8.5px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid var(--gold);
+      border-radius: 999px;
+      padding: 2px 9px;
+      white-space: nowrap;
+      opacity: 0.85;
+    }
+
+    /* ---- why / chips ---- */
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 30px 44px;
+    }
+    .why .accent-rule { width: 28px; height: 2px; background: var(--accent); margin: 0 0 14px; }
+    .why h3 { font-family: var(--sans); font-weight: 500; font-size: 15px; margin: 0 0 8px; }
+    .why p { margin: 0; font-size: 14px; line-height: 1.6; color: var(--ink-soft); }
+
+    /* ---- CTA band ---- */
+    .cta-band {
+      margin: 64px 0 8px;
+      padding: clamp(48px, 7vw, 84px) clamp(28px, 5vw, 64px);
+      background: var(--paper-deep);
+      border-top: 1px solid var(--gold);
+      border-bottom: 1px solid var(--gold);
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 22px;
+    }
+    .cta-band h2 {
+      font-family: var(--serif);
+      font-weight: 300;
+      font-size: clamp(30px, 4.4vw, 56px);
+      line-height: 1.04;
+      margin: 0;
+      max-width: 16em;
+    }
+    .cta-band p {
+      margin: 0;
+      font-size: 16px;
+      line-height: 1.65;
+      color: var(--ink-soft);
+      max-width: 40rem;
+    }
+    .cta-band .contact-line {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+    }
+    .cta-band .contact-line a { color: var(--ink); border-bottom: 1px solid var(--gold); padding-bottom: 2px; transition: color 180ms ease; }
+    .cta-band .contact-line a:hover { color: var(--gold); }
+
+    /* ---- bottom nav ---- */
+    .instrument-nav {
+      margin-top: 48px;
+      padding-top: 26px;
+      border-top: 1px solid var(--rule);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      padding-bottom: 56px;
+    }
+    .instrument-nav .links { display: flex; gap: 18px; flex-wrap: wrap; justify-content: flex-end; }
+    .instrument-nav a { transition: color 180ms ease; }
+    .instrument-nav a:hover, .instrument-nav a[aria-current="page"] { color: var(--accent); }
+
+    /* ---- section label helper ---- */
+    .block > .section-kicker, .integration > .section-kicker, .audience > .section-kicker { margin-bottom: 28px; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .btn, .btn .arr { transition: none; }
+    }
+
+    @media (max-width: 920px) {
+      .why-grid { grid-template-columns: repeat(2, 1fr); }
+      .audience-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 820px) {
+      .meta { padding: 20px 22px; font-size: 9px; letter-spacing: 0.14em; }
+      .meta .right { gap: 12px; }
+      main { width: min(100% - 44px, 660px); }
+      .instrument-hero { grid-template-columns: 1fr; gap: 28px; padding-top: 24px; }
+      .mark { width: 64px; height: 64px; margin-bottom: 22px; }
+      .split { grid-template-columns: 1fr; gap: 26px; }
+      .outcomes { grid-template-columns: 1fr; gap: 34px; }
+      .cap-grid { grid-template-columns: 1fr; }
+      .nachweis { grid-template-columns: 1fr; }
+      .wire { grid-template-columns: 1fr; gap: 6px; }
+      .wire .tag { justify-self: start; }
+    }
+    @media (max-width: 480px) {
+      h1 { font-size: 58px; }
+      .why-grid, .audience-grid { grid-template-columns: 1fr; }
+      .btn, .btn-ghost { width: 100%; justify-content: center; }
+    }
+    /* ---- B2B revision additions ---- */
+.proof-section { padding: 26px 0 8px; }
+.proof-frame { border: 1px solid var(--rule); background: var(--paper); aspect-ratio: 16 / 9; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; text-align: center; }
+.proof-frame .pf-ic { font-size: 30px; color: var(--accent); opacity: .65; line-height: 1; }
+.proof-frame .pf-cap { font-family: var(--mono); font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--ink); }
+.proof-frame .pf-sub { font-family: var(--mono); font-size: 9.5px; letter-spacing: .18em; text-transform: uppercase; color: var(--ink-soft); opacity: .7; }
+.steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border-top: 1px solid var(--rule); border-left: 1px solid var(--rule); }
+.step { padding: 26px 24px 30px; border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+.step .n { font-family: var(--serif); font-size: 34px; color: var(--accent); line-height: 1; }
+.step h3 { font-family: var(--sans); font-weight: 500; font-size: 16px; margin: 14px 0 6px; }
+.step p { margin: 0; font-size: 14px; line-height: 1.6; color: var(--ink-soft); }
+.assurance { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 12px 28px; font-family: var(--mono); font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-soft); }
+.assurance span { display: inline-flex; align-items: center; }
+.assurance span::before { content: "◆"; color: var(--gold); font-size: 6px; margin-right: 12px; transform: translateY(-1px); }
+@media (max-width: 820px){ .steps { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <header class="meta">
+    <div class="left">
+      <span class="dot" aria-hidden="true"></span>
+      <a href="index.html">Triarc</a>
+      <span aria-hidden="true">·</span>
+      <span>Ceres</span>
+    </div>
+    <div class="right">
+      <a href="ceres.html">Kurzüberblick</a>
+      <a href="index.html">Index</a>
+      <span>2026</span>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- HERO -->
+    <section class="instrument-hero">
+      <div>
+        <div class="mark" aria-label="Triarc three-arc mark">
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
+            <g fill="none" stroke="#b8943a" stroke-width="2" stroke-linecap="round">
+              <path d="M 90 50 A 40 40 0 0 1 36.32 87.59" />
+              <path d="M 30 84.64 A 40 40 0 0 1 24.29 19.36" />
+              <path d="M 30 15.36 A 40 40 0 0 1 89.39 43.05" />
+            </g>
+            <polygon points="50,46 54,50 50,54 46,50" fill="#b8943a" />
+          </svg>
+        </div>
+        <p class="eyebrow"><span class="roman">IV</span>Menüplanung, Produktion &amp; Einkauf</p>
+        <h1>Ceres<span class="stop">.</span></h1>
+      </div>
+      <div>
+        <p class="section-kicker">Menüplanung, Produktion &amp; Einkauf</p>
+        <p class="role">Plan für 200.<br />Bestellung für genau 200.</p>
+        <p class="status-tag"><span class="led" aria-hidden="true"></span>Status: <b>Frühe Phase · Rechen-Kern live</b></p>
+        <p class="hero-intro">Ceres rechnet aus dem Menüplan automatisch die Kochmenge und die Bestellung pro Lieferant — ohne Überproduktion, ohne Rechnen von Hand.</p>
+        <div class="btn-row">
+          <a class="btn" href="mailto:manuel@triarc.ch?subject=Ceres%20%E2%80%93%20Anfrage&body=Betrieb%3A%0AStandorte%3A%0AHeutiges%20System%3A%0A">Offerte anfragen <span class="arr" aria-hidden="true">→</span></a>
+          <a class="btn-ghost" href="#signature">Die Rechen-Logik ansehen</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOUNDER TRUST STRIP -->
+    <section class="trust-strip">
+      <span class="who">Entwickelt von <strong>Manuel Bänziger</strong></span>
+      <span class="items">
+        <span>Executive Chef &amp; F&amp;B-Leader</span>
+        <span>International ausgezeichnet</span>
+        <span>20+ Jahre Gastronomie</span>
+      </span>
+      <a href="gruender.html">Die Geschichte →</a>
+    </section>
+
+    <!-- PROBLEM -->
+    <section class="split">
+      <div>
+        <p class="section-kicker">Das Problem</p>
+        <p class="pull">Aus dem Bauch bestellt, am Ende zu viel im Kühlhaus.</p>
+      </div>
+      <div>
+        <p class="body">In vielen Mengenküchen entsteht der Einkauf aus Erfahrung und Schätzung. Mengen werden von Hand auf die erwartete Zahl Couverts hochgerechnet, Rezepte im Kopf skaliert, Bestelllisten pro Lieferant einzeln zusammengetragen.</p>
+        <p class="body">Das Ergebnis: <strong>Überproduktion auf dem Teller und Überbestellung im Lager.</strong> Reste wandern in die Tonne, ganze Gebinde liegen ungenutzt, und der Foodcost gerät aus der Kontrolle — ohne dass jemand genau sagen kann, wo.</p>
+        <p class="body">Ceres dreht das um: Aus dem Menüplan und der geplanten Zahl Gäste entsteht die exakte Kochmenge und daraus die Bestellung — gerechnet, nicht geschätzt.</p>
+        <p class="body">Tabellen rechnen, was Sie eingeben. Ceres rechnet, was die Küche wirklich braucht — aus echter Grossküchen-Praxis.</p>
+      </div>
+    </section>
+
+    <!-- OUTCOMES -->
+    <section class="block">
+      <div class="block-head">
+        <p class="section-kicker">Was sich ändert</p>
+        <p class="pull">Vier Dinge, die der Rechen-Kern heute leistet.</p>
+      </div>
+      <div class="outcomes">
+        <article class="outcome">
+          <div class="accent-rule" aria-hidden="true"></div>
+          <h3>Skaliert auf den Punkt</h3>
+          <p>Die Kochmenge entsteht aus den geplanten Couverts und dem Yield jedes Rezepts — für 200 Gäste so präzise wie für 40.</p>
+        </article>
+        <article class="outcome">
+          <div class="accent-rule" aria-hidden="true"></div>
+          <h3>Bestellung ohne Überkauf</h3>
+          <p>Der Bedarf wird über alle Rezepte zusammengezählt und erst am Schluss auf die Gebindegrösse gerundet — statt pro Rezept ein Gebinde zu viel.</p>
+        </article>
+        <article class="outcome">
+          <div class="accent-rule" aria-hidden="true"></div>
+          <h3>Pro Lieferant, mit CHF-Kosten</h3>
+          <p>Die Bestellung ist nach Lieferant gruppiert und die Kosten in CHF errechnet — bereit, um sie zu prüfen und zu versenden.</p>
+        </article>
+        <article class="outcome">
+          <div class="accent-rule" aria-hidden="true"></div>
+          <h3>Fertig vor der Schicht</h3>
+          <p>Die Planung steht, bevor die erste Pfanne auf dem Herd ist — kein Rechnen von Hand zwischen Posten und Service.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- SIGNATURE callout -->
+    <section class="nachweis" id="signature">
+      <div>
+        <p class="section-kicker">Die Rechen-Logik</p>
+        <h2>Die Mathematik, die nicht zu viel bestellt.</h2>
+        <p>Ceres aggregiert <strong>jede Zutat über alle Rezepte</strong> eines Menüplans und rundet erst <strong>danach einmal</strong> auf die Gebindegrösse auf — statt pro Rezept zu runden. Das spart ganze Gebinde: Drei Rezepte, die je 0,4&nbsp;kg Butter brauchen, ergeben 1,2&nbsp;kg und damit ein Päckli — nicht drei.</p>
+        <p>Dieser Rechen-Kern ist <strong>real und getestet</strong> — die Pax-Skalierung und die Bestell-Aggregation laufen und sind mit Tests abgedeckt. Er ist das Fundament, auf dem alles Weitere aufbaut.</p>
+      </div>
+      <div>
+        <ul class="doc-list">
+          <p class="lbl">Was der Kern rechnet</p>
+          <li>Kochmenge je Rezept aus Plan-Couverts &amp; Yield</li>
+          <li>Aggregierter Zutatenbedarf über alle Rezepte</li>
+          <li>Aufrundung auf die Gebindegrösse — einmal, am Schluss</li>
+          <li>Gruppierung der Bestellung pro Lieferant</li>
+          <li>Kostenrechnung in CHF</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- PRODUCT PROOF (placeholder) -->
+    <section class="proof-section">
+      <div class="proof-frame">
+        <span class="pf-ic" aria-hidden="true">▦</span>
+        <span class="pf-cap">Beispiel: Bestellung pro Lieferant (CHF)</span>
+        <span class="pf-sub">Produkt-Ansicht folgt</span>
+      </div>
+    </section>
+
+    <!-- CAPABILITIES / WHAT'S POSSIBLE -->
+    <section class="block">
+      <div class="block-head">
+        <p class="section-kicker">Was vorhanden ist — und was kommt</p>
+        <p class="pull">Bewährter Kern. Ehrliche Roadmap.</p>
+      </div>
+      <div class="cap-grid">
+        <div class="cap">
+          <span class="num">01</span>
+          <h3>Pax-Skalierung</h3>
+          <p>Rezepte werden von der hinterlegten auf die geplante Zahl Couverts skaliert — über den Rezept-Yield, nicht über Faustregeln. Live und getestet.</p>
+        </div>
+        <div class="cap">
+          <span class="num">02</span>
+          <h3>Bestell-Aggregation &amp; Gebinde-Rundung</h3>
+          <p>Der Zutatenbedarf wird über alle Rezepte zusammengezählt und erst danach einmal auf die Gebindegrösse aufgerundet. Live und getestet.</p>
+        </div>
+        <div class="cap">
+          <span class="num">03</span>
+          <h3>Gruppierung pro Lieferant &amp; CHF-Kosten</h3>
+          <p>Die fertige Bestellung wird nach Lieferant gruppiert und mit den Kosten in CHF versehen — prüfbar Position für Position. Live.</p>
+        </div>
+        <div class="cap">
+          <span class="num">04</span>
+          <h3>Datenmodell</h3>
+          <p>Zutaten, Lieferanten, Rezepte und Menüs sind als zusammenhängendes Datenmodell angelegt — die Grundlage für jede Berechnung. Live.</p>
+        </div>
+        <div class="cap">
+          <span class="num">05</span>
+          <h3>Self-Service-Erfassung</h3>
+          <p>Eine Oberfläche, um Zutaten, Rezepte und Menüs selbst anzulegen und zu pflegen (CRUD) — ohne Umweg über die Datenbank.</p>
+          <span class="soon">Im Aufbau</span>
+        </div>
+        <div class="cap">
+          <span class="num">06</span>
+          <h3>Rezept-Starterbibliothek</h3>
+          <p>Eine Sammlung vorbereiteter Rezepte als Startpunkt, damit eine Küche nicht bei null beginnt.</p>
+          <span class="soon">Im Aufbau</span>
+        </div>
+        <div class="cap">
+          <span class="num">07</span>
+          <h3>Zenith-Sync für Bestellungen</h3>
+          <p>Bestellungen aus Ceres fliessen in die Beschaffung von Zenith — ein Lieferanten- und Bestellfluss statt zwei.</p>
+          <span class="soon">Geplant (Phase 3)</span>
+        </div>
+        <div class="cap">
+          <span class="num">08</span>
+          <h3>Gästemenükarten</h3>
+          <p>Aus dem Menüplan entstehen druckfertige Karten und Aushänge für die Gäste.</p>
+          <span class="soon">Geplant (Phase 5)</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- AUDIENCE -->
+    <section class="block audience">
+      <p class="section-kicker">Für wen</p>
+      <div class="audience-grid">
+        <div class="aud">
+          <span class="ic" aria-hidden="true">✶</span>
+          <h3>Catering &amp; Grossküchen</h3>
+          <p>Wechselnde Gästezahlen, präzise auf jede Veranstaltung gerechnet.</p>
+        </div>
+        <div class="aud">
+          <span class="ic" aria-hidden="true">❍</span>
+          <h3>Heim- &amp; Pflegeküchen</h3>
+          <p>Tägliche Mengen auf feste Bewohnerzahlen, ohne Reste zu produzieren.</p>
+        </div>
+        <div class="aud">
+          <span class="ic" aria-hidden="true">▤</span>
+          <h3>Betriebs- &amp; Personalrestaurants</h3>
+          <p>Planbare Couverts, planbarer Einkauf, kontrollierter Foodcost.</p>
+        </div>
+        <div class="aud">
+          <span class="ic" aria-hidden="true">◷</span>
+          <h3>Mengenküchen mit Pax-Planung</h3>
+          <p>Überall, wo nach Köpfen geplant und für Köpfe eingekauft wird.</p>
+        </div>
+      </div>
+      <p class="audience-note">Ceres ist für Küchen gebaut, die nach Couverts planen und einkaufen — wo die Zahl der Gäste den Topf und die Bestellliste bestimmt.</p>
+    </section>
+
+    <!-- INTEGRATION / PART OF TRIARC -->
+    <section class="block integration">
+      <p class="section-kicker">Teil von Triarc</p>
+      <p class="body">Ceres ist eines von vier Instrumenten von Triarc. Sie teilen eine Designsprache und sind so gedacht, dass sie ineinandergreifen — Daten einmal erfassen, mehrfach nutzen. Vieles davon ist Roadmap, nicht Gegenwart; hier steht ehrlich, was wann kommt:</p>
+      <div class="wiring">
+        <div class="wire">
+          <span class="pair"><b>Ceres</b> → Zenith</span>
+          <span class="desc">Bestellungen aus Ceres fliessen in die Beschaffung von Zenith — ein gemeinsamer Lieferanten- und Bestellfluss.</span>
+          <span class="tag">Geplant (Phase 3)</span>
+        </div>
+        <div class="wire">
+          <span class="pair">Aurora · Nova · Zenith</span>
+          <span class="desc">Gemeinsame Designsprache und ein Login-Gedanke über alle vier Instrumente hinweg.</span>
+          <span class="tag">Architektur</span>
+        </div>
+        <div class="wire">
+          <span class="pair"><b>Ceres</b> → Gast</span>
+          <span class="desc">Gästemenükarten aus dem Menüplan als spätere Ausbaustufe — druckfertig für Aushang und Tisch.</span>
+          <span class="tag">Geplant (Phase 5)</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHY -->
+    <section class="block">
+      <p class="section-kicker">Warum Ceres</p>
+      <p class="founder-line">Ceres stammt von einem Küchenchef, der in Grossbetrieben Menü- und Rezept-Engineering betrieben und Einkaufssysteme digitalisiert hat — die Rechen-Logik ist aus echter Küchenpraxis entstanden. <a href="gruender.html">Die ganze Geschichte →</a></p>
+      <div class="why-grid">
+        <div class="why">
+          <div class="accent-rule" aria-hidden="true"></div>
+          <h3>Bewährter Rechen-Kern</h3>
+          <p>Pax-Skalierung und Bestell-Aggregation laufen und sind mit Tests abgedeckt.</p>
+        </div>
+        <div class="why">
+          <div class="accent-rule" aria-hidden="true"></div>
+          <h3>Vom Küchenchef gebaut</h3>
+          <p>Aus echter Mengenküchen-Praxis, nicht am Reissbrett entworfen.</p>
+        </div>
+        <div class="why">
+          <div class="accent-rule" aria-hidden="true"></div>
+          <h3>Ehrliche Roadmap</h3>
+          <p>Was live ist, ist live. Was kommt, ist klar als geplant gekennzeichnet.</p>
+        </div>
+        <div class="why">
+          <div class="accent-rule" aria-hidden="true"></div>
+          <h3>Schweizer Massküche</h3>
+          <p>Rechnet in CHF und plant nach Couverts — auf den hiesigen Betrieb zugeschnitten.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- MASSGESCHNEIDERT -->
+    <section class="split">
+      <div>
+        <p class="section-kicker">Massgeschneidert</p>
+        <p class="pull">Keine Lösung von der Stange.</p>
+      </div>
+      <div>
+        <p class="body">Erzählen Sie uns, wie Ihre Küche wirklich plant und einkauft. Gemeinsam finden wir das richtige Instrument — und richten es auf Ihre Rezepte, Lieferanten und Eigenheiten ein. Keine Software, in die Sie sich hineinzwängen, sondern eine, die sich Ihrem Betrieb anpasst.</p>
+        <p class="body">Fehlt Ihnen etwas, das keines unserer Instrumente abdeckt? Sagen Sie es uns — wir entwickeln rund um Ihren Bedarf, statt eine Lösung für alle zu verkaufen.</p>
+      </div>
+    </section>
+
+    <!-- EINFÜHRUNG -->
+    <section class="block">
+      <p class="section-kicker">Einführung</p>
+      <p class="pull">So werden Sie Pilotküche.</p>
+      <div class="steps" style="margin-top:30px;">
+        <div class="step"><span class="n">1</span><h3>Gespräch</h3><p>Sie zeigen uns, wie Ihre Küche plant und einkauft.</p></div>
+        <div class="step"><span class="n">2</span><h3>Einrichtung</h3><p>Wir erfassen Ihre Rezepte, Lieferanten und Gebindegrössen gemeinsam.</p></div>
+        <div class="step"><span class="n">3</span><h3>Start</h3><p>Sie rechnen Pläne und Bestellungen — und prägen mit, wie Ceres wächst.</p></div>
+      </div>
+      <div class="assurance">
+        <span>Schweizer Datenschutz — Daten in CH/EU, revDSG- &amp; DSGVO-konform</span>
+        <span>Kein Knebelvertrag, monatlich kündbar</span>
+        <span>Ihre Daten jederzeit exportierbar</span>
+        <span>Einrichtung begleiten wir persönlich</span>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-band">
+      <h2>Bestellen Sie, was Sie wirklich brauchen.</h2>
+      <p>Ceres ist früh: Der Rechen-Kern steht und ist getestet, die Oberfläche und die Bibliothek entstehen gerade. Wenn Sie zu den ersten Küchen gehören wollen, richten wir Ceres gemeinsam auf Ihre Rezepte und Lieferanten ein und zeigen Ihnen die Rechnung an Ihren eigenen Mengen.</p>
+      <p>Ceres ist in früher Phase — werden Sie eine unserer ersten Pilotküchen und prägen Sie mit, wie das Werkzeug wächst.</p>
+      <div class="btn-row" style="justify-content:center">
+        <a class="btn" href="mailto:manuel@triarc.ch?subject=Ceres%20%E2%80%93%20Anfrage&body=Betrieb%3A%0AStandorte%3A%0AHeutiges%20System%3A%0A">Pilotküche werden <span class="arr" aria-hidden="true">→</span></a>
+      </div>
+      <p class="contact-line">Direkt: <a href="mailto:manuel@triarc.ch">manuel@triarc.ch</a></p>
+    </section>
+
+    <nav class="instrument-nav" aria-label="Triarc Instrumente">
+      <a href="ceres.html">← Kurzüberblick</a>
+      <div class="links"><a href="aurora.html">Aurora</a><a href="nova.html">Nova</a><a href="zenith.html">Zenith</a><a href="ceres.html" aria-current="page">Ceres</a></div>
+    </nav>
+
+  </main>
+</body>
+</html>

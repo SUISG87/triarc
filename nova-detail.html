@@ -1,0 +1,856 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Nova — Dienstplanung | Triarc</title>
+  <meta name="description" content="Nova plant Schichten ohne Doppelbuchungen und überlässt das Tauschen dem Team — mobil, in Echtzeit. Vorlagen, Massengenerator, Schichtmarkt mit Admin-Freigabe und persönlicher iCal-Feed." />
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23f7f4ed'/><g fill='none' stroke='%23b8943a' stroke-width='6' stroke-linecap='round'><path d='M 90 50 A 40 40 0 0 1 36.32 87.59'/><path d='M 30 84.64 A 40 40 0 0 1 24.29 19.36'/><path d='M 30 15.36 A 40 40 0 0 1 89.39 43.05'/></g><polygon points='50,44 56,50 50,56 44,50' fill='%23b8943a'/></svg>" />
+
+  <meta property="og:title" content="Nova — Dienstplanung by Triarc" />
+  <meta property="og:description" content="Der Dienstplan, der sich selbst tauscht. Schichten ohne Doppelbuchung — mobil, in Echtzeit." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://triarc.ch/nova-detail.html" />
+  <meta property="og:site_name" content="Triarc" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Newsreader:ital,wght@0,300;0,400;1,300;1,400&family=Geist+Mono:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --paper: #f7f4ed;
+      --paper-deep: #ede7d8;
+      --ink: #1a1814;
+      --ink-soft: #5a544a;
+      --gold: #b8943a;
+      --gold-soft: #c8a84b;
+      --rule: rgba(26, 24, 20, 0.12);
+      --aurora: #7B2CBF;
+      --nova: #22D3EE;
+      --zenith: #3B82F6;
+      --ceres: #B45309;
+      --accent: var(--nova);
+      --accent-wash: rgba(34, 211, 238, 0.10);
+      --sans: "Inter", system-ui, -apple-system, "Helvetica Neue", Helvetica, Arial, sans-serif;
+      --serif: "Newsreader", "Times New Roman", Georgia, serif;
+      --mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+    }
+
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-weight: 300;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(ellipse at 50% 0%, rgba(184, 148, 58, 0.04) 0%, transparent 50%),
+        var(--paper);
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* ---- top meta register ---- */
+    .meta {
+      padding: 28px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+    }
+    .meta .left { display: flex; gap: 16px; align-items: center; }
+    .meta .dot {
+      width: 5px; height: 5px; border-radius: 50%;
+      background: var(--gold);
+      box-shadow: 0 0 8px rgba(184, 148, 58, 0.5);
+    }
+    .meta .right { display: flex; align-items: center; gap: 18px; }
+    .meta .right a { color: var(--ink-soft); transition: color 180ms ease; }
+    .meta .right a:hover { color: var(--gold); }
+
+    main {
+      width: min(1120px, calc(100% - 64px));
+      margin: 0 auto;
+      padding: 18px 0 24px;
+    }
+
+    /* ---- shared section atoms ---- */
+    .section-kicker {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.34em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin: 0 0 16px;
+    }
+    .pull {
+      font-family: var(--serif);
+      font-style: italic;
+      font-weight: 300;
+      font-size: clamp(26px, 3.6vw, 44px);
+      line-height: 1.08;
+      margin: 0;
+      max-width: 13em;
+    }
+    .lede {
+      font-size: 17px;
+      line-height: 1.75;
+      color: var(--ink);
+      max-width: 42rem;
+    }
+
+    /* ---- hero ---- */
+    .instrument-hero {
+      display: grid;
+      grid-template-columns: minmax(260px, 0.74fr) minmax(320px, 1fr);
+      gap: clamp(40px, 7vw, 96px);
+      align-items: end;
+      padding: 30px 0 52px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .mark { width: 76px; height: 76px; margin-bottom: 30px; }
+    .mark svg { width: 100%; height: 100%; display: block; }
+    .eyebrow {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      margin: 0 0 14px;
+    }
+    .eyebrow .roman { color: var(--accent); margin-right: 10px; }
+    h1 {
+      font-family: var(--serif);
+      font-weight: 300;
+      font-size: clamp(68px, 12vw, 156px);
+      line-height: 0.86;
+      letter-spacing: -0.01em;
+      margin: 0;
+    }
+    h1 .stop { color: var(--accent); }
+    .role {
+      font-family: var(--serif);
+      font-style: italic;
+      font-weight: 300;
+      font-size: clamp(23px, 3vw, 34px);
+      line-height: 1.22;
+      margin: 0 0 22px;
+      color: var(--ink);
+    }
+    .hero-intro {
+      font-size: 17px;
+      line-height: 1.75;
+      color: var(--ink);
+      max-width: 42rem;
+      margin: 0 0 30px;
+    }
+
+    /* ---- buttons ---- */
+    .btn-row { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 15px 26px;
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      background: var(--accent);
+      color: var(--ink);
+      border: 1px solid var(--accent);
+      transition: background 180ms ease, transform 180ms ease;
+    }
+    .btn:hover { background: #14c0de; transform: translateY(-1px); }
+    .btn .arr { transition: transform 220ms cubic-bezier(0.2,0.8,0.2,1); }
+    .btn:hover .arr { transform: translateX(4px); }
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 15px 22px;
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--ink);
+      border: 1px solid var(--rule);
+      transition: border-color 180ms ease, color 180ms ease;
+    }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ---- founder trust strip ---- */
+    .trust-strip {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px 20px;
+      padding: 22px 0;
+      border-bottom: 1px solid var(--rule);
+      font-family: var(--mono);
+      font-size: 10.5px;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+    }
+    .trust-strip .who strong { color: var(--ink); font-weight: 400; }
+    .trust-strip .items { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 0; }
+    .trust-strip .items span { display: inline-flex; align-items: center; }
+    .trust-strip .items span::before {
+      content: "◆";
+      color: var(--gold);
+      font-size: 6px;
+      margin: 0 14px 0 0;
+      transform: translateY(-1px);
+    }
+    .trust-strip a {
+      margin-left: auto;
+      color: var(--ink);
+      border-bottom: 1px solid var(--gold);
+      padding-bottom: 2px;
+      transition: color 180ms ease;
+    }
+    .trust-strip a:hover { color: var(--gold); }
+    .founder-line {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 18px;
+      line-height: 1.5;
+      color: var(--ink-soft);
+      margin: 0 0 26px;
+      padding-left: 18px;
+      border-left: 2px solid var(--gold);
+      max-width: 46rem;
+    }
+    .founder-line a { color: var(--ink); border-bottom: 1px solid var(--gold); }
+    .founder-line a:hover { color: var(--gold); }
+    @media (max-width: 820px) {
+      .trust-strip a { margin-left: 0; }
+    }
+
+    /* ---- generic two-column section (problem) ---- */
+    .split {
+      display: grid;
+      grid-template-columns: 0.82fr 1.18fr;
+      gap: clamp(38px, 6vw, 76px);
+      padding: 56px 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .split p.body {
+      margin: 0 0 16px;
+      font-size: 16px;
+      line-height: 1.72;
+      color: var(--ink);
+    }
+    .split p.body:last-child { margin-bottom: 0; }
+    .split .body strong { font-weight: 500; }
+
+    /* ---- outcomes ---- */
+    .block { padding: 56px 0; border-bottom: 1px solid var(--rule); }
+    .block-head { margin: 0 0 38px; }
+    .block-head .pull { max-width: 16em; }
+    .outcomes {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px 56px;
+    }
+    .outcome .accent-rule { width: 34px; height: 2px; background: var(--accent); margin: 0 0 16px; }
+    .outcome h3 {
+      font-family: var(--serif);
+      font-weight: 400;
+      font-size: 23px;
+      line-height: 1.2;
+      margin: 0 0 10px;
+    }
+    .outcome p {
+      margin: 0;
+      font-size: 15px;
+      line-height: 1.68;
+      color: var(--ink-soft);
+      max-width: 34ch;
+    }
+
+    /* ---- capabilities (what's possible) ---- */
+    .cap-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2px;
+      background: var(--rule);
+      border: 1px solid var(--rule);
+    }
+    .cap {
+      background: var(--paper);
+      padding: 26px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+    .cap .num {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      color: var(--accent);
+    }
+    .cap h3 {
+      font-family: var(--sans);
+      font-weight: 500;
+      font-size: 16px;
+      margin: 0;
+      color: var(--ink);
+    }
+    .cap p {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.62;
+      color: var(--ink-soft);
+    }
+    .cap .soon {
+      align-self: flex-start;
+      margin-top: 2px;
+      font-family: var(--mono);
+      font-size: 8.5px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid var(--gold);
+      border-radius: 999px;
+      padding: 2px 9px;
+      opacity: 0.85;
+    }
+
+    /* ---- nachweis / signature callout ---- */
+    .nachweis {
+      margin: 56px 0;
+      padding: clamp(34px, 5vw, 54px);
+      border: 1px solid var(--rule);
+      background: var(--accent-wash);
+      display: grid;
+      grid-template-columns: 1fr 0.9fr;
+      gap: clamp(34px, 5vw, 60px);
+      align-items: start;
+    }
+    .nachweis h2 {
+      font-family: var(--serif);
+      font-weight: 300;
+      font-size: clamp(28px, 3.6vw, 46px);
+      line-height: 1.04;
+      margin: 14px 0 18px;
+    }
+    .nachweis p { margin: 0; font-size: 15.5px; line-height: 1.7; color: var(--ink); max-width: 40ch; }
+    .doc-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 11px;
+    }
+    .doc-list .lbl {
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      margin: 0 0 6px;
+    }
+    .doc-list li {
+      position: relative;
+      padding-left: 22px;
+      font-size: 14.5px;
+      line-height: 1.5;
+      color: var(--ink);
+    }
+    .doc-list li::before {
+      content: "";
+      position: absolute;
+      left: 0; top: 0.62em;
+      width: 6px; height: 6px;
+      background: var(--accent);
+      transform: rotate(45deg);
+    }
+
+    /* ---- audience ---- */
+    .audience-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      border-top: 1px solid var(--rule);
+      border-left: 1px solid var(--rule);
+    }
+    .aud {
+      padding: 24px 22px 28px;
+      border-right: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+    }
+    .aud .ic { font-family: var(--serif); font-size: 28px; color: var(--accent); line-height: 1; }
+    .aud h3 { font-family: var(--sans); font-weight: 500; font-size: 15px; margin: 16px 0 6px; }
+    .aud p { margin: 0; font-size: 13.5px; line-height: 1.55; color: var(--ink-soft); }
+    .audience-note {
+      margin: 26px 0 0;
+      padding-left: 18px;
+      border-left: 2px solid var(--gold);
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 17px;
+      line-height: 1.5;
+      color: var(--ink-soft);
+      max-width: 46rem;
+    }
+
+    /* ---- integration / part of triarc ---- */
+    .integration p.body { font-size: 16px; line-height: 1.72; color: var(--ink); margin: 0 0 24px; max-width: 44rem; }
+    .wiring { display: grid; gap: 14px; }
+    .wire {
+      display: grid;
+      grid-template-columns: 150px 1fr auto;
+      gap: 20px;
+      align-items: baseline;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .wire:last-child { border-bottom: 0; }
+    .wire .pair { font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink); }
+    .wire .pair b { color: var(--accent); font-weight: 400; }
+    .wire .desc { font-size: 14.5px; line-height: 1.5; color: var(--ink-soft); }
+    .wire .tag {
+      font-family: var(--mono);
+      font-size: 8.5px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid var(--gold);
+      border-radius: 999px;
+      padding: 2px 9px;
+      white-space: nowrap;
+      opacity: 0.85;
+    }
+
+    /* ---- why / chips ---- */
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 30px 44px;
+    }
+    .why .accent-rule { width: 28px; height: 2px; background: var(--accent); margin: 0 0 14px; }
+    .why h3 { font-family: var(--sans); font-weight: 500; font-size: 15px; margin: 0 0 8px; }
+    .why p { margin: 0; font-size: 14px; line-height: 1.6; color: var(--ink-soft); }
+
+    /* ---- CTA band ---- */
+    .cta-band {
+      margin: 64px 0 8px;
+      padding: clamp(48px, 7vw, 84px) clamp(28px, 5vw, 64px);
+      background: var(--paper-deep);
+      border-top: 1px solid var(--gold);
+      border-bottom: 1px solid var(--gold);
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 22px;
+    }
+    .cta-band h2 {
+      font-family: var(--serif);
+      font-weight: 300;
+      font-size: clamp(30px, 4.4vw, 56px);
+      line-height: 1.04;
+      margin: 0;
+      max-width: 16em;
+    }
+    .cta-band p {
+      margin: 0;
+      font-size: 16px;
+      line-height: 1.65;
+      color: var(--ink-soft);
+      max-width: 40rem;
+    }
+    .cta-band .contact-line {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+    }
+    .cta-band .contact-line a { color: var(--ink); border-bottom: 1px solid var(--gold); padding-bottom: 2px; transition: color 180ms ease; }
+    .cta-band .contact-line a:hover { color: var(--gold); }
+
+    /* ---- bottom nav ---- */
+    .instrument-nav {
+      margin-top: 48px;
+      padding-top: 26px;
+      border-top: 1px solid var(--rule);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      padding-bottom: 56px;
+    }
+    .instrument-nav .links { display: flex; gap: 18px; flex-wrap: wrap; justify-content: flex-end; }
+    .instrument-nav a { transition: color 180ms ease; }
+    .instrument-nav a:hover, .instrument-nav a[aria-current="page"] { color: var(--accent); }
+
+    /* ---- section label helper ---- */
+    .block > .section-kicker, .integration > .section-kicker, .audience > .section-kicker { margin-bottom: 28px; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .btn, .btn .arr { transition: none; }
+    }
+    /* ---- B2B revision additions ---- */
+.proof-section { padding: 26px 0 8px; }
+.proof-frame { border: 1px solid var(--rule); background: var(--paper); aspect-ratio: 16 / 9; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; text-align: center; }
+.proof-frame .pf-ic { font-size: 30px; color: var(--accent); opacity: .65; line-height: 1; }
+.proof-frame .pf-cap { font-family: var(--mono); font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--ink); }
+.proof-frame .pf-sub { font-family: var(--mono); font-size: 9.5px; letter-spacing: .18em; text-transform: uppercase; color: var(--ink-soft); opacity: .7; }
+.steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border-top: 1px solid var(--rule); border-left: 1px solid var(--rule); }
+.step { padding: 26px 24px 30px; border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+.step .n { font-family: var(--serif); font-size: 34px; color: var(--accent); line-height: 1; }
+.step h3 { font-family: var(--sans); font-weight: 500; font-size: 16px; margin: 14px 0 6px; }
+.step p { margin: 0; font-size: 14px; line-height: 1.6; color: var(--ink-soft); }
+.assurance { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 12px 28px; font-family: var(--mono); font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-soft); }
+.assurance span { display: inline-flex; align-items: center; }
+.assurance span::before { content: "◆"; color: var(--gold); font-size: 6px; margin-right: 12px; transform: translateY(-1px); }
+@media (max-width: 820px){ .steps { grid-template-columns: 1fr; } }
+
+    @media (max-width: 920px) {
+      .why-grid { grid-template-columns: repeat(2, 1fr); }
+      .audience-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 820px) {
+      .meta { padding: 20px 22px; font-size: 9px; letter-spacing: 0.14em; }
+      .meta .right { gap: 12px; }
+      main { width: min(100% - 44px, 660px); }
+      .instrument-hero { grid-template-columns: 1fr; gap: 28px; padding-top: 24px; }
+      .mark { width: 64px; height: 64px; margin-bottom: 22px; }
+      .split { grid-template-columns: 1fr; gap: 26px; }
+      .outcomes { grid-template-columns: 1fr; gap: 34px; }
+      .cap-grid { grid-template-columns: 1fr; }
+      .nachweis { grid-template-columns: 1fr; }
+      .wire { grid-template-columns: 1fr; gap: 6px; }
+      .wire .tag { justify-self: start; }
+    }
+    @media (max-width: 480px) {
+      h1 { font-size: 58px; }
+      .why-grid, .audience-grid { grid-template-columns: 1fr; }
+      .btn, .btn-ghost { width: 100%; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+  <header class="meta">
+    <div class="left">
+      <span class="dot" aria-hidden="true"></span>
+      <a href="index.html">Triarc</a>
+      <span aria-hidden="true">·</span>
+      <span>Nova</span>
+    </div>
+    <div class="right">
+      <a href="nova.html">Kurzüberblick</a>
+      <a href="index.html">Index</a>
+      <span>2026</span>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- HERO -->
+    <section class="instrument-hero">
+      <div>
+        <div class="mark" aria-label="Triarc three-arc mark">
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
+            <g fill="none" stroke="#b8943a" stroke-width="2" stroke-linecap="round">
+              <path d="M 90 50 A 40 40 0 0 1 36.32 87.59" />
+              <path d="M 30 84.64 A 40 40 0 0 1 24.29 19.36" />
+              <path d="M 30 15.36 A 40 40 0 0 1 89.39 43.05" />
+            </g>
+            <polygon points="50,46 54,50 50,54 46,50" fill="#b8943a" />
+          </svg>
+        </div>
+        <p class="eyebrow"><span class="roman">II</span>Dienstplanung</p>
+        <h1>Nova<span class="stop">.</span></h1>
+      </div>
+      <div>
+        <p class="section-kicker">Dienstplanung</p>
+        <p class="role">Der Dienstplan,<br />der sich selbst tauscht.</p>
+        <p class="hero-intro">Nova plant Schichten ohne Doppelbuchungen und überlässt das Tauschen dem Team — mobil, in Echtzeit.</p>
+        <div class="btn-row">
+          <a class="btn" href="mailto:manuel@triarc.ch?subject=Nova%20%E2%80%93%20Anfrage&body=Betrieb%3A%0AStandorte%3A%0AHeutiges%20System%3A%0A">Offerte anfragen <span class="arr" aria-hidden="true">→</span></a>
+          <a class="btn-ghost" href="#signature">Den Schichtmarkt ansehen</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOUNDER TRUST STRIP -->
+    <section class="trust-strip">
+      <span class="who">Entwickelt von <strong>Manuel Bänziger</strong></span>
+      <span class="items">
+        <span>Executive Chef &amp; F&amp;B-Leader</span>
+        <span>International ausgezeichnet</span>
+        <span>20+ Jahre Gastronomie</span>
+      </span>
+      <a href="gruender.html">Die Geschichte →</a>
+    </section>
+
+    <!-- PROBLEM -->
+    <section class="split">
+      <div>
+        <p class="section-kicker">Das Problem</p>
+        <p class="pull">Der Dienstplan zerfällt in WhatsApp und Excel.</p>
+      </div>
+      <div>
+        <p class="body">Der Plan steht im Excel, die Änderungen stehen im Gruppenchat. Ständige Tausch-Nachrichten, jemand springt ein, jemand fällt aus — und niemand weiss am Ende verlässlich, wer wann arbeitet.</p>
+        <p class="body">Doppelbuchungen fallen erst auf, wenn zwei Leute gleichzeitig dastehen oder gar niemand. <strong>Jede Änderung läuft über die Leitung</strong> — Sie sind die Vermittlungsstelle für jeden einzelnen Tausch.</p>
+        <p class="body">Nova dreht das um: Der Plan lebt an einem Ort, Konflikte werden im Moment erkannt, und das Team tauscht selbst — sauber abgesichert, ohne dass Sie jede Nachricht weiterleiten müssen.</p>
+        <p class="body">Generische Dienstplan-Tools verwalten Schichten. Nova gibt das Tauschen dem Team zurück — gebaut von jemandem, der selbst Teams unter Druck geplant hat.</p>
+      </div>
+    </section>
+
+    <!-- OUTCOMES -->
+    <section class="block">
+      <div class="block-head">
+        <p class="section-kicker">Was sich ändert</p>
+        <p class="pull">Vier Dinge, die Sie ab Tag eins spüren.</p>
+      </div>
+      <div class="outcomes">
+        <article class="outcome">
+          <div class="accent-rule" aria-hidden="true"></div>
+          <h3>Planen in Minuten</h3>
+          <p>Wiederkehrende Wochen als Vorlage speichern und mit dem Massengenerator in einem Schritt ausrollen — statt jede Schicht von Hand zu setzen.</p>
+        </article>
+        <article class="outcome">
+          <div class="accent-rule" aria-hidden="true"></div>
+          <h3>Keine Doppelbuchung</h3>
+          <p>Die atomare Konflikterkennung prüft jede Zuteilung im Moment. Zwei Schichten zur selben Zeit lassen sich gar nicht erst speichern.</p>
+        </article>
+        <article class="outcome">
+          <div class="accent-rule" aria-hidden="true"></div>
+          <h3>Tausch ohne Sie als Vermittler</h3>
+          <p>Mitarbeitende geben Schichten ab und übernehmen untereinander. Sie geben nur noch frei — statt jede Anfrage selbst zu verhandeln.</p>
+        </article>
+        <article class="outcome">
+          <div class="accent-rule" aria-hidden="true"></div>
+          <h3>Das Team schaut wirklich rein</h3>
+          <p>Eigener Kalender, Push-Hinweise und die Möglichkeit, sich auf offene Schichten zu bewerben — der Plan landet dort, wo das Team ohnehin hinschaut.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- SIGNATURE / SCHICHTMARKT callout -->
+    <section class="nachweis" id="signature">
+      <div>
+        <p class="section-kicker">Der Schichtmarkt</p>
+        <h2>Tausch ohne Sie als Vermittler.</h2>
+        <p>Mitarbeitende stellen offene Schichten ein oder fragen direkte Tausche untereinander an. Jede Übergabe läuft sauber über die <strong>Admin-Freigabe</strong> — und greift atomar in den Plan, sodass nie eine Doppelbuchung entsteht. Sie behalten die Kontrolle, ohne jede Nachricht selbst weiterzuleiten.</p>
+      </div>
+      <div>
+        <ul class="doc-list">
+          <p class="lbl">Schichtmarkt-Funktionen</p>
+          <li>Offene Listings — Schichten zur Übernahme anbieten</li>
+          <li>Direkte Tausch-Anfragen zwischen Mitarbeitenden</li>
+          <li>Admin-Freigabe für jede Übergabe</li>
+          <li>Aktivitätsprotokoll über alle Wechsel</li>
+          <li>Persönlicher iCal-Feed (Apple / Google / Outlook)</li>
+          <li>Web-Push bei Angeboten &amp; Freigaben</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- PRODUCT PROOF (placeholder) -->
+    <section class="proof-section">
+      <div class="proof-frame">
+        <span class="pf-ic" aria-hidden="true">▦</span>
+        <span class="pf-cap">Beispiel: Schichtmarkt &amp; Wochenkalender</span>
+        <span class="pf-sub">Produkt-Ansicht folgt</span>
+      </div>
+    </section>
+
+    <!-- CAPABILITIES / WHAT'S POSSIBLE -->
+    <section class="block">
+      <div class="block-head">
+        <p class="section-kicker">Was alles möglich ist</p>
+        <p class="pull">Die ganze Dienstplanung in einem System.</p>
+      </div>
+      <div class="cap-grid">
+        <div class="cap">
+          <span class="num">01</span>
+          <h3>Wochen- &amp; Monatskalender</h3>
+          <p>Der gesamte Plan auf einen Blick — pro Woche oder pro Monat, mit Rollen, Standorten und freien Schichten klar sichtbar.</p>
+        </div>
+        <div class="cap">
+          <span class="num">02</span>
+          <h3>Vorlagen &amp; Massengenerator</h3>
+          <p>Typische Wochen als Vorlage speichern und in einem Schritt über einen ganzen Zeitraum ausrollen.</p>
+        </div>
+        <div class="cap">
+          <span class="num">03</span>
+          <h3>Bewerbungen mit Admin-Freigabe</h3>
+          <p>Mitarbeitende bewerben sich auf offene Schichten; die Leitung gibt frei — nichts wird ohne Bestätigung verbindlich.</p>
+        </div>
+        <div class="cap">
+          <span class="num">04</span>
+          <h3>Atomare Konflikterkennung</h3>
+          <p>Überschneidungen werden im Moment der Zuteilung erkannt und verhindert — keine doppelt besetzten Schichten.</p>
+        </div>
+        <div class="cap">
+          <span class="num">05</span>
+          <h3>Schichtmarkt (offen + direkt)</h3>
+          <p>Offene Angebote und direkte Tausche zwischen Mitarbeitenden, jede Übergabe abgesichert durch die Admin-Freigabe.</p>
+        </div>
+        <div class="cap">
+          <span class="num">06</span>
+          <h3>Anwesenheits-Übersicht</h3>
+          <p>Geplante Stunden nach Mitarbeiter, Rolle und Standort — eine Planungssicht, keine Stempeluhr.</p>
+        </div>
+        <div class="cap">
+          <span class="num">07</span>
+          <h3>PWA mit Offline-Modus</h3>
+          <p>Läuft als App auf dem Handy, funktioniert auch offline und meldet sich per Web-Push bei Änderungen.</p>
+        </div>
+        <div class="cap">
+          <span class="num">08</span>
+          <h3>Persönlicher iCal-Feed</h3>
+          <p>Jede Person abonniert ihre Schichten direkt im eigenen Kalender — Apple, Google oder Outlook.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- AUDIENCE -->
+    <section class="block audience">
+      <p class="section-kicker">Für wen</p>
+      <div class="audience-grid">
+        <div class="aud">
+          <span class="ic" aria-hidden="true">◷</span>
+          <h3>Bars</h3>
+          <p>Wechselnde Abende und Aushilfen sauber im Plan statt im Gruppenchat.</p>
+        </div>
+        <div class="aud">
+          <span class="ic" aria-hidden="true">❍</span>
+          <h3>Restaurants</h3>
+          <p>Service und Küche an einem Plan, Tausche ohne Umwege über die Leitung.</p>
+        </div>
+        <div class="aud">
+          <span class="ic" aria-hidden="true">▤</span>
+          <h3>Kleine Gastro-Gruppen</h3>
+          <p>Mehrere Standorte und Rollen unter einer Leitung, an einem Ort geplant.</p>
+        </div>
+        <div class="aud">
+          <span class="ic" aria-hidden="true">✶</span>
+          <h3>Betriebe mit wechselndem Personal</h3>
+          <p>Aushilfen, Springer und Saison — der Plan bleibt verlässlich, egal wer einspringt.</p>
+        </div>
+      </div>
+      <p class="audience-note">Mehrere Standorte und Rollen unter einer Leitung — Nova hält den Überblick, auch wenn das Team über Häuser und Schichten verteilt ist.</p>
+    </section>
+
+    <!-- INTEGRATION / PART OF TRIARC -->
+    <section class="block integration">
+      <p class="section-kicker">Teil von Triarc</p>
+      <p class="body">Nova ist eines von vier Instrumenten von Triarc. Sie teilen eine Designsprache und sind so gebaut, dass sie ineinandergreifen — Daten einmal erfassen, mehrfach nutzen. Schritt für Schritt verbinden sich die Instrumente zu einer durchgängigen Betriebsschicht:</p>
+      <div class="wiring">
+        <div class="wire">
+          <span class="pair">Aurora → <b>Nova</b></span>
+          <span class="desc">Geleistete Stunden und Trinkgeld aus Aurora fliessen in die Planung und Auswertung in Nova zurück.</span>
+          <span class="tag">Geplant</span>
+        </div>
+        <div class="wire">
+          <span class="pair">Zenith → <b>Nova</b></span>
+          <span class="desc">Erledigte Aufgaben in Zenith belegen Anwesenheit und stützen die Schichtplanung in Nova.</span>
+          <span class="tag">Geplant</span>
+        </div>
+        <div class="wire">
+          <span class="pair">Aurora · Zenith · Ceres</span>
+          <span class="desc">Gemeinsame Designsprache und ein Login-Gedanke über alle vier Instrumente hinweg.</span>
+          <span class="tag">Architektur</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHY -->
+    <section class="block">
+      <p class="section-kicker">Warum Nova</p>
+      <p class="founder-line">Nova stammt von einem Küchenchef, der 45 Mitarbeitende über 10 Outlets geführt und das WEF-Catering für bis zu 5'000 Personen bestafft hat — er weiss, wie Schichtplanung unter Druck reisst. <a href="gruender.html">Die ganze Geschichte →</a></p>
+      <div class="why-grid">
+        <div class="why">
+          <div class="accent-rule" aria-hidden="true"></div>
+          <h3>Mobil zuerst</h3>
+          <p>Als PWA gebaut — der Plan lebt auf dem Handy, nicht im Büroordner.</p>
+        </div>
+        <div class="why">
+          <div class="accent-rule" aria-hidden="true"></div>
+          <h3>Vom Operator gebaut</h3>
+          <p>Von jemandem, der selbst Dienstpläne unter Druck geführt hat.</p>
+        </div>
+        <div class="why">
+          <div class="accent-rule" aria-hidden="true"></div>
+          <h3>Echtzeit, keine Doppelbuchung</h3>
+          <p>Konflikte werden im Moment erkannt — der Plan bleibt verlässlich.</p>
+        </div>
+        <div class="why">
+          <div class="accent-rule" aria-hidden="true"></div>
+          <h3>Das Team macht mit</h3>
+          <p>Eigener Kalender, Bewerbung auf Schichten, Tausch im Schichtmarkt.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- MASSGESCHNEIDERT -->
+    <section class="split">
+      <div>
+        <p class="section-kicker">Massgeschneidert</p>
+        <p class="pull">Keine Lösung von der Stange.</p>
+      </div>
+      <div>
+        <p class="body">Erzählen Sie uns, wie Ihr Betrieb wirklich arbeitet. Gemeinsam finden wir das richtige Instrument — und richten es auf Ihre Standorte, Rollen und Eigenheiten ein. Keine Software, in die Sie sich hineinzwängen, sondern eine, die sich Ihrem Haus anpasst.</p>
+        <p class="body">Fehlt Ihnen etwas, das keines unserer Instrumente abdeckt? Sagen Sie es uns — wir entwickeln rund um Ihren Bedarf, statt eine Lösung für alle zu verkaufen.</p>
+      </div>
+    </section>
+
+    <!-- EINFÜHRUNG -->
+    <section class="block">
+      <p class="section-kicker">Einführung</p>
+      <p class="pull">So läuft die Einführung ab.</p>
+      <div class="steps" style="margin-top:30px;">
+        <div class="step"><span class="n">1</span><h3>Gespräch</h3><p>Sie zeigen uns, wie Ihr Betrieb arbeitet — Standorte, Rollen, heutige Planung.</p></div>
+        <div class="step"><span class="n">2</span><h3>Einrichtung</h3><p>Wir legen Ihre Standorte, Rollen und Schichtvorlagen an.</p></div>
+        <div class="step"><span class="n">3</span><h3>Start</h3><p>Ihr Team plant und tauscht mobil, wir begleiten die ersten Wochen.</p></div>
+      </div>
+      <div class="assurance">
+        <span>Schweizer Datenschutz — Daten in CH/EU, revDSG- &amp; DSGVO-konform</span>
+        <span>Kein Knebelvertrag, monatlich kündbar</span>
+        <span>Ihre Daten jederzeit exportierbar</span>
+        <span>Einrichtung begleiten wir persönlich</span>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-band">
+      <h2>Geben Sie den Dienstplan an Ihr Team zurück.</h2>
+      <p>Sagen Sie uns, wie Ihr Betrieb plant — wir richten Nova auf Ihre Standorte, Rollen und Schichten ein und zeigen Ihnen den Schichtmarkt an Ihren eigenen Abläufen.</p>
+      <div class="btn-row" style="justify-content:center">
+        <a class="btn" href="mailto:manuel@triarc.ch?subject=Nova%20%E2%80%93%20Anfrage&body=Betrieb%3A%0AStandorte%3A%0AHeutiges%20System%3A%0A">Offerte anfragen <span class="arr" aria-hidden="true">→</span></a>
+      </div>
+      <p class="contact-line">Direkt: <a href="mailto:manuel@triarc.ch">manuel@triarc.ch</a></p>
+    </section>
+
+    <nav class="instrument-nav" aria-label="Triarc Instrumente">
+      <a href="nova.html">← Kurzüberblick</a>
+      <div class="links"><a href="aurora.html">Aurora</a><a href="nova.html" aria-current="page">Nova</a><a href="zenith.html">Zenith</a><a href="ceres.html">Ceres</a></div>
+    </nav>
+
+  </main>
+</body>
+</html>
