@@ -533,6 +533,21 @@
       .why-grid, .audience-grid { grid-template-columns: 1fr; }
       .btn, .btn-ghost { width: 100%; justify-content: center; }
     }
+    /* ---- B2B revision additions ---- */
+.proof-section { padding: 26px 0 8px; }
+.proof-frame { border: 1px solid var(--rule); background: var(--paper); aspect-ratio: 16 / 9; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; text-align: center; }
+.proof-frame .pf-ic { font-size: 30px; color: var(--accent); opacity: .65; line-height: 1; }
+.proof-frame .pf-cap { font-family: var(--mono); font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--ink); }
+.proof-frame .pf-sub { font-family: var(--mono); font-size: 9.5px; letter-spacing: .18em; text-transform: uppercase; color: var(--ink-soft); opacity: .7; }
+.steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border-top: 1px solid var(--rule); border-left: 1px solid var(--rule); }
+.step { padding: 26px 24px 30px; border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+.step .n { font-family: var(--serif); font-size: 34px; color: var(--accent); line-height: 1; }
+.step h3 { font-family: var(--sans); font-weight: 500; font-size: 16px; margin: 14px 0 6px; }
+.step p { margin: 0; font-size: 14px; line-height: 1.6; color: var(--ink-soft); }
+.assurance { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 12px 28px; font-family: var(--mono); font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-soft); }
+.assurance span { display: inline-flex; align-items: center; }
+.assurance span::before { content: "◆"; color: var(--gold); font-size: 6px; margin-right: 12px; transform: translateY(-1px); }
+@media (max-width: 820px){ .steps { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
@@ -573,7 +588,7 @@
         <p class="role">Die Kontrolle kommt.<br />Ihr Nachweis ist einen Klick entfernt.</p>
         <p class="hero-intro">Zenith führt die gesamte Selbstkontrolle Ihres Betriebs an einem Ort: Temperaturen, Reinigung, Wareneingang, Inspektionen und Schulungen. Jeden Tag im Tagesgeschäft erfasst — und auf Knopfdruck als prüfungsfertiger Nachweis im LMI-010-Format.</p>
         <div class="btn-row">
-          <a class="btn" href="mailto:manuel@triarc.ch?subject=Zenith%20%E2%80%93%20Anfrage">Offerte anfragen <span class="arr" aria-hidden="true">→</span></a>
+          <a class="btn" href="mailto:manuel@triarc.ch?subject=Zenith%20%E2%80%93%20Anfrage&body=Betrieb%3A%0AStandorte%3A%0AHeutiges%20System%3A%0A">Offerte anfragen <span class="arr" aria-hidden="true">→</span></a>
           <a class="btn-ghost" href="#nachweis">Den Nachweis ansehen</a>
         </div>
       </div>
@@ -601,6 +616,7 @@
         <p class="body">Die meisten Küchen führen ihre Selbstkontrolle auf Papier — oder sie führen sie gar nicht. Listen werden nachträglich ausgefüllt, Temperaturen geschätzt, fehlende Einträge fallen erst auf, wenn die Lebensmittelkontrolle vor der Tür steht.</p>
         <p class="body">Das kostet Zeit im Service, Nerven beim Chef und im schlechtesten Fall die Note im Kontrollbericht. <strong>Der Aufwand ist real, der Nachweis am Ende trotzdem lückenhaft.</strong></p>
         <p class="body">Zenith dreht das um: Die Dokumentation entsteht dort, wo gearbeitet wird, und ist jeden einzelnen Tag vollständig — nicht erst in der Nacht vor dem Besuch.</p>
+        <p class="body">Die meisten HACCP-Apps sind digitale Formulare. Zenith liefert den prüfungsfertigen Nachweis — entwickelt von einem Küchenchef mit HACCP Level 4.</p>
       </div>
     </section>
 
@@ -652,6 +668,15 @@
           <li>Personalschulungen (LMI&nbsp;018)</li>
           <li>Betriebsferien &amp; Schliessungen</li>
         </ul>
+      </div>
+    </section>
+
+    <!-- PRODUCT PROOF (placeholder) -->
+    <section class="proof-section">
+      <div class="proof-frame">
+        <span class="pf-ic" aria-hidden="true">▦</span>
+        <span class="pf-cap">Beispiel-Nachweis: Selbstkontrolle (LMI 010)</span>
+        <span class="pf-sub">Produkt-Ansicht folgt</span>
       </div>
     </section>
 
@@ -785,12 +810,29 @@
       </div>
     </section>
 
+    <!-- EINFÜHRUNG -->
+    <section class="block">
+      <p class="section-kicker">Einführung</p>
+      <p class="pull">So läuft die Einführung ab.</p>
+      <div class="steps" style="margin-top:30px;">
+        <div class="step"><span class="n">1</span><h3>Gespräch</h3><p>Sie zeigen uns, wie Ihre Küche arbeitet — Stationen, Geräte, heutige Dokumentation.</p></div>
+        <div class="step"><span class="n">2</span><h3>Einrichtung</h3><p>Wir konfigurieren Stationen, Geräte und Soll-Werte auf Ihre Küche.</p></div>
+        <div class="step"><span class="n">3</span><h3>Start</h3><p>Sie dokumentieren ab Tag eins kontrollbereit, wir begleiten die ersten Wochen.</p></div>
+      </div>
+      <div class="assurance">
+        <span>Schweizer Datenschutz — Daten in CH/EU, revDSG- &amp; DSGVO-konform</span>
+        <span>Kein Knebelvertrag, monatlich kündbar</span>
+        <span>Ihre Nachweise jederzeit als PDF exportierbar</span>
+        <span>Einrichtung begleiten wir persönlich</span>
+      </div>
+    </section>
+
     <!-- CTA -->
     <section class="cta-band">
       <h2>Bereit, den Ordner zu schliessen?</h2>
       <p>Sagen Sie uns, wie Ihre Küche arbeitet — wir richten Zenith auf Ihren Betrieb ein und zeigen Ihnen den Nachweis an Ihren eigenen Abläufen.</p>
       <div class="btn-row" style="justify-content:center">
-        <a class="btn" href="mailto:manuel@triarc.ch?subject=Zenith%20%E2%80%93%20Anfrage">Offerte anfragen <span class="arr" aria-hidden="true">→</span></a>
+        <a class="btn" href="mailto:manuel@triarc.ch?subject=Zenith%20%E2%80%93%20Anfrage&body=Betrieb%3A%0AStandorte%3A%0AHeutiges%20System%3A%0A">Offerte anfragen <span class="arr" aria-hidden="true">→</span></a>
       </div>
       <p class="contact-line">Direkt: <a href="mailto:manuel@triarc.ch">manuel@triarc.ch</a></p>
     </section>

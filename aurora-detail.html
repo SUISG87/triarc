@@ -552,6 +552,21 @@
       .why-grid, .audience-grid { grid-template-columns: 1fr; }
       .btn, .btn-ghost { width: 100%; justify-content: center; }
     }
+    /* ---- B2B revision additions ---- */
+.proof-section { padding: 26px 0 8px; }
+.proof-frame { border: 1px solid var(--rule); background: var(--paper); aspect-ratio: 16 / 9; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; text-align: center; }
+.proof-frame .pf-ic { font-size: 30px; color: var(--accent); opacity: .65; line-height: 1; }
+.proof-frame .pf-cap { font-family: var(--mono); font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--ink); }
+.proof-frame .pf-sub { font-family: var(--mono); font-size: 9.5px; letter-spacing: .18em; text-transform: uppercase; color: var(--ink-soft); opacity: .7; }
+.steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border-top: 1px solid var(--rule); border-left: 1px solid var(--rule); }
+.step { padding: 26px 24px 30px; border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+.step .n { font-family: var(--serif); font-size: 34px; color: var(--accent); line-height: 1; }
+.step h3 { font-family: var(--sans); font-weight: 500; font-size: 16px; margin: 14px 0 6px; }
+.step p { margin: 0; font-size: 14px; line-height: 1.6; color: var(--ink-soft); }
+.assurance { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 12px 28px; font-family: var(--mono); font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-soft); }
+.assurance span { display: inline-flex; align-items: center; }
+.assurance span::before { content: "◆"; color: var(--gold); font-size: 6px; margin-right: 12px; transform: translateY(-1px); }
+@media (max-width: 820px){ .steps { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
@@ -592,7 +607,7 @@
         <p class="role">Volles Lokal, dünne Marge?<br />Aurora zeigt Ihnen, woran das liegt.</p>
         <p class="hero-intro">Aurora ist Kasse und Umsatz-Controlling in einem — vom Bon bis zum Deckungsbeitrag. Jeder Verkauf, jeder Storno und jede Schicht laufen an einem Ort zusammen, damit Sie nicht nur den Umsatz sehen, sondern was am Ende übrig bleibt.</p>
         <div class="btn-row">
-          <a class="btn" href="mailto:manuel@triarc.ch?subject=Aurora%20%E2%80%93%20Anfrage">Offerte anfragen <span class="arr" aria-hidden="true">→</span></a>
+          <a class="btn" href="mailto:manuel@triarc.ch?subject=Aurora%20%E2%80%93%20Anfrage&body=Betrieb%3A%0AStandorte%3A%0AHeutiges%20System%3A%0A">Offerte anfragen <span class="arr" aria-hidden="true">→</span></a>
           <a class="btn-ghost" href="#signature">Das Reporting ansehen</a>
         </div>
         <p class="status-tag">Status: <b>Pilotphase</b></p>
@@ -621,6 +636,7 @@
         <p class="body">Die meisten Betriebe sehen ihren Umsatz — aber nicht ihre Marge. Die Kasse bucht ab, der Tag läuft, und ob er sich gerechnet hat, weiss niemand bis zur nächsten Abrechnung.</p>
         <p class="body">Wareneinsatz und Personalkosten verschwinden in Excel-Tabellen, die jemand am Monatsende mühsam zusammensucht. <strong>Welches Produkt und welche Schicht Geld kosten, merkt man so erst, wenn es längst zu spät ist.</strong></p>
         <p class="body">Aurora dreht das um: Die Kasse rechnet die Marge gleich mit. Sie sehen pro Produkt, pro Tag und pro Standort, woher der Deckungsbeitrag kommt — und wo er verloren geht.</p>
+        <p class="body">Generische Kassen zeigen Umsatz. Aurora zeigt die Marge — weil sie ein Küchenchef gebaut hat, kein Retail-POS-Hersteller.</p>
       </div>
     </section>
 
@@ -671,6 +687,15 @@
           <li>Fixkosten-Verteilung pro Standort</li>
           <li>Karten-CSV-Import zum Abgleich</li>
         </ul>
+      </div>
+    </section>
+
+    <!-- PRODUCT PROOF (placeholder) -->
+    <section class="proof-section">
+      <div class="proof-frame">
+        <span class="pf-ic" aria-hidden="true">▦</span>
+        <span class="pf-cap">Beispiel: Deckungsbeitrags-Report (DB1 / DB2 / DB3)</span>
+        <span class="pf-sub">Produkt-Ansicht folgt</span>
       </div>
     </section>
 
@@ -804,12 +829,30 @@
       </div>
     </section>
 
+    <!-- EINFÜHRUNG -->
+    <section class="block">
+      <p class="section-kicker">Einführung</p>
+      <p class="pull">So läuft die Einführung ab.</p>
+      <div class="steps" style="margin-top:30px;">
+        <div class="step"><span class="n">1</span><h3>Gespräch</h3><p>Sie zeigen uns, wie Ihr Betrieb arbeitet — Karte, Standorte, heutige Kasse.</p></div>
+        <div class="step"><span class="n">2</span><h3>Einrichtung</h3><p>Wir richten Aurora auf Ihre Karte, Produktgruppen und Standorte ein.</p></div>
+        <div class="step"><span class="n">3</span><h3>Start</h3><p>Sie arbeiten mit Ihren eigenen Daten, wir begleiten die ersten Wochen.</p></div>
+      </div>
+      <div class="assurance">
+        <span>Schweizer Datenschutz — Daten in CH/EU, revDSG- &amp; DSGVO-konform</span>
+        <span>Kein Knebelvertrag, monatlich kündbar</span>
+        <span>Ihre Daten jederzeit als CSV/PDF exportierbar</span>
+        <span>Einrichtung begleiten wir persönlich</span>
+      </div>
+    </section>
+
     <!-- CTA -->
     <section class="cta-band">
       <h2>Sehen Sie, was am Ende des Abends übrig bleibt.</h2>
       <p>Sagen Sie uns, wie Ihr Betrieb arbeitet — wir richten Aurora auf Ihre Karte und Ihre Standorte ein und zeigen Ihnen das Reporting an Ihren eigenen Zahlen.</p>
+      <p>Aurora ist startbereit für die ersten Pilotbetriebe — als Pilotpartner gestalten Sie das Reporting mit und haben den direkten Draht zum Gründer.</p>
       <div class="btn-row" style="justify-content:center">
-        <a class="btn" href="mailto:manuel@triarc.ch?subject=Aurora%20%E2%80%93%20Anfrage">Offerte anfragen <span class="arr" aria-hidden="true">→</span></a>
+        <a class="btn" href="mailto:manuel@triarc.ch?subject=Aurora%20%E2%80%93%20Anfrage&body=Betrieb%3A%0AStandorte%3A%0AHeutiges%20System%3A%0A">Offerte anfragen <span class="arr" aria-hidden="true">→</span></a>
       </div>
       <p class="contact-line">Direkt: <a href="mailto:manuel@triarc.ch">manuel@triarc.ch</a></p>
     </section>

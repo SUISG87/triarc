@@ -553,6 +553,21 @@
       .why-grid, .audience-grid { grid-template-columns: 1fr; }
       .btn, .btn-ghost { width: 100%; justify-content: center; }
     }
+    /* ---- B2B revision additions ---- */
+.proof-section { padding: 26px 0 8px; }
+.proof-frame { border: 1px solid var(--rule); background: var(--paper); aspect-ratio: 16 / 9; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; text-align: center; }
+.proof-frame .pf-ic { font-size: 30px; color: var(--accent); opacity: .65; line-height: 1; }
+.proof-frame .pf-cap { font-family: var(--mono); font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--ink); }
+.proof-frame .pf-sub { font-family: var(--mono); font-size: 9.5px; letter-spacing: .18em; text-transform: uppercase; color: var(--ink-soft); opacity: .7; }
+.steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border-top: 1px solid var(--rule); border-left: 1px solid var(--rule); }
+.step { padding: 26px 24px 30px; border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+.step .n { font-family: var(--serif); font-size: 34px; color: var(--accent); line-height: 1; }
+.step h3 { font-family: var(--sans); font-weight: 500; font-size: 16px; margin: 14px 0 6px; }
+.step p { margin: 0; font-size: 14px; line-height: 1.6; color: var(--ink-soft); }
+.assurance { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 12px 28px; font-family: var(--mono); font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-soft); }
+.assurance span { display: inline-flex; align-items: center; }
+.assurance span::before { content: "◆"; color: var(--gold); font-size: 6px; margin-right: 12px; transform: translateY(-1px); }
+@media (max-width: 820px){ .steps { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
@@ -594,7 +609,7 @@
         <p class="status-tag"><span class="led" aria-hidden="true"></span>Status: <b>Frühe Phase · Rechen-Kern live</b></p>
         <p class="hero-intro">Ceres rechnet aus dem Menüplan automatisch die Kochmenge und die Bestellung pro Lieferant — ohne Überproduktion, ohne Rechnen von Hand.</p>
         <div class="btn-row">
-          <a class="btn" href="mailto:manuel@triarc.ch?subject=Ceres%20%E2%80%93%20Anfrage">Offerte anfragen <span class="arr" aria-hidden="true">→</span></a>
+          <a class="btn" href="mailto:manuel@triarc.ch?subject=Ceres%20%E2%80%93%20Anfrage&body=Betrieb%3A%0AStandorte%3A%0AHeutiges%20System%3A%0A">Offerte anfragen <span class="arr" aria-hidden="true">→</span></a>
           <a class="btn-ghost" href="#signature">Die Rechen-Logik ansehen</a>
         </div>
       </div>
@@ -622,6 +637,7 @@
         <p class="body">In vielen Mengenküchen entsteht der Einkauf aus Erfahrung und Schätzung. Mengen werden von Hand auf die erwartete Zahl Couverts hochgerechnet, Rezepte im Kopf skaliert, Bestelllisten pro Lieferant einzeln zusammengetragen.</p>
         <p class="body">Das Ergebnis: <strong>Überproduktion auf dem Teller und Überbestellung im Lager.</strong> Reste wandern in die Tonne, ganze Gebinde liegen ungenutzt, und der Foodcost gerät aus der Kontrolle — ohne dass jemand genau sagen kann, wo.</p>
         <p class="body">Ceres dreht das um: Aus dem Menüplan und der geplanten Zahl Gäste entsteht die exakte Kochmenge und daraus die Bestellung — gerechnet, nicht geschätzt.</p>
+        <p class="body">Tabellen rechnen, was Sie eingeben. Ceres rechnet, was die Küche wirklich braucht — aus echter Grossküchen-Praxis.</p>
       </div>
     </section>
 
@@ -672,6 +688,15 @@
           <li>Gruppierung der Bestellung pro Lieferant</li>
           <li>Kostenrechnung in CHF</li>
         </ul>
+      </div>
+    </section>
+
+    <!-- PRODUCT PROOF (placeholder) -->
+    <section class="proof-section">
+      <div class="proof-frame">
+        <span class="pf-ic" aria-hidden="true">▦</span>
+        <span class="pf-cap">Beispiel: Bestellung pro Lieferant (CHF)</span>
+        <span class="pf-sub">Produkt-Ansicht folgt</span>
       </div>
     </section>
 
@@ -808,12 +833,30 @@
       </div>
     </section>
 
+    <!-- EINFÜHRUNG -->
+    <section class="block">
+      <p class="section-kicker">Einführung</p>
+      <p class="pull">So werden Sie Pilotküche.</p>
+      <div class="steps" style="margin-top:30px;">
+        <div class="step"><span class="n">1</span><h3>Gespräch</h3><p>Sie zeigen uns, wie Ihre Küche plant und einkauft.</p></div>
+        <div class="step"><span class="n">2</span><h3>Einrichtung</h3><p>Wir erfassen Ihre Rezepte, Lieferanten und Gebindegrössen gemeinsam.</p></div>
+        <div class="step"><span class="n">3</span><h3>Start</h3><p>Sie rechnen Pläne und Bestellungen — und prägen mit, wie Ceres wächst.</p></div>
+      </div>
+      <div class="assurance">
+        <span>Schweizer Datenschutz — Daten in CH/EU, revDSG- &amp; DSGVO-konform</span>
+        <span>Kein Knebelvertrag, monatlich kündbar</span>
+        <span>Ihre Daten jederzeit exportierbar</span>
+        <span>Einrichtung begleiten wir persönlich</span>
+      </div>
+    </section>
+
     <!-- CTA -->
     <section class="cta-band">
       <h2>Bestellen Sie, was Sie wirklich brauchen.</h2>
       <p>Ceres ist früh: Der Rechen-Kern steht und ist getestet, die Oberfläche und die Bibliothek entstehen gerade. Wenn Sie zu den ersten Küchen gehören wollen, richten wir Ceres gemeinsam auf Ihre Rezepte und Lieferanten ein und zeigen Ihnen die Rechnung an Ihren eigenen Mengen.</p>
+      <p>Ceres ist in früher Phase — werden Sie eine unserer ersten Pilotküchen und prägen Sie mit, wie das Werkzeug wächst.</p>
       <div class="btn-row" style="justify-content:center">
-        <a class="btn" href="mailto:manuel@triarc.ch?subject=Ceres%20%E2%80%93%20Anfrage">Offerte anfragen <span class="arr" aria-hidden="true">→</span></a>
+        <a class="btn" href="mailto:manuel@triarc.ch?subject=Ceres%20%E2%80%93%20Anfrage&body=Betrieb%3A%0AStandorte%3A%0AHeutiges%20System%3A%0A">Pilotküche werden <span class="arr" aria-hidden="true">→</span></a>
       </div>
       <p class="contact-line">Direkt: <a href="mailto:manuel@triarc.ch">manuel@triarc.ch</a></p>
     </section>
