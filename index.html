@@ -41,6 +41,7 @@
     }
 
     * { box-sizing: border-box; }
+    a { color: inherit; text-decoration: none; }
 
     html, body {
       margin: 0;
@@ -286,6 +287,19 @@
       text-transform: uppercase;
       color: var(--ink-soft);
     }
+
+    .peek-lede {
+      font-family: var(--serif);
+      font-style: italic;
+      font-weight: 300;
+      font-size: clamp(18px, 2.2vw, 25px);
+      line-height: 1.4;
+      text-align: center;
+      color: var(--ink);
+      max-width: 30em;
+      margin: 0 auto 48px;
+    }
+    .peek-lede .accent { color: var(--gold); font-style: normal; }
 
     .instruments {
       display: grid;
@@ -563,6 +577,8 @@
         <span class="label">Four instruments</span>
         <span class="rule" aria-hidden="true"></span>
       </div>
+
+      <p class="peek-lede">Not one application for everyone. Tell us how your house runs — we find the right instrument and shape it around your work. And if none of the four fits, <span class="accent">we build what you need.</span></p>
 
       <div class="instruments">
 
