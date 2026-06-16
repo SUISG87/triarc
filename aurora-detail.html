@@ -1,0 +1,824 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Aurora — Kasse &amp; Umsatzsteuerung | Triarc</title>
+  <meta name="description" content="Aurora ist Kasse und Umsatz-Controlling in einem — vom Bon bis zum Deckungsbeitrag. iPad-POS, Inventar, Rezepte und DB1/DB2/DB3-Reporting: Umsatz, Wareneinsatz und Personalkosten an einem Ort, pro Produkt, pro Tag, pro Standort." />
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23f7f4ed'/><g fill='none' stroke='%23b8943a' stroke-width='6' stroke-linecap='round'><path d='M 90 50 A 40 40 0 0 1 36.32 87.59'/><path d='M 30 84.64 A 40 40 0 0 1 24.29 19.36'/><path d='M 30 15.36 A 40 40 0 0 1 89.39 43.05'/></g><polygon points='50,44 56,50 50,56 44,50' fill='%23b8943a'/></svg>" />
+
+  <meta property="og:title" content="Aurora — Kasse &amp; Umsatzsteuerung by Triarc" />
+  <meta property="og:description" content="Volles Lokal, dünne Marge? Aurora zeigt Ihnen, woran das liegt — vom Bon bis zum Deckungsbeitrag." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://triarc.ch/aurora-detail.html" />
+  <meta property="og:site_name" content="Triarc" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Newsreader:ital,wght@0,300;0,400;1,300;1,400&family=Geist+Mono:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --paper: #f7f4ed;
+      --paper-deep: #ede7d8;
+      --ink: #1a1814;
+      --ink-soft: #5a544a;
+      --gold: #b8943a;
+      --gold-soft: #c8a84b;
+      --rule: rgba(26, 24, 20, 0.12);
+      --aurora: #7B2CBF;
+      --nova: #22D3EE;
+      --zenith: #3B82F6;
+      --ceres: #B45309;
+      --accent: var(--aurora);
+      --accent-wash: rgba(123, 44, 191, 0.06);
+      --sans: "Inter", system-ui, -apple-system, "Helvetica Neue", Helvetica, Arial, sans-serif;
+      --serif: "Newsreader", "Times New Roman", Georgia, serif;
+      --mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+    }
+
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-weight: 300;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(ellipse at 50% 0%, rgba(184, 148, 58, 0.04) 0%, transparent 50%),
+        var(--paper);
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* ---- top meta register ---- */
+    .meta {
+      padding: 28px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+    }
+    .meta .left { display: flex; gap: 16px; align-items: center; }
+    .meta .dot {
+      width: 5px; height: 5px; border-radius: 50%;
+      background: var(--gold);
+      box-shadow: 0 0 8px rgba(184, 148, 58, 0.5);
+    }
+    .meta .right { display: flex; align-items: center; gap: 18px; }
+    .meta .right a { color: var(--ink-soft); transition: color 180ms ease; }
+    .meta .right a:hover { color: var(--gold); }
+
+    main {
+      width: min(1120px, calc(100% - 64px));
+      margin: 0 auto;
+      padding: 18px 0 24px;
+    }
+
+    /* ---- shared section atoms ---- */
+    .section-kicker {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.34em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin: 0 0 16px;
+    }
+    .pull {
+      font-family: var(--serif);
+      font-style: italic;
+      font-weight: 300;
+      font-size: clamp(26px, 3.6vw, 44px);
+      line-height: 1.08;
+      margin: 0;
+      max-width: 13em;
+    }
+    .lede {
+      font-size: 17px;
+      line-height: 1.75;
+      color: var(--ink);
+      max-width: 42rem;
+    }
+
+    /* ---- hero ---- */
+    .instrument-hero {
+      display: grid;
+      grid-template-columns: minmax(260px, 0.74fr) minmax(320px, 1fr);
+      gap: clamp(40px, 7vw, 96px);
+      align-items: end;
+      padding: 30px 0 52px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .mark { width: 76px; height: 76px; margin-bottom: 30px; }
+    .mark svg { width: 100%; height: 100%; display: block; }
+    .eyebrow {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      margin: 0 0 14px;
+    }
+    .eyebrow .roman { color: var(--accent); margin-right: 10px; }
+    h1 {
+      font-family: var(--serif);
+      font-weight: 300;
+      font-size: clamp(68px, 12vw, 156px);
+      line-height: 0.86;
+      letter-spacing: -0.01em;
+      margin: 0;
+    }
+    h1 .stop { color: var(--accent); }
+    .role {
+      font-family: var(--serif);
+      font-style: italic;
+      font-weight: 300;
+      font-size: clamp(23px, 3vw, 34px);
+      line-height: 1.22;
+      margin: 0 0 22px;
+      color: var(--ink);
+    }
+    .hero-intro {
+      font-size: 17px;
+      line-height: 1.75;
+      color: var(--ink);
+      max-width: 42rem;
+      margin: 0 0 30px;
+    }
+    .status-tag {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      margin: 18px 0 0;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .status-tag::before {
+      content: "";
+      width: 6px; height: 6px;
+      background: var(--accent);
+      transform: rotate(45deg);
+      display: inline-block;
+    }
+    .status-tag b { color: var(--ink); font-weight: 400; }
+
+    /* ---- buttons ---- */
+    .btn-row { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 15px 26px;
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      background: var(--accent);
+      color: #fff;
+      border: 1px solid var(--accent);
+      transition: background 180ms ease, transform 180ms ease;
+    }
+    .btn:hover { background: #66249e; transform: translateY(-1px); }
+    .btn .arr { transition: transform 220ms cubic-bezier(0.2,0.8,0.2,1); }
+    .btn:hover .arr { transform: translateX(4px); }
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 15px 22px;
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--ink);
+      border: 1px solid var(--rule);
+      transition: border-color 180ms ease, color 180ms ease;
+    }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ---- founder trust strip ---- */
+    .trust-strip {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px 20px;
+      padding: 22px 0;
+      border-bottom: 1px solid var(--rule);
+      font-family: var(--mono);
+      font-size: 10.5px;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+    }
+    .trust-strip .who strong { color: var(--ink); font-weight: 400; }
+    .trust-strip .items { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 0; }
+    .trust-strip .items span { display: inline-flex; align-items: center; }
+    .trust-strip .items span::before {
+      content: "◆";
+      color: var(--gold);
+      font-size: 6px;
+      margin: 0 14px 0 0;
+      transform: translateY(-1px);
+    }
+    .trust-strip a {
+      margin-left: auto;
+      color: var(--ink);
+      border-bottom: 1px solid var(--gold);
+      padding-bottom: 2px;
+      transition: color 180ms ease;
+    }
+    .trust-strip a:hover { color: var(--gold); }
+    .founder-line {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 18px;
+      line-height: 1.5;
+      color: var(--ink-soft);
+      margin: 0 0 26px;
+      padding-left: 18px;
+      border-left: 2px solid var(--gold);
+      max-width: 46rem;
+    }
+    .founder-line a { color: var(--ink); border-bottom: 1px solid var(--gold); }
+    .founder-line a:hover { color: var(--gold); }
+    @media (max-width: 820px) {
+      .trust-strip a { margin-left: 0; }
+    }
+
+    /* ---- generic two-column section (problem) ---- */
+    .split {
+      display: grid;
+      grid-template-columns: 0.82fr 1.18fr;
+      gap: clamp(38px, 6vw, 76px);
+      padding: 56px 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .split p.body {
+      margin: 0 0 16px;
+      font-size: 16px;
+      line-height: 1.72;
+      color: var(--ink);
+    }
+    .split p.body:last-child { margin-bottom: 0; }
+    .split .body strong { font-weight: 500; }
+
+    /* ---- outcomes ---- */
+    .block { padding: 56px 0; border-bottom: 1px solid var(--rule); }
+    .block-head { margin: 0 0 38px; }
+    .block-head .pull { max-width: 16em; }
+    .outcomes {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px 56px;
+    }
+    .outcome .accent-rule { width: 34px; height: 2px; background: var(--accent); margin: 0 0 16px; }
+    .outcome h3 {
+      font-family: var(--serif);
+      font-weight: 400;
+      font-size: 23px;
+      line-height: 1.2;
+      margin: 0 0 10px;
+    }
+    .outcome p {
+      margin: 0;
+      font-size: 15px;
+      line-height: 1.68;
+      color: var(--ink-soft);
+      max-width: 34ch;
+    }
+
+    /* ---- capabilities (what's possible) ---- */
+    .cap-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2px;
+      background: var(--rule);
+      border: 1px solid var(--rule);
+    }
+    .cap {
+      background: var(--paper);
+      padding: 26px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+    .cap .num {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      color: var(--accent);
+    }
+    .cap h3 {
+      font-family: var(--sans);
+      font-weight: 500;
+      font-size: 16px;
+      margin: 0;
+      color: var(--ink);
+    }
+    .cap p {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.62;
+      color: var(--ink-soft);
+    }
+    .cap .soon {
+      align-self: flex-start;
+      margin-top: 2px;
+      font-family: var(--mono);
+      font-size: 8.5px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid var(--gold);
+      border-radius: 999px;
+      padding: 2px 9px;
+      opacity: 0.85;
+    }
+
+    /* ---- nachweis / signature callout ---- */
+    .nachweis {
+      margin: 56px 0;
+      padding: clamp(34px, 5vw, 54px);
+      border: 1px solid var(--rule);
+      background: var(--accent-wash);
+      display: grid;
+      grid-template-columns: 1fr 0.9fr;
+      gap: clamp(34px, 5vw, 60px);
+      align-items: start;
+    }
+    .nachweis h2 {
+      font-family: var(--serif);
+      font-weight: 300;
+      font-size: clamp(28px, 3.6vw, 46px);
+      line-height: 1.04;
+      margin: 14px 0 18px;
+    }
+    .nachweis p { margin: 0; font-size: 15.5px; line-height: 1.7; color: var(--ink); max-width: 40ch; }
+    .doc-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 11px;
+    }
+    .doc-list .lbl {
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      margin: 0 0 6px;
+    }
+    .doc-list li {
+      position: relative;
+      padding-left: 22px;
+      font-size: 14.5px;
+      line-height: 1.5;
+      color: var(--ink);
+    }
+    .doc-list li::before {
+      content: "";
+      position: absolute;
+      left: 0; top: 0.62em;
+      width: 6px; height: 6px;
+      background: var(--accent);
+      transform: rotate(45deg);
+    }
+
+    /* ---- audience ---- */
+    .audience-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      border-top: 1px solid var(--rule);
+      border-left: 1px solid var(--rule);
+    }
+    .aud {
+      padding: 24px 22px 28px;
+      border-right: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+    }
+    .aud .ic { font-family: var(--serif); font-size: 28px; color: var(--accent); line-height: 1; }
+    .aud h3 { font-family: var(--sans); font-weight: 500; font-size: 15px; margin: 16px 0 6px; }
+    .aud p { margin: 0; font-size: 13.5px; line-height: 1.55; color: var(--ink-soft); }
+    .audience-note {
+      margin: 26px 0 0;
+      padding-left: 18px;
+      border-left: 2px solid var(--gold);
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 17px;
+      line-height: 1.5;
+      color: var(--ink-soft);
+      max-width: 46rem;
+    }
+
+    /* ---- integration / part of triarc ---- */
+    .integration p.body { font-size: 16px; line-height: 1.72; color: var(--ink); margin: 0 0 24px; max-width: 44rem; }
+    .wiring { display: grid; gap: 14px; }
+    .wire {
+      display: grid;
+      grid-template-columns: 150px 1fr auto;
+      gap: 20px;
+      align-items: baseline;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .wire:last-child { border-bottom: 0; }
+    .wire .pair { font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink); }
+    .wire .pair b { color: var(--accent); font-weight: 400; }
+    .wire .desc { font-size: 14.5px; line-height: 1.5; color: var(--ink-soft); }
+    .wire .tag {
+      font-family: var(--mono);
+      font-size: 8.5px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid var(--gold);
+      border-radius: 999px;
+      padding: 2px 9px;
+      white-space: nowrap;
+      opacity: 0.85;
+    }
+
+    /* ---- why / chips ---- */
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 30px 44px;
+    }
+    .why .accent-rule { width: 28px; height: 2px; background: var(--accent); margin: 0 0 14px; }
+    .why h3 { font-family: var(--sans); font-weight: 500; font-size: 15px; margin: 0 0 8px; }
+    .why p { margin: 0; font-size: 14px; line-height: 1.6; color: var(--ink-soft); }
+
+    /* ---- CTA band ---- */
+    .cta-band {
+      margin: 64px 0 8px;
+      padding: clamp(48px, 7vw, 84px) clamp(28px, 5vw, 64px);
+      background: var(--paper-deep);
+      border-top: 1px solid var(--gold);
+      border-bottom: 1px solid var(--gold);
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 22px;
+    }
+    .cta-band h2 {
+      font-family: var(--serif);
+      font-weight: 300;
+      font-size: clamp(30px, 4.4vw, 56px);
+      line-height: 1.04;
+      margin: 0;
+      max-width: 16em;
+    }
+    .cta-band p {
+      margin: 0;
+      font-size: 16px;
+      line-height: 1.65;
+      color: var(--ink-soft);
+      max-width: 40rem;
+    }
+    .cta-band .contact-line {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+    }
+    .cta-band .contact-line a { color: var(--ink); border-bottom: 1px solid var(--gold); padding-bottom: 2px; transition: color 180ms ease; }
+    .cta-band .contact-line a:hover { color: var(--gold); }
+
+    /* ---- bottom nav ---- */
+    .instrument-nav {
+      margin-top: 48px;
+      padding-top: 26px;
+      border-top: 1px solid var(--rule);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      padding-bottom: 56px;
+    }
+    .instrument-nav .links { display: flex; gap: 18px; flex-wrap: wrap; justify-content: flex-end; }
+    .instrument-nav a { transition: color 180ms ease; }
+    .instrument-nav a:hover, .instrument-nav a[aria-current="page"] { color: var(--accent); }
+
+    /* ---- section label helper ---- */
+    .block > .section-kicker, .integration > .section-kicker, .audience > .section-kicker { margin-bottom: 28px; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .btn, .btn .arr { transition: none; }
+    }
+
+    @media (max-width: 920px) {
+      .why-grid { grid-template-columns: repeat(2, 1fr); }
+      .audience-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 820px) {
+      .meta { padding: 20px 22px; font-size: 9px; letter-spacing: 0.14em; }
+      .meta .right { gap: 12px; }
+      main { width: min(100% - 44px, 660px); }
+      .instrument-hero { grid-template-columns: 1fr; gap: 28px; padding-top: 24px; }
+      .mark { width: 64px; height: 64px; margin-bottom: 22px; }
+      .split { grid-template-columns: 1fr; gap: 26px; }
+      .outcomes { grid-template-columns: 1fr; gap: 34px; }
+      .cap-grid { grid-template-columns: 1fr; }
+      .nachweis { grid-template-columns: 1fr; }
+      .wire { grid-template-columns: 1fr; gap: 6px; }
+      .wire .tag { justify-self: start; }
+    }
+    @media (max-width: 480px) {
+      h1 { font-size: 58px; }
+      .why-grid, .audience-grid { grid-template-columns: 1fr; }
+      .btn, .btn-ghost { width: 100%; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+  <header class="meta">
+    <div class="left">
+      <span class="dot" aria-hidden="true"></span>
+      <a href="index.html">Triarc</a>
+      <span aria-hidden="true">·</span>
+      <span>Aurora</span>
+    </div>
+    <div class="right">
+      <a href="aurora.html">Kurzüberblick</a>
+      <a href="index.html">Index</a>
+      <span>2026</span>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- HERO -->
+    <section class="instrument-hero">
+      <div>
+        <div class="mark" aria-label="Triarc three-arc mark">
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
+            <g fill="none" stroke="#b8943a" stroke-width="2" stroke-linecap="round">
+              <path d="M 90 50 A 40 40 0 0 1 36.32 87.59" />
+              <path d="M 30 84.64 A 40 40 0 0 1 24.29 19.36" />
+              <path d="M 30 15.36 A 40 40 0 0 1 89.39 43.05" />
+            </g>
+            <polygon points="50,46 54,50 50,54 46,50" fill="#b8943a" />
+          </svg>
+        </div>
+        <p class="eyebrow"><span class="roman">I</span>Kasse &amp; Umsatzsteuerung</p>
+        <h1>Aurora<span class="stop">.</span></h1>
+      </div>
+      <div>
+        <p class="section-kicker">Kasse &amp; Umsatz-Controlling</p>
+        <p class="role">Volles Lokal, dünne Marge?<br />Aurora zeigt Ihnen, woran das liegt.</p>
+        <p class="hero-intro">Aurora ist Kasse und Umsatz-Controlling in einem — vom Bon bis zum Deckungsbeitrag. Jeder Verkauf, jeder Storno und jede Schicht laufen an einem Ort zusammen, damit Sie nicht nur den Umsatz sehen, sondern was am Ende übrig bleibt.</p>
+        <div class="btn-row">
+          <a class="btn" href="mailto:manuel@triarc.ch?subject=Aurora%20%E2%80%93%20Anfrage">Offerte anfragen <span class="arr" aria-hidden="true">→</span></a>
+          <a class="btn-ghost" href="#signature">Das Reporting ansehen</a>
+        </div>
+        <p class="status-tag">Status: <b>Pilotphase</b></p>
+      </div>
+    </section>
+
+    <!-- FOUNDER TRUST STRIP -->
+    <section class="trust-strip">
+      <span class="who">Entwickelt von <strong>Manuel Bänziger</strong></span>
+      <span class="items">
+        <span>Küchenchef</span>
+        <span>1 Michelin-Stern</span>
+        <span>HACCP Level 4</span>
+        <span>20+ Jahre 5★-Gastronomie</span>
+      </span>
+      <a href="gruender.html">Die Geschichte →</a>
+    </section>
+
+    <!-- PROBLEM -->
+    <section class="split">
+      <div>
+        <p class="section-kicker">Das Problem</p>
+        <p class="pull">Volles Haus, und am Ende bleibt zu wenig hängen.</p>
+      </div>
+      <div>
+        <p class="body">Die meisten Betriebe sehen ihren Umsatz — aber nicht ihre Marge. Die Kasse bucht ab, der Tag läuft, und ob er sich gerechnet hat, weiss niemand bis zur nächsten Abrechnung.</p>
+        <p class="body">Wareneinsatz und Personalkosten verschwinden in Excel-Tabellen, die jemand am Monatsende mühsam zusammensucht. <strong>Welches Produkt und welche Schicht Geld kosten, merkt man so erst, wenn es längst zu spät ist.</strong></p>
+        <p class="body">Aurora dreht das um: Die Kasse rechnet die Marge gleich mit. Sie sehen pro Produkt, pro Tag und pro Standort, woher der Deckungsbeitrag kommt — und wo er verloren geht.</p>
+      </div>
+    </section>
+
+    <!-- OUTCOMES -->
+    <section class="block">
+      <div class="block-head">
+        <p class="section-kicker">Was sich ändert</p>
+        <p class="pull">Vier Dinge, die Sie ab Tag eins spüren.</p>
+      </div>
+      <div class="outcomes">
+        <article class="outcome">
+          <div class="accent-rule" aria-hidden="true"></div>
+          <h3>Marge sichtbar statt geschätzt</h3>
+          <p>Umsatz, Wareneinsatz und Personalkosten rechnen sich automatisch zum Deckungsbeitrag zusammen — pro Produkt, pro Tag, pro Standort. Schluss mit dem Bauchgefühl.</p>
+        </article>
+        <article class="outcome">
+          <div class="accent-rule" aria-hidden="true"></div>
+          <h3>Kassieren, das mitdenkt</h3>
+          <p>Tische, Splitting nach Artikel oder Gast, Comps und Storno mit automatischer Lagerrückbuchung. Die Kasse hält das Inventar sauber, ohne dass jemand nachträgt.</p>
+        </article>
+        <article class="outcome">
+          <div class="accent-rule" aria-hidden="true"></div>
+          <h3>Ein System statt Kasse + Excel</h3>
+          <p>Was kassiert wird, ist sofort ausgewertet. Keine zweite Tabelle, kein Übertragen am Monatsende, keine Zahl, die nicht zur Kasse passt.</p>
+        </article>
+        <article class="outcome">
+          <div class="accent-rule" aria-hidden="true"></div>
+          <h3>Der Abend schliesst sich selbst ab</h3>
+          <p>Tagesabschluss um 04:00 Uhr, Reports automatisch. Sie wachen mit den Zahlen von gestern auf — statt sie morgens noch zusammenrechnen zu müssen.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- SIGNATURE / REPORTING callout -->
+    <section class="nachweis" id="signature">
+      <div>
+        <p class="section-kicker">Das Reporting</p>
+        <h2>Vom Bon zum Deckungsbeitrag.</h2>
+        <p>Aurora führt jeden Verkauf bis zur Marge durch: <strong>Umsatz</strong>, <strong>Wareneinsatz</strong> (COGS direkt aus Ihren Rezepten), <strong>Personalkosten</strong> aus der Stempeluhr und die Verteilung Ihrer <strong>Fixkosten</strong>. Das ergibt eine durchgängige DB1/DB2/DB3-Rechnung — pro Produkt, pro Tag, pro Standort. Frei wählbarer Zeitraum, vom einzelnen Abend bis zum ganzen Jahr.</p>
+      </div>
+      <div>
+        <ul class="doc-list">
+          <p class="lbl">Was das Reporting zeigt</p>
+          <li>DB1 / DB2 / DB3 pro Produkt &amp; Standort</li>
+          <li>Umsatz nach Zahlart &amp; Artikel</li>
+          <li>Storno-Audit mit Begründung &amp; Schicht</li>
+          <li>Personalkosten aus der Stempeluhr</li>
+          <li>Fixkosten-Verteilung pro Standort</li>
+          <li>Karten-CSV-Import zum Abgleich</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- CAPABILITIES / WHAT'S POSSIBLE -->
+    <section class="block">
+      <div class="block-head">
+        <p class="section-kicker">Was alles möglich ist</p>
+        <p class="pull">Die ganze Kasse und das Controlling in einem System.</p>
+      </div>
+      <div class="cap-grid">
+        <div class="cap">
+          <span class="num">01</span>
+          <h3>iPad-POS mit PIN-Login</h3>
+          <p>Schnelle Kasse auf dem iPad, serverseitig geprüfter PIN-Login pro Mitarbeitende. Kein geteiltes Passwort, jede Buchung trägt einen Namen.</p>
+        </div>
+        <div class="cap">
+          <span class="num">02</span>
+          <h3>Tische, Splitting &amp; Storno</h3>
+          <p>Tische führen, nach Artikel oder Gast splitten, Comps vergeben und stornieren — Storno mit automatischer Lagerrückbuchung, sauber dokumentiert.</p>
+        </div>
+        <div class="cap">
+          <span class="num">03</span>
+          <h3>Inventar &amp; Rezepte</h3>
+          <p>Produkte mit Rezepten und Wareneinsatz hinterlegt. Jeder Verkauf bucht den Lagerbestand ab und liefert die COGS für die Marge.</p>
+        </div>
+        <div class="cap">
+          <span class="num">04</span>
+          <h3>Zahlungen</h3>
+          <p>TWINT, Rechnung, Gutschein und Reka — pro Zahlart sauber getrennt und im Umsatz nachvollziehbar.</p>
+        </div>
+        <div class="cap">
+          <span class="num">05</span>
+          <h3>„Market“ — Preise wie eine Börse</h3>
+          <p>Dynamische Preise, die sich nach Nachfrage bewegen wie an einer Börse — mit öffentlichem Display und News-Ticker im Lokal. Ein Erlebnis, das den Abend zum Gesprächsthema macht.</p>
+        </div>
+        <div class="cap">
+          <span class="num">06</span>
+          <h3>Reports DB1/DB2/DB3</h3>
+          <p>Umsatz, Deckungsbeiträge und Storno-Audit auf Knopfdruck — pro Produkt, pro Tag, pro Standort, für jeden gewählten Zeitraum.</p>
+        </div>
+        <div class="cap">
+          <span class="num">07</span>
+          <h3>Personal- &amp; Fixkosten</h3>
+          <p>Personalkosten fliessen aus der Stempeluhr ins Reporting, Fixkosten werden pro Standort verteilt — die Marge rechnet sich vollständig.</p>
+        </div>
+        <div class="cap">
+          <span class="num">08</span>
+          <h3>Karten-Terminal</h3>
+          <p>Worldline / Saferpay-Kartenterminal: codiert, derzeit in der Anbindung an die Hardware. Kartenzahlung direkt aus der Kasse heraus.</p>
+          <span class="soon">In Anbindung</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- AUDIENCE -->
+    <section class="block audience">
+      <p class="section-kicker">Für wen</p>
+      <div class="audience-grid">
+        <div class="aud">
+          <span class="ic" aria-hidden="true">◷</span>
+          <h3>Inhabergeführte Bars</h3>
+          <p>Schnelle Kasse, klare Marge — ohne separates Controlling.</p>
+        </div>
+        <div class="aud">
+          <span class="ic" aria-hidden="true">❍</span>
+          <h3>Restaurants</h3>
+          <p>Tische, Splitting und Wareneinsatz an einem Ort.</p>
+        </div>
+        <div class="aud">
+          <span class="ic" aria-hidden="true">▤</span>
+          <h3>Kleine Gastro-Gruppen</h3>
+          <p>Mehrere Standorte, ein Reporting, vergleichbare Zahlen.</p>
+        </div>
+        <div class="aud">
+          <span class="ic" aria-hidden="true">✶</span>
+          <h3>Betriebe mit Marge im Fokus</h3>
+          <p>Für alle, die wissen wollen, was am Ende übrig bleibt.</p>
+        </div>
+      </div>
+      <p class="audience-note">Aurora passt sich Ihrer Karte, Ihren Produktgruppen und Ihren Standorten an — nicht umgekehrt. Sie arbeiten weiter wie gewohnt, das System richtet sich ein.</p>
+    </section>
+
+    <!-- INTEGRATION / PART OF TRIARC -->
+    <section class="block integration">
+      <p class="section-kicker">Teil von Triarc</p>
+      <p class="body">Aurora ist eines von vier Instrumenten von Triarc. Sie teilen eine Designsprache und sind so gebaut, dass sie ineinandergreifen — Daten einmal erfassen, mehrfach nutzen. Schritt für Schritt verbinden sich die Instrumente zu einer durchgängigen Betriebsschicht:</p>
+      <div class="wiring">
+        <div class="wire">
+          <span class="pair"><b>Aurora</b> → Nova</span>
+          <span class="desc">Stunden und Trinkgeld aus dem Betrieb fliessen in die Dienstplanung von Nova.</span>
+          <span class="tag">Geplant</span>
+        </div>
+        <div class="wire">
+          <span class="pair"><b>Aurora</b> → Reporting</span>
+          <span class="desc">Aurora liefert die Personalkosten-Daten direkt ins Deckungsbeitrags-Reporting.</span>
+          <span class="tag">Live</span>
+        </div>
+        <div class="wire">
+          <span class="pair"><b>Aurora</b> · Nova · Zenith · Ceres</span>
+          <span class="desc">Gemeinsame Designsprache und ein Login-Gedanke über alle vier Instrumente hinweg.</span>
+          <span class="tag">Architektur</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHY -->
+    <section class="block">
+      <p class="section-kicker">Warum Aurora</p>
+      <p class="founder-line">Aurora stammt von einem operativ Verantwortlichen, der an der Universität St. Gallen und im Kongresszentrum Davos täglich Budgets, Deckungsbeiträge und KPIs steuert — das Reporting ist aus echter Controlling-Praxis entstanden. <a href="gruender.html">Die ganze Geschichte →</a></p>
+      <div class="why-grid">
+        <div class="why">
+          <div class="accent-rule" aria-hidden="true"></div>
+          <h3>Schweizer Standard</h3>
+          <p>8.1% MWST, Reka und TWINT von Haus aus — auf den Schweizer Markt zugeschnitten.</p>
+        </div>
+        <div class="why">
+          <div class="accent-rule" aria-hidden="true"></div>
+          <h3>Vom Operator gebaut</h3>
+          <p>Entstanden im echten Betrieb, nicht am Reissbrett einer Software-Firma.</p>
+        </div>
+        <div class="why">
+          <div class="accent-rule" aria-hidden="true"></div>
+          <h3>Kasse + Controlling in einem</h3>
+          <p>Ein System statt Kasse plus Excel danach — die Zahlen passen immer zusammen.</p>
+        </div>
+        <div class="why">
+          <div class="accent-rule" aria-hidden="true"></div>
+          <h3>Richtig dimensioniert</h3>
+          <p>Vom einzelnen Lokal bis zur kleinen Gruppe — ohne Konzern-Overhead.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-band">
+      <h2>Sehen Sie, was am Ende des Abends übrig bleibt.</h2>
+      <p>Sagen Sie uns, wie Ihr Betrieb arbeitet — wir richten Aurora auf Ihre Karte und Ihre Standorte ein und zeigen Ihnen das Reporting an Ihren eigenen Zahlen.</p>
+      <div class="btn-row" style="justify-content:center">
+        <a class="btn" href="mailto:manuel@triarc.ch?subject=Aurora%20%E2%80%93%20Anfrage">Offerte anfragen <span class="arr" aria-hidden="true">→</span></a>
+      </div>
+      <p class="contact-line">Direkt: <a href="mailto:manuel@triarc.ch">manuel@triarc.ch</a></p>
+    </section>
+
+    <nav class="instrument-nav" aria-label="Triarc Instrumente">
+      <a href="aurora.html">← Kurzüberblick</a>
+      <div class="links"><a href="aurora-detail.html" aria-current="page">Aurora</a><a href="nova-detail.html">Nova</a><a href="zenith-detail.html">Zenith</a><a href="ceres-detail.html">Ceres</a></div>
+    </nav>
+
+  </main>
+</body>
+</html>

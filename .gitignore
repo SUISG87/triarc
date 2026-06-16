@@ -5,3 +5,10 @@ node_modules
 
 # Local-only design exploration
 index-v2.html
+index-panorama.html
+
+# Internal / sensitive — never commit or deploy
+offerte/
+worldline/
+positioning-brief.md
+*.pdf
