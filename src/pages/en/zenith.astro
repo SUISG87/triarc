@@ -1,0 +1,172 @@
+---
+import Base from '../../layouts/Base.astro';
+import Mark from '../../components/Mark.astro';
+import '../../styles/detail.css';
+const mailto = "mailto:manuel@triarc.ch?subject=Zenith%20%E2%80%93%20Enquiry&body=Business%3A%0ALocations%3A%0ACurrent%20system%3A%0A";
+---
+<Base
+  title="Zenith — HACCP Self-Monitoring | Triarc"
+  description="Zenith runs your whole HACCP self-monitoring in one place: temperatures, cleaning, goods-in, inspections and training — captured every day, one click to an inspection-ready record in LMI-010 format."
+  lang="en"
+  crumb="Zenith"
+  altHref="/zenith"
+>
+  <main class="detail" style="--accent: var(--zenith); --accent-wash: rgba(59,130,246,0.07);">
+    <section class="instrument-hero">
+      <div>
+        <Mark size={76} />
+        <p class="d-eyebrow"><span class="roman">III</span>Hygiene &amp; self-monitoring</p>
+        <h1 class="d-h1">Zenith<span class="stop">.</span></h1>
+      </div>
+      <div>
+        <p class="section-kicker">HACCP self-monitoring</p>
+        <p class="role">The inspection is coming.<br />Your record is one click away.</p>
+        <p class="hero-intro">Zenith runs your operation's entire self-monitoring in one place: temperatures, cleaning, goods-in, inspections and training. Captured every day in the daily flow — and one click away from an inspection-ready record in LMI-010 format.</p>
+        <div class="btn-row">
+          <a class="btn" href={mailto}>Request a quote <span class="arr" aria-hidden="true">→</span></a>
+          <a class="btn-ghost" href="#nachweis">See the record</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="trust-strip">
+      <span class="who">Developed by <strong>Manuel Bänziger</strong></span>
+      <span class="items"><span>Executive Chef &amp; F&amp;B leader</span><span>Internationally awarded</span><span>HACCP Level 4</span><span>HACCP &amp; ISO 14001 auditor</span><span>20+ years in hospitality</span></span>
+      <a class="more" href="/en/gruender">The story →</a>
+    </section>
+
+    <section class="split reveal">
+      <div>
+        <p class="section-kicker">The problem</p>
+        <p class="pull">A binder that only counts on inspection day.</p>
+      </div>
+      <div>
+        <p class="body">Most kitchens keep their self-monitoring on paper — or not at all. Lists get filled in after the fact, temperatures estimated, missing entries only noticed when the food inspector is at the door.</p>
+        <p class="body">That costs time in service, nerves for the chef, and in the worst case the grade in the inspection report. <strong>The effort is real, the record at the end still patchy.</strong></p>
+        <p class="body">Zenith turns that around: the documentation is created where the work happens, and is complete every single day — not the night before the visit.</p>
+        <p class="body">Most HACCP apps are digital forms. Zenith delivers the inspection-ready record — built by a chef with HACCP Level 4.</p>
+      </div>
+    </section>
+
+    <section class="block reveal">
+      <div class="block-head">
+        <p class="section-kicker">What changes</p>
+        <p class="pull">Four things you feel from day one.</p>
+      </div>
+      <div class="outcomes">
+        <article class="outcome"><div class="accent-rule"></div><h3>Inspection-ready every day</h3><p>Every temperature, every clean, every training is captured in the moment. The record grows in the daily flow — ready before the inspector rings.</p></article>
+        <article class="outcome"><div class="accent-rule"></div><h3>Less effort, not more</h3><p>Capture on tablet or phone in seconds. Overdue tasks carry themselves forward — no one has to hunt for a list or backfill at night.</p></article>
+        <article class="outcome"><div class="accent-rule"></div><h3>Gap-free records</h3><p>Missed tasks, closed days and corrective actions stay visible and documented — instead of disappearing into paper.</p></article>
+        <article class="outcome"><div class="accent-rule"></div><h3>Responsibility visible</h3><p>Every entry carries a name and a shift. If it matters, it's traceable who checked what and when — clean for you, credible for the authority.</p></article>
+      </div>
+    </section>
+
+    <section class="nachweis reveal" id="nachweis">
+      <div>
+        <p class="section-kicker">The record</p>
+        <h2>One click. The whole inspection report.</h2>
+        <p>At the touch of a button Zenith produces the <strong>self-monitoring record</strong> as an A4 PDF, aligned to the format of the St. Gallen food inspectorate (LMI&nbsp;010). Deviations and unfinished tasks are marked red, every corrective action is on file. Any period you choose — from a single day to a whole year.</p>
+      </div>
+      <div>
+        <ul class="doc-list">
+          <p class="lbl">Included in the record</p>
+          <li>Temperature checks with target range &amp; deviations</li>
+          <li>Cleaning &amp; shift tasks with confirmation</li>
+          <li>Missed tasks &amp; responsible shift</li>
+          <li>Inspections with finding &amp; action</li>
+          <li>Goods-in with temperature &amp; acceptance</li>
+          <li>Staff training (LMI&nbsp;018)</li>
+          <li>Closures &amp; holidays</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="block reveal">
+      <div class="block-head">
+        <p class="section-kicker">What's possible</p>
+        <p class="pull">The whole self-monitoring in one system.</p>
+      </div>
+      <div class="cap-grid">
+        <div class="cap"><span class="num">01</span><h3>Temperature checks</h3><p>Per fridge, freezer and fresh unit with its own target range (LMI&nbsp;010), automatic deviation detection and a guided corrective action.</p></div>
+        <div class="cap"><span class="num">02</span><h3>Cleaning &amp; shift tasks</h3><p>Scheduled tasks with multiple time windows, confirmation per employee and automatic carry-forward as soon as something is overdue.</p></div>
+        <div class="cap"><span class="num">03</span><h3>Goods-in &amp; traceability</h3><p>Delivery check with temperature, condition, supplier and an accept-or-reject decision — including corrective action on defects.</p></div>
+        <div class="cap"><span class="num">04</span><h3>Inspections</h3><p>Daily self-monitoring walk-throughs with photo, pass/fail rating and directly linked corrective actions.</p></div>
+        <div class="cap"><span class="num">05</span><h3>Staff training</h3><p>Documented hygiene training (LMI&nbsp;018, 7-point) with confirmation per person — the training record writes itself.</p></div>
+        <div class="cap"><span class="num">06</span><h3>Orders</h3><p>Supplier and product catalogue; orders are grouped per supplier and sent straight by email.</p></div>
+        <div class="cap"><span class="num">07</span><h3>PIN access</h3><p>Server-checked PIN login, separated for management and staff. No shared password, no notes on the pinboard.</p></div>
+        <div class="cap"><span class="num">08</span><h3>Automatic temperature logging</h3><p>Optional wireless probes capture temperatures around the clock and report deviations on their own — no manual reading.</p><span class="soon">In development</span></div>
+      </div>
+    </section>
+
+    <section class="block reveal">
+      <p class="section-kicker">Who it's for</p>
+      <div class="audience-grid">
+        <div class="aud"><span class="ic">◷</span><h3>Restaurants &amp; bars</h3><p>Fast capture that doesn't slow service down.</p></div>
+        <div class="aud"><span class="ic">❍</span><h3>Care &amp; residential kitchens</h3><p>Multiple stations, clear responsibility, inspection-proof records.</p></div>
+        <div class="aud"><span class="ic">▤</span><h3>Staff &amp; company restaurants</h3><p>Daily routine and a clean record in the same place.</p></div>
+        <div class="aud"><span class="ic">✶</span><h3>Catering &amp; large kitchens</h3><p>Goods-in and traceability across every location.</p></div>
+      </div>
+      <p class="audience-note">Zenith is configurable: stations, equipment, target values and tasks are set to your operation — without custom programming and without you adapting to a foreign system.</p>
+    </section>
+
+    <section class="block integration reveal">
+      <p class="section-kicker">Part of Triarc</p>
+      <p class="body">Zenith is one of four Triarc instruments. They share a design language and are built to interlock — capture data once, use it many times. Step by step, the instruments connect into one continuous operating layer:</p>
+      <div class="wiring">
+        <div class="wire"><span class="pair"><b>Zenith</b> → Nova</span><span class="desc">Completed tasks evidence attendance and support scheduling in Nova.</span><span class="tag">Planned</span></div>
+        <div class="wire"><span class="pair">Ceres → <b>Zenith</b></span><span class="desc">Orders and the supplier catalogue grow together with procurement from Ceres.</span><span class="tag">Planned</span></div>
+        <div class="wire"><span class="pair">Aurora · Nova · Ceres</span><span class="desc">Shared design language and one login idea across all four instruments.</span><span class="tag">Architecture</span></div>
+      </div>
+    </section>
+
+    <section class="block reveal">
+      <p class="section-kicker">Why Zenith</p>
+      <p class="founder-line">Zenith comes from a chef with HACCP Level 4 — and additionally a HACCP and ISO 14001 auditor, SHIPSAN certified and USPH trained — who ran WEF catering in Davos under ISO 9001/14001 and digitised the hygiene and purchasing systems at Waldhaus Flims. Lived hygiene practice — cast into software. <a href="/en/gruender">The whole story →</a></p>
+      <div class="why-grid">
+        <div class="why"><div class="accent-rule"></div><h3>Swiss standard</h3><p>Aligned to the format of the cantonal food inspectorate (LMI&nbsp;010 / 018).</p></div>
+        <div class="why"><div class="accent-rule"></div><h3>Useful every day</h3><p>Helps in daily operations — not just on inspection day.</p></div>
+        <div class="why"><div class="accent-rule"></div><h3>Set to your operation</h3><p>Configurable per kitchen, without an expensive custom build.</p></div>
+        <div class="why"><div class="accent-rule"></div><h3>No more paper</h3><p>No lost binder, no lists filled in after the fact.</p></div>
+      </div>
+    </section>
+
+    <section class="split reveal">
+      <div>
+        <p class="section-kicker">Tailored</p>
+        <p class="pull">Nothing off the shelf.</p>
+      </div>
+      <div>
+        <p class="body">Tell us how your kitchen really works. Together we find the right instrument — and set it up around your stations, equipment and quirks. Not software you squeeze into, but one that adapts to your operation.</p>
+        <p class="body">Missing something none of our instruments covers? Tell us — we build around your needs instead of selling one solution for everyone.</p>
+      </div>
+    </section>
+
+    <section class="block reveal">
+      <p class="section-kicker">Getting started</p>
+      <p class="pull">How onboarding works.</p>
+      <div class="steps">
+        <div class="step"><span class="n">1</span><h3>Conversation</h3><p>You show us how your kitchen works — stations, equipment, current documentation.</p></div>
+        <div class="step"><span class="n">2</span><h3>Setup</h3><p>We configure stations, equipment and target values for your kitchen.</p></div>
+        <div class="step"><span class="n">3</span><h3>Start</h3><p>You document inspection-ready from day one; we guide the first weeks.</p></div>
+      </div>
+      <div class="assurance">
+        <span>Swiss data protection — data in CH/EU, revDSG- &amp; GDPR-compliant</span>
+        <span>No lock-in contract, cancellable monthly</span>
+        <span>Your records exportable any time as PDF</span>
+        <span>We guide the setup personally</span>
+      </div>
+    </section>
+
+    <section class="cta-band reveal">
+      <h2>Ready to close the binder?</h2>
+      <p>Tell us how your kitchen works — we set Zenith up around your operation and show you the record on your own routines.</p>
+      <div class="btn-row" style="justify-content:center"><a class="btn" href={mailto}>Request a quote <span class="arr" aria-hidden="true">→</span></a></div>
+      <p class="contact-line">Direct: <a href="mailto:manuel@triarc.ch">manuel@triarc.ch</a></p>
+    </section>
+
+    <nav class="instrument-nav" aria-label="Triarc instruments">
+      <a href="/en/">← Overview</a>
+      <div class="links"><a href="/en/aurora">Aurora</a><a href="/en/nova">Nova</a><a href="/en/zenith" aria-current="page">Zenith</a><a href="/en/ceres">Ceres</a></div>
+    </nav>
+  </main>
+</Base>

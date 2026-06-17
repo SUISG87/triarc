@@ -1,0 +1,177 @@
+---
+import Base from '../../layouts/Base.astro';
+import Mark from '../../components/Mark.astro';
+import '../../styles/detail.css';
+const mailto = "mailto:manuel@triarc.ch?subject=Ceres%20%E2%80%93%20Enquiry&body=Business%3A%0ALocations%3A%0ACurrent%20system%3A%0A";
+---
+<Base
+  title="Ceres — Menu Planning, Production & Purchasing | Triarc"
+  description="Ceres turns the menu plan into cook quantities and a per-supplier order automatically — no overproduction, no calculating by hand. Proven calculation core, honest roadmap."
+  lang="en"
+  crumb="Ceres"
+  altHref="/ceres"
+>
+  <main class="detail" style="--accent: var(--ceres); --accent-wash: rgba(180,83,9,0.06);">
+    <section class="instrument-hero">
+      <div>
+        <Mark size={76} />
+        <p class="d-eyebrow"><span class="roman">IV</span>Menu planning, production &amp; purchasing</p>
+        <h1 class="d-h1">Ceres<span class="stop">.</span></h1>
+      </div>
+      <div>
+        <p class="section-kicker">Menu planning, production &amp; purchasing</p>
+        <p class="role">Plan for 200.<br />Order for exactly 200.</p>
+        <p class="status-tag">Status: <b>Early phase · calculation core live</b></p>
+        <p class="hero-intro">Ceres calculates the cook quantity and the per-supplier order from the menu plan automatically — without overproduction, without calculating by hand.</p>
+        <div class="btn-row">
+          <a class="btn" href={mailto}>Request a quote <span class="arr" aria-hidden="true">→</span></a>
+          <a class="btn-ghost" href="#signature">See the calculation logic</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="trust-strip">
+      <span class="who">Developed by <strong>Manuel Bänziger</strong></span>
+      <span class="items"><span>Executive Chef &amp; F&amp;B leader</span><span>Internationally awarded</span><span>20+ years in hospitality</span></span>
+      <a class="more" href="/en/gruender">The story →</a>
+    </section>
+
+    <section class="split reveal">
+      <div>
+        <p class="section-kicker">The problem</p>
+        <p class="pull">Ordered by gut, and too much in the cold store.</p>
+      </div>
+      <div>
+        <p class="body">In many volume kitchens, purchasing comes from experience and estimation. Quantities are scaled up by hand to the expected number of covers, recipes scaled in the head, order lists pulled together per supplier one by one.</p>
+        <p class="body">The result: <strong>overproduction on the plate and over-ordering in the store.</strong> Leftovers go in the bin, whole pack sizes sit unused, and food cost slips out of control — without anyone being able to say exactly where.</p>
+        <p class="body">Ceres turns that around: from the menu plan and the planned number of guests come the exact cook quantity and, from that, the order — calculated, not guessed.</p>
+        <p class="body">Spreadsheets calculate what you enter. Ceres calculates what the kitchen really needs — from real large-kitchen practice.</p>
+      </div>
+    </section>
+
+    <section class="block reveal">
+      <div class="block-head">
+        <p class="section-kicker">What changes</p>
+        <p class="pull">Four things the calculation core does today.</p>
+      </div>
+      <div class="outcomes">
+        <article class="outcome"><div class="accent-rule"></div><h3>Scaled to the point</h3><p>The cook quantity comes from the planned covers and each recipe's yield — as precise for 200 guests as for 40.</p></article>
+        <article class="outcome"><div class="accent-rule"></div><h3>Ordering without over-buying</h3><p>Demand is summed across all recipes and only rounded up to the pack size at the end — instead of one pack too many per recipe.</p></article>
+        <article class="outcome"><div class="accent-rule"></div><h3>Per supplier, with CHF costs</h3><p>The order is grouped by supplier and the costs calculated in CHF — ready to review and send.</p></article>
+        <article class="outcome"><div class="accent-rule"></div><h3>Done before the shift</h3><p>The plan is set before the first pan hits the stove — no calculating by hand between station and service.</p></article>
+      </div>
+    </section>
+
+    <section class="nachweis reveal" id="signature">
+      <div>
+        <p class="section-kicker">The calculation logic</p>
+        <h2>The maths that doesn't over-order.</h2>
+        <p>Ceres aggregates <strong>every ingredient across all recipes</strong> of a menu plan and only rounds <strong>once, afterwards</strong>, up to the pack size — instead of rounding per recipe. That saves whole packs: three recipes that each need 0.4&nbsp;kg of butter add up to 1.2&nbsp;kg and so one pack — not three.</p>
+        <p>This calculation core is <strong>real and tested</strong> — the pax scaling and the order aggregation run and are covered by tests. It's the foundation everything else builds on.</p>
+      </div>
+      <div>
+        <ul class="doc-list">
+          <p class="lbl">What the core calculates</p>
+          <li>Cook quantity per recipe from planned covers &amp; yield</li>
+          <li>Aggregated ingredient demand across all recipes</li>
+          <li>Round-up to pack size — once, at the end</li>
+          <li>Order grouping per supplier</li>
+          <li>Cost calculation in CHF</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="block reveal">
+      <div class="block-head">
+        <p class="section-kicker">What's there — and what's coming</p>
+        <p class="pull">Proven core. Honest roadmap.</p>
+        <p class="lede" style="margin-top:18px;">Today the calculation core is live: scale and order. The goal is the fully automated chain — from menu creation through planning, scaling and ordering to production. Step by step, honestly labelled.</p>
+      </div>
+      <div class="cap-grid">
+        <div class="cap"><span class="num">01</span><h3>Pax scaling</h3><p>Recipes are scaled from the stored to the planned number of covers — via the recipe yield, not rules of thumb. Live and tested.</p></div>
+        <div class="cap"><span class="num">02</span><h3>Order aggregation &amp; pack rounding</h3><p>Ingredient demand is summed across all recipes and only then rounded up once to the pack size. Live and tested.</p></div>
+        <div class="cap"><span class="num">03</span><h3>Grouping per supplier &amp; CHF costs</h3><p>The finished order is grouped by supplier and costed in CHF — checkable line by line. Live.</p></div>
+        <div class="cap"><span class="num">04</span><h3>Data model</h3><p>Ingredients, suppliers, recipes and menus are set up as a connected data model — the basis for every calculation. Live.</p></div>
+        <div class="cap"><span class="num">05</span><h3>Menus from the recipe collection</h3><p>Compose new menus from your captured recipes — one recipe can be reused across many menus.</p><span class="soon">In progress</span></div>
+        <div class="cap"><span class="num">06</span><h3>Automatic menu suggestion</h3><p>Ceres suggests menus — by season, current trends, cost and variety. Planning no longer starts from a blank page.</p><span class="soon">Planned</span></div>
+        <div class="cap"><span class="num">07</span><h3>Recipe inspiration from the web</h3><p>Connection to curated cooking sites, so fresh recipe ideas flow straight into your collection and menu planning.</p><span class="soon">Planned</span></div>
+        <div class="cap"><span class="num">08</span><h3>Self-service entry &amp; starter library</h3><p>An interface to maintain ingredients, recipes and menus yourself (CRUD) — including prepared recipes as a starting point.</p><span class="soon">In progress</span></div>
+        <div class="cap"><span class="num">09</span><h3>Production overview &amp; mise en place</h3><p>From the menu come production lists and mise en place per station — stations already assigned, integrated into Zenith. No more handwritten handover.</p><span class="soon">Planned</span></div>
+        <div class="cap"><span class="num">10</span><h3>Zenith sync for orders</h3><p>Orders from Ceres flow into Zenith's procurement — one supplier and order flow instead of two.</p><span class="soon">Planned (phase 3)</span></div>
+        <div class="cap"><span class="num">11</span><h3>Guest menu cards</h3><p>From the menu plan come print-ready, multilingual cards and notices for guests.</p><span class="soon">Planned (phase 5)</span></div>
+      </div>
+    </section>
+
+    <section class="block reveal">
+      <p class="section-kicker">Who it's for</p>
+      <div class="audience-grid">
+        <div class="aud"><span class="ic">✶</span><h3>Catering &amp; large kitchens</h3><p>Changing guest numbers, calculated precisely for every event.</p></div>
+        <div class="aud"><span class="ic">❍</span><h3>Care &amp; residential kitchens</h3><p>Daily quantities for fixed resident numbers, without producing leftovers.</p></div>
+        <div class="aud"><span class="ic">▤</span><h3>Staff &amp; company restaurants</h3><p>Plannable covers, plannable purchasing, controlled food cost.</p></div>
+        <div class="aud"><span class="ic">◷</span><h3>Volume kitchens with pax planning</h3><p>Anywhere you plan by heads and buy for heads.</p></div>
+      </div>
+      <p class="audience-note">Ceres is built for kitchens that plan and buy by covers — where the number of guests determines the pot and the order list.</p>
+    </section>
+
+    <section class="block integration reveal">
+      <p class="section-kicker">Part of Triarc</p>
+      <p class="body">Ceres is one of four Triarc instruments. They share a design language and are meant to interlock — capture data once, use it many times. Much of this is roadmap, not the present; here's an honest account of what comes when:</p>
+      <div class="wiring">
+        <div class="wire"><span class="pair"><b>Ceres</b> → Zenith</span><span class="desc">Orders from Ceres flow into Zenith's procurement — a shared supplier and order flow.</span><span class="tag">Planned (phase 3)</span></div>
+        <div class="wire"><span class="pair">Aurora · Nova · Zenith</span><span class="desc">Shared design language and one login idea across all four instruments.</span><span class="tag">Architecture</span></div>
+        <div class="wire"><span class="pair"><b>Ceres</b> → Guest</span><span class="desc">Guest menu cards from the menu plan as a later expansion — print-ready for notice and table.</span><span class="tag">Planned (phase 5)</span></div>
+      </div>
+    </section>
+
+    <section class="block reveal">
+      <p class="section-kicker">Why Ceres</p>
+      <p class="founder-line">Ceres comes from a chef who has done menu and recipe engineering in large operations and digitised purchasing systems — the calculation logic grew out of real kitchen practice. <a href="/en/gruender">The whole story →</a></p>
+      <div class="why-grid">
+        <div class="why"><div class="accent-rule"></div><h3>Proven calculation core</h3><p>Pax scaling and order aggregation run and are covered by tests.</p></div>
+        <div class="why"><div class="accent-rule"></div><h3>Built by a chef</h3><p>From real volume-kitchen practice, not designed on a drawing board.</p></div>
+        <div class="why"><div class="accent-rule"></div><h3>Honest roadmap</h3><p>What's live is live. What's coming is clearly labelled as planned.</p></div>
+        <div class="why"><div class="accent-rule"></div><h3>Swiss volume cooking</h3><p>Calculates in CHF and plans by covers — tailored to the local operation.</p></div>
+      </div>
+    </section>
+
+    <section class="split reveal">
+      <div>
+        <p class="section-kicker">Tailored</p>
+        <p class="pull">Nothing off the shelf.</p>
+      </div>
+      <div>
+        <p class="body">Tell us how your kitchen really plans and buys. Together we find the right instrument — and set it up around your recipes, suppliers and quirks. Not software you squeeze into, but one that adapts to your operation.</p>
+        <p class="body">Missing something none of our instruments covers? Tell us — we build around your needs instead of selling one solution for everyone.</p>
+      </div>
+    </section>
+
+    <section class="block reveal">
+      <p class="section-kicker">Getting started</p>
+      <p class="pull">How you become a pilot kitchen.</p>
+      <div class="steps">
+        <div class="step"><span class="n">1</span><h3>Conversation</h3><p>You show us how your kitchen plans and buys.</p></div>
+        <div class="step"><span class="n">2</span><h3>Setup</h3><p>We capture your recipes, suppliers and pack sizes together.</p></div>
+        <div class="step"><span class="n">3</span><h3>Start</h3><p>You calculate plans and orders — and help shape how Ceres grows.</p></div>
+      </div>
+      <div class="assurance">
+        <span>Swiss data protection — data in CH/EU, revDSG- &amp; GDPR-compliant</span>
+        <span>No lock-in contract, cancellable monthly</span>
+        <span>Your data exportable any time</span>
+        <span>We guide the setup personally</span>
+      </div>
+    </section>
+
+    <section class="cta-band reveal">
+      <h2>Order what you really need.</h2>
+      <p>Ceres is early: the calculation core is in place and tested, the interface and the library are being built right now. If you want to be among the first kitchens, we set Ceres up together around your recipes and suppliers and show you the calculation on your own quantities.</p>
+      <p>Ceres is in an early phase — become one of our first pilot kitchens and help shape how the tool grows.</p>
+      <div class="btn-row" style="justify-content:center"><a class="btn" href={mailto}>Become a pilot kitchen <span class="arr" aria-hidden="true">→</span></a></div>
+      <p class="contact-line">Direct: <a href="mailto:manuel@triarc.ch">manuel@triarc.ch</a></p>
+    </section>
+
+    <nav class="instrument-nav" aria-label="Triarc instruments">
+      <a href="/en/">← Overview</a>
+      <div class="links"><a href="/en/aurora">Aurora</a><a href="/en/nova">Nova</a><a href="/en/zenith">Zenith</a><a href="/en/ceres" aria-current="page">Ceres</a></div>
+    </nav>
+  </main>
+</Base>

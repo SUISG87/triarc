@@ -1,0 +1,173 @@
+---
+import Base from '../../layouts/Base.astro';
+import Mark from '../../components/Mark.astro';
+import '../../styles/detail.css';
+const mailto = "mailto:manuel@triarc.ch?subject=Aurora%20%E2%80%93%20Enquiry&body=Business%3A%0ALocations%3A%0ACurrent%20system%3A%0A";
+---
+<Base
+  title="Aurora — POS & Revenue Control | Triarc"
+  description="Aurora is point of sale and revenue control in one — from the receipt to the contribution margin. iPad POS, inventory, recipes and DB1/DB2/DB3 reporting: revenue, cost of goods and labour costs in one place, per product, per day, per location."
+  lang="en"
+  crumb="Aurora"
+  altHref="/aurora"
+>
+  <main class="detail" style="--accent: var(--aurora); --accent-wash: rgba(123,44,191,0.06);">
+    <section class="instrument-hero">
+      <div>
+        <Mark size={76} />
+        <p class="d-eyebrow"><span class="roman">I</span>Point of sale &amp; revenue control</p>
+        <h1 class="d-h1">Aurora<span class="stop">.</span></h1>
+      </div>
+      <div>
+        <p class="section-kicker">POS &amp; revenue control</p>
+        <p class="role">Full house, thin margin?<br />Aurora shows you why.</p>
+        <p class="hero-intro">Aurora is point of sale and revenue control in one — from the receipt to the contribution margin. Every sale, every void and every shift come together in one place, so you don't just see revenue, but what's left at the end.</p>
+        <div class="btn-row">
+          <a class="btn" href={mailto}>Request a quote <span class="arr" aria-hidden="true">→</span></a>
+          <a class="btn-ghost" href="#signature">See the reporting</a>
+        </div>
+        <p class="status-tag">Status: <b>Pilot phase</b></p>
+      </div>
+    </section>
+
+    <section class="trust-strip">
+      <span class="who">Developed by <strong>Manuel Bänziger</strong></span>
+      <span class="items"><span>Executive Chef &amp; F&amp;B leader</span><span>Internationally awarded</span><span>20+ years in hospitality</span></span>
+      <a class="more" href="/en/gruender">The story →</a>
+    </section>
+
+    <section class="split reveal">
+      <div>
+        <p class="section-kicker">The problem</p>
+        <p class="pull">Full house, and too little left at the end.</p>
+      </div>
+      <div>
+        <p class="body">Most operations see their revenue — but not their margin. The till rings up, the day runs, and whether it paid off no one knows until the next reconciliation.</p>
+        <p class="body">Cost of goods and labour vanish into spreadsheets someone laboriously pulls together at month-end. <strong>Which product and which shift cost money only becomes clear when it's long too late.</strong></p>
+        <p class="body">Aurora turns that around: the till calculates the margin as it goes. You see per product, per day and per location where the contribution comes from — and where it's lost.</p>
+        <p class="body">Generic tills show revenue. Aurora shows the margin — because an F&amp;B pro built it, not a retail-POS vendor.</p>
+      </div>
+    </section>
+
+    <section class="block reveal">
+      <div class="block-head">
+        <p class="section-kicker">What changes</p>
+        <p class="pull">Four things you feel from day one.</p>
+      </div>
+      <div class="outcomes">
+        <article class="outcome"><div class="accent-rule"></div><h3>Margin visible, not guessed</h3><p>Revenue, cost of goods and labour add up automatically into the contribution margin — per product, per day, per location. No more gut feeling.</p></article>
+        <article class="outcome"><div class="accent-rule"></div><h3>A till that thinks along</h3><p>Tables, splitting by item or guest, comps and voids with automatic stock return. The till keeps inventory clean without anyone catching up.</p></article>
+        <article class="outcome"><div class="accent-rule"></div><h3>One system instead of till + Excel</h3><p>What's rung up is evaluated instantly. No second spreadsheet, no month-end transfer, no figure that doesn't match the till.</p></article>
+        <article class="outcome"><div class="accent-rule"></div><h3>The night closes itself</h3><p>Day-end at 04:00, reports automatic. You wake up to yesterday's numbers — instead of having to add them up in the morning.</p></article>
+      </div>
+    </section>
+
+    <section class="nachweis reveal" id="signature">
+      <div>
+        <p class="section-kicker">The reporting</p>
+        <h2>From the receipt to the contribution margin.</h2>
+        <p>Aurora carries every sale through to the margin: <strong>revenue</strong>, <strong>cost of goods</strong> (COGS straight from your recipes), <strong>labour costs</strong> from the time clock and the allocation of your <strong>fixed costs</strong>. That makes a continuous DB1/DB2/DB3 calculation — per product, per day, per location. Any period you choose, from a single night to a whole year.</p>
+      </div>
+      <div>
+        <ul class="doc-list">
+          <p class="lbl">What the reporting shows</p>
+          <li>DB1 / DB2 / DB3 per product &amp; location</li>
+          <li>Revenue by payment type &amp; item</li>
+          <li>Void audit with reason &amp; shift</li>
+          <li>Labour costs from the time clock</li>
+          <li>Fixed-cost allocation per location</li>
+          <li>Card CSV import for reconciliation</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="block reveal">
+      <div class="block-head">
+        <p class="section-kicker">What's possible</p>
+        <p class="pull">The whole till and the controlling in one system.</p>
+      </div>
+      <div class="cap-grid">
+        <div class="cap"><span class="num">01</span><h3>iPad POS with PIN login</h3><p>Fast till on the iPad, server-checked PIN login per employee. No shared password, every entry carries a name.</p></div>
+        <div class="cap"><span class="num">02</span><h3>Tables, splitting &amp; voids</h3><p>Run tables, split by item or guest, grant comps and void — voids with automatic stock return, cleanly documented.</p></div>
+        <div class="cap"><span class="num">03</span><h3>Inventory &amp; recipes</h3><p>Products stored with recipes and cost of goods. Every sale draws down stock and supplies the COGS for the margin.</p></div>
+        <div class="cap"><span class="num">04</span><h3>Payments</h3><p>TWINT, invoice, voucher and Reka — cleanly separated per payment type and traceable in revenue.</p></div>
+        <div class="cap"><span class="num">05</span><h3>"Market" — prices like a stock exchange</h3><p>Dynamic prices that move with demand like a stock exchange — with a public display and a news ticker in the venue. An experience that makes the evening a talking point.</p></div>
+        <div class="cap"><span class="num">06</span><h3>Reports DB1/DB2/DB3</h3><p>Revenue, contribution margins and void audit at the touch of a button — per product, per day, per location, for any chosen period.</p></div>
+        <div class="cap"><span class="num">07</span><h3>Labour &amp; fixed costs</h3><p>Labour costs flow from the time clock into the reporting, fixed costs are allocated per location — the margin calculates in full.</p></div>
+        <div class="cap"><span class="num">08</span><h3>Card terminal</h3><p>Worldline / Saferpay card terminal: coded, currently being connected to the hardware. Card payment straight from the till.</p><span class="soon">In integration</span></div>
+      </div>
+    </section>
+
+    <section class="block reveal">
+      <p class="section-kicker">Who it's for</p>
+      <div class="audience-grid">
+        <div class="aud"><span class="ic">◷</span><h3>Owner-run bars</h3><p>Fast till, clear margin — without separate controlling.</p></div>
+        <div class="aud"><span class="ic">❍</span><h3>Restaurants</h3><p>Tables, splitting and cost of goods in one place.</p></div>
+        <div class="aud"><span class="ic">▤</span><h3>Small hospitality groups</h3><p>Multiple locations, one reporting, comparable numbers.</p></div>
+        <div class="aud"><span class="ic">✶</span><h3>Margin-focused operations</h3><p>For everyone who wants to know what's left at the end.</p></div>
+      </div>
+      <p class="audience-note">Aurora adapts to your menu, your product groups and your locations — not the other way around. You keep working as usual; the system sets itself up.</p>
+    </section>
+
+    <section class="block integration reveal">
+      <p class="section-kicker">Part of Triarc</p>
+      <p class="body">Aurora is one of four Triarc instruments. They share a design language and are built to interlock — capture data once, use it many times. Step by step, the instruments connect into one continuous operating layer:</p>
+      <div class="wiring">
+        <div class="wire"><span class="pair"><b>Aurora</b> → Nova</span><span class="desc">Hours and tips from operations flow into Nova's scheduling.</span><span class="tag">Planned</span></div>
+        <div class="wire"><span class="pair"><b>Aurora</b> → Reporting</span><span class="desc">Aurora supplies labour-cost data straight into the contribution-margin reporting.</span><span class="tag">Live</span></div>
+        <div class="wire"><span class="pair"><b>Aurora</b> · Nova · Zenith · Ceres</span><span class="desc">Shared design language and one login idea across all four instruments.</span><span class="tag">Architecture</span></div>
+      </div>
+    </section>
+
+    <section class="block reveal">
+      <p class="section-kicker">Why Aurora</p>
+      <p class="founder-line">Aurora comes from an operator who has steered budgets, contribution margins and KPIs daily in large operations and at the Davos congress centre — the reporting grew out of real controlling practice. <a href="/en/gruender">The whole story →</a></p>
+      <div class="why-grid">
+        <div class="why"><div class="accent-rule"></div><h3>Swiss standard</h3><p>8.1% VAT, Reka and TWINT built in — tailored to the Swiss market.</p></div>
+        <div class="why"><div class="accent-rule"></div><h3>Built by an operator</h3><p>Born in real operations, not on a software firm's drawing board.</p></div>
+        <div class="why"><div class="accent-rule"></div><h3>Till + controlling in one</h3><p>One system instead of till plus Excel afterwards — the numbers always match.</p></div>
+        <div class="why"><div class="accent-rule"></div><h3>Right-sized</h3><p>From a single venue to a small group — without corporate overhead.</p></div>
+      </div>
+    </section>
+
+    <section class="split reveal">
+      <div>
+        <p class="section-kicker">Tailored</p>
+        <p class="pull">Nothing off the shelf.</p>
+      </div>
+      <div>
+        <p class="body">Tell us how your business really works. Together we find the right instrument — and set it up around your menu, your locations and your quirks. Not software you squeeze into, but one that adapts to your house.</p>
+        <p class="body">Missing something none of our instruments covers? Tell us — we build around your needs instead of selling one solution for everyone.</p>
+      </div>
+    </section>
+
+    <section class="block reveal">
+      <p class="section-kicker">Getting started</p>
+      <p class="pull">How onboarding works.</p>
+      <div class="steps">
+        <div class="step"><span class="n">1</span><h3>Conversation</h3><p>You show us how your business works — menu, locations, current till.</p></div>
+        <div class="step"><span class="n">2</span><h3>Setup</h3><p>We set Aurora up around your menu, product groups and locations.</p></div>
+        <div class="step"><span class="n">3</span><h3>Start</h3><p>You work with your own data; we guide the first weeks.</p></div>
+      </div>
+      <div class="assurance">
+        <span>Swiss data protection — data in CH/EU, revDSG- &amp; GDPR-compliant</span>
+        <span>No lock-in contract, cancellable monthly</span>
+        <span>Your data exportable any time as CSV/PDF</span>
+        <span>We guide the setup personally</span>
+      </div>
+    </section>
+
+    <section class="cta-band reveal">
+      <h2>See what's left at the end of the night.</h2>
+      <p>Tell us how your business works — we set Aurora up around your menu and your locations and show you the reporting on your own numbers.</p>
+      <p>Aurora is ready for its first pilot operations — as a pilot partner you shape the reporting and have a direct line to the founder.</p>
+      <div class="btn-row" style="justify-content:center"><a class="btn" href={mailto}>Request a quote <span class="arr" aria-hidden="true">→</span></a></div>
+      <p class="contact-line">Direct: <a href="mailto:manuel@triarc.ch">manuel@triarc.ch</a></p>
+    </section>
+
+    <nav class="instrument-nav" aria-label="Triarc instruments">
+      <a href="/en/">← Overview</a>
+      <div class="links"><a href="/en/aurora" aria-current="page">Aurora</a><a href="/en/nova">Nova</a><a href="/en/zenith">Zenith</a><a href="/en/ceres">Ceres</a></div>
+    </nav>
+  </main>
+</Base>

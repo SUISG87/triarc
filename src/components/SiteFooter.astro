@@ -1,5 +1,6 @@
 ---
 const { lang = 'de' } = Astro.props;
+const pre = lang === 'en' ? '/en' : '';
 const t = lang === 'en'
   ? { founder: 'The founder', impressum: 'Imprint', privacy: 'Privacy', loc: 'St. Gallen · Switzerland' }
   : { founder: 'Der Gründer', impressum: 'Impressum', privacy: 'Datenschutz', loc: 'St. Gallen · Schweiz' };
@@ -7,8 +8,8 @@ const t = lang === 'en'
 <footer class="site-foot">
   <span>© Triarc 2026 · {t.loc}</span>
   <span class="links">
-    <a href="/gruender">{t.founder}</a>
-    <a class="legal" href="/impressum">{t.impressum}</a>
-    <a class="legal" href="/datenschutz">{t.privacy}</a>
+    <a href={`${pre}/gruender`}>{t.founder}</a>
+    <a class="legal" href={`${pre}/impressum`}>{t.impressum}</a>
+    <a class="legal" href={`${pre}/datenschutz`}>{t.privacy}</a>
   </span>
 </footer>

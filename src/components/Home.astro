@@ -53,6 +53,7 @@ const instruments = [
 ];
 
 const t = C[lang];
+const pre = lang === 'en' ? '/en' : '';
 ---
 <main class="home-stage">
   <section class="composition">
@@ -88,11 +89,11 @@ const t = C[lang];
         <article class="instrument" style={`--accent:${inst.accent}`}>
           <div class="accent-rule" aria-hidden="true"></div>
           <span class="eyebrow"><span class="roman">{inst.roman}</span>{inst[lang].eyebrow}</span>
-          <h2 class="name"><a href={inst.href}>{inst.name}<span class="stop">.</span></a></h2>
+          <h2 class="name"><a href={pre + inst.href}>{inst.name}<span class="stop">.</span></a></h2>
           <p class="hero">{inst[lang].hero}</p>
           <p class="role">{inst[lang].role}</p>
           <p class="body">{inst[lang].body}</p>
-          <a class="detail-link" href={inst.href}>{t.more}</a>
+          <a class="detail-link" href={pre + inst.href}>{t.more}</a>
         </article>
       ))}
     </div>

@@ -49,6 +49,17 @@ const favicon = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'
 
   <slot name="head" />
 
+  <script is:inline define:vars={{ pageLang: lang, altHref }}>
+    // Carry-over: if the visitor has a stored language preference and a
+    // counterpart page exists, send them to their language before paint.
+    (function () {
+      try {
+        var pref = localStorage.getItem('triarc-lang');
+        if (pref && altHref && pref !== pageLang) { location.replace(altHref); }
+      } catch (e) {}
+    })();
+  </script>
+
   <script is:inline>
     (function () {
       document.documentElement.classList.add('js');
@@ -66,6 +77,12 @@ const favicon = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'
   {showFooter && <SiteFooter lang={lang} />}
 
   <script>
+    // Persist language choice when the visitor uses the DE/EN toggle
+    document.querySelectorAll('.lang-toggle a[data-lang]').forEach((a) => {
+      a.addEventListener('click', () => {
+        try { localStorage.setItem('triarc-lang', a.dataset.lang); } catch (e) {}
+      });
+    });
     // Theme toggle
     document.querySelectorAll('[data-theme-toggle]').forEach((btn) => {
       btn.addEventListener('click', () => {

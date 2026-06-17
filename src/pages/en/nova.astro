@@ -1,0 +1,171 @@
+---
+import Base from '../../layouts/Base.astro';
+import Mark from '../../components/Mark.astro';
+import '../../styles/detail.css';
+const mailto = "mailto:manuel@triarc.ch?subject=Nova%20%E2%80%93%20Enquiry&body=Business%3A%0ALocations%3A%0ACurrent%20system%3A%0A";
+---
+<Base
+  title="Nova — Staff Scheduling | Triarc"
+  description="Nova builds shifts without double-bookings and lets the team handle swaps — mobile, in real time. Templates, bulk generator, a shift market with admin approval and a personal iCal feed."
+  lang="en"
+  crumb="Nova"
+  altHref="/nova"
+>
+  <main class="detail" style="--accent: var(--nova); --accent-wash: rgba(34,211,238,0.10);">
+    <section class="instrument-hero">
+      <div>
+        <Mark size={76} />
+        <p class="d-eyebrow"><span class="roman">II</span>Staff scheduling</p>
+        <h1 class="d-h1">Nova<span class="stop">.</span></h1>
+      </div>
+      <div>
+        <p class="section-kicker">Staff scheduling</p>
+        <p class="role">The rota that<br />swaps itself.</p>
+        <p class="hero-intro">Nova builds shifts without double-bookings and lets the team handle swaps — mobile, in real time.</p>
+        <div class="btn-row">
+          <a class="btn" href={mailto}>Request a quote <span class="arr" aria-hidden="true">→</span></a>
+          <a class="btn-ghost" href="#signature">See the shift market</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="trust-strip">
+      <span class="who">Developed by <strong>Manuel Bänziger</strong></span>
+      <span class="items"><span>Executive Chef &amp; F&amp;B leader</span><span>Internationally awarded</span><span>20+ years in hospitality</span></span>
+      <a class="more" href="/en/gruender">The story →</a>
+    </section>
+
+    <section class="split reveal">
+      <div>
+        <p class="section-kicker">The problem</p>
+        <p class="pull">The rota falls apart in WhatsApp and Excel.</p>
+      </div>
+      <div>
+        <p class="body">The plan lives in Excel, the changes in the group chat. Constant swap messages, someone steps in, someone drops out — and in the end no one reliably knows who's working when.</p>
+        <p class="body">Double-bookings only surface when two people show up at once, or no one does. <strong>Every change runs through management</strong> — you're the switchboard for every single swap.</p>
+        <p class="body">Nova turns that around: the plan lives in one place, conflicts are caught the moment they happen, and the team swaps on its own — cleanly safeguarded, without you forwarding every message.</p>
+        <p class="body">Generic scheduling tools manage shifts. Nova gives swapping back to the team — built by someone who has planned teams under pressure.</p>
+      </div>
+    </section>
+
+    <section class="block reveal">
+      <div class="block-head">
+        <p class="section-kicker">What changes</p>
+        <p class="pull">Four things you feel from day one.</p>
+      </div>
+      <div class="outcomes">
+        <article class="outcome"><div class="accent-rule"></div><h3>Plan in minutes</h3><p>Save recurring weeks as a template and roll them out in one step with the bulk generator — instead of setting each shift by hand.</p></article>
+        <article class="outcome"><div class="accent-rule"></div><h3>No double-bookings</h3><p>Atomic conflict detection checks every assignment the moment it's made. Two shifts at the same time simply can't be saved.</p></article>
+        <article class="outcome"><div class="accent-rule"></div><h3>Swaps without you in the middle</h3><p>Staff hand off shifts and pick them up among themselves. You only approve — instead of negotiating every request yourself.</p></article>
+        <article class="outcome"><div class="accent-rule"></div><h3>The team actually checks in</h3><p>A personal calendar, push notifications and the option to apply for open shifts — the plan lands where the team already looks.</p></article>
+      </div>
+    </section>
+
+    <section class="nachweis reveal" id="signature">
+      <div>
+        <p class="section-kicker">The shift market</p>
+        <h2>Swaps without you in the middle.</h2>
+        <p>Staff post open shifts or request direct swaps among themselves. Every handover runs cleanly through <strong>admin approval</strong> — and writes atomically into the plan, so a double-booking can never occur. You keep control without forwarding every message yourself.</p>
+      </div>
+      <div>
+        <ul class="doc-list">
+          <p class="lbl">Shift-market features</p>
+          <li>Open listings — offer shifts to take over</li>
+          <li>Direct swap requests between staff</li>
+          <li>Admin approval for every handover</li>
+          <li>Activity log across all changes</li>
+          <li>Personal iCal feed (Apple / Google / Outlook)</li>
+          <li>Web push on offers &amp; approvals</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="block reveal">
+      <div class="block-head">
+        <p class="section-kicker">What's possible</p>
+        <p class="pull">The whole rota in one system.</p>
+      </div>
+      <div class="cap-grid">
+        <div class="cap"><span class="num">01</span><h3>Weekly &amp; monthly calendar</h3><p>The entire plan at a glance — by week or by month, with roles, locations and open shifts clearly visible.</p></div>
+        <div class="cap"><span class="num">02</span><h3>Templates &amp; bulk generator</h3><p>Save typical weeks as a template and roll them out across a whole period in one step.</p></div>
+        <div class="cap"><span class="num">03</span><h3>Applications with admin approval</h3><p>Staff apply for open shifts; management approves — nothing becomes binding without confirmation.</p></div>
+        <div class="cap"><span class="num">04</span><h3>Atomic conflict detection</h3><p>Overlaps are detected and prevented at the moment of assignment — no double-staffed shifts.</p></div>
+        <div class="cap"><span class="num">05</span><h3>Shift market (open + direct)</h3><p>Open offers and direct swaps between staff, every handover secured by admin approval.</p></div>
+        <div class="cap"><span class="num">06</span><h3>Attendance overview</h3><p>Planned hours by employee, role and location — a planning view, not a time clock.</p></div>
+        <div class="cap"><span class="num">07</span><h3>PWA with offline mode</h3><p>Runs as an app on the phone, works offline too and notifies via web push on changes.</p></div>
+        <div class="cap"><span class="num">08</span><h3>Personal iCal feed</h3><p>Everyone subscribes to their shifts straight in their own calendar — Apple, Google or Outlook.</p></div>
+      </div>
+    </section>
+
+    <section class="block reveal">
+      <p class="section-kicker">Who it's for</p>
+      <div class="audience-grid">
+        <div class="aud"><span class="ic">◷</span><h3>Bars</h3><p>Changing nights and casual staff cleanly in the plan instead of the group chat.</p></div>
+        <div class="aud"><span class="ic">❍</span><h3>Restaurants</h3><p>Service and kitchen on one plan, swaps without detours through management.</p></div>
+        <div class="aud"><span class="ic">▤</span><h3>Small hospitality groups</h3><p>Several locations and roles under one management, planned in one place.</p></div>
+        <div class="aud"><span class="ic">✶</span><h3>Operations with changing staff</h3><p>Casuals, fill-ins and seasonal — the plan stays reliable, whoever steps in.</p></div>
+      </div>
+      <p class="audience-note">Several locations and roles under one management — Nova keeps the overview, even when the team is spread across houses and shifts.</p>
+    </section>
+
+    <section class="block integration reveal">
+      <p class="section-kicker">Part of Triarc</p>
+      <p class="body">Nova is one of four Triarc instruments. They share a design language and are built to interlock — capture data once, use it many times. Step by step, the instruments connect into one continuous operating layer:</p>
+      <div class="wiring">
+        <div class="wire"><span class="pair">Aurora → <b>Nova</b></span><span class="desc">Hours worked and tips from Aurora flow back into planning and analysis in Nova.</span><span class="tag">Planned</span></div>
+        <div class="wire"><span class="pair">Zenith → <b>Nova</b></span><span class="desc">Completed tasks in Zenith evidence attendance and support scheduling in Nova.</span><span class="tag">Planned</span></div>
+        <div class="wire"><span class="pair">Aurora · Zenith · Ceres</span><span class="desc">Shared design language and one login idea across all four instruments.</span><span class="tag">Architecture</span></div>
+      </div>
+    </section>
+
+    <section class="block reveal">
+      <p class="section-kicker">Why Nova</p>
+      <p class="founder-line">Nova comes from a chef who has led 45 staff across 10 outlets and crewed WEF catering for up to 5,000 people — he knows how scheduling tears under pressure. <a href="/en/gruender">The whole story →</a></p>
+      <div class="why-grid">
+        <div class="why"><div class="accent-rule"></div><h3>Mobile first</h3><p>Built as a PWA — the plan lives on the phone, not in an office binder.</p></div>
+        <div class="why"><div class="accent-rule"></div><h3>Built by an operator</h3><p>By someone who has run rotas under pressure.</p></div>
+        <div class="why"><div class="accent-rule"></div><h3>Real-time, no double-bookings</h3><p>Conflicts are caught the moment they happen — the plan stays reliable.</p></div>
+        <div class="why"><div class="accent-rule"></div><h3>The team joins in</h3><p>Own calendar, applying for shifts, swapping in the shift market.</p></div>
+      </div>
+    </section>
+
+    <section class="split reveal">
+      <div>
+        <p class="section-kicker">Tailored</p>
+        <p class="pull">Nothing off the shelf.</p>
+      </div>
+      <div>
+        <p class="body">Tell us how your business really works. Together we find the right instrument — and set it up around your locations, roles and quirks. Not software you squeeze into, but one that adapts to your house.</p>
+        <p class="body">Missing something none of our instruments covers? Tell us — we build around your needs instead of selling one solution for everyone.</p>
+      </div>
+    </section>
+
+    <section class="block reveal">
+      <p class="section-kicker">Getting started</p>
+      <p class="pull">How onboarding works.</p>
+      <div class="steps">
+        <div class="step"><span class="n">1</span><h3>Conversation</h3><p>You show us how your business works — locations, roles, current planning.</p></div>
+        <div class="step"><span class="n">2</span><h3>Setup</h3><p>We set up your locations, roles and shift templates.</p></div>
+        <div class="step"><span class="n">3</span><h3>Start</h3><p>Your team plans and swaps on mobile; we guide the first weeks.</p></div>
+      </div>
+      <div class="assurance">
+        <span>Swiss data protection — data in CH/EU, revDSG- &amp; GDPR-compliant</span>
+        <span>No lock-in contract, cancellable monthly</span>
+        <span>Your data exportable any time</span>
+        <span>We guide the setup personally</span>
+      </div>
+    </section>
+
+    <section class="cta-band reveal">
+      <h2>Give the rota back to your team.</h2>
+      <p>Tell us how your business plans — we set Nova up around your locations, roles and shifts and show you the shift market on your own workflow.</p>
+      <div class="btn-row" style="justify-content:center"><a class="btn" href={mailto}>Request a quote <span class="arr" aria-hidden="true">→</span></a></div>
+      <p class="contact-line">Direct: <a href="mailto:manuel@triarc.ch">manuel@triarc.ch</a></p>
+    </section>
+
+    <nav class="instrument-nav" aria-label="Triarc instruments">
+      <a href="/en/">← Overview</a>
+      <div class="links"><a href="/en/aurora">Aurora</a><a href="/en/nova" aria-current="page">Nova</a><a href="/en/zenith">Zenith</a><a href="/en/ceres">Ceres</a></div>
+    </nav>
+  </main>
+</Base>
