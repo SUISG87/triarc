@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Datenschutzerklärung | Triarc</title>
+  <meta name="description" content="Datenschutzerklärung von Triarc — wie wir mit Personendaten umgehen. revDSG- und DSGVO-konform, ohne Tracking." />
+  <meta name="robots" content="noindex, follow" />
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23f7f4ed'/><g fill='none' stroke='%23b8943a' stroke-width='6' stroke-linecap='round'><path d='M 90 50 A 40 40 0 0 1 36.32 87.59'/><path d='M 30 84.64 A 40 40 0 0 1 24.29 19.36'/><path d='M 30 15.36 A 40 40 0 0 1 89.39 43.05'/></g><polygon points='50,44 56,50 50,56 44,50' fill='%23b8943a'/></svg>" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Newsreader:ital,wght@0,300;0,400;1,300;1,400&family=Geist+Mono:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --paper: #f7f4ed; --paper-deep: #ede7d8; --ink: #1a1814; --ink-soft: #5a544a;
+      --gold: #b8943a; --rule: rgba(26, 24, 20, 0.12); --accent: var(--gold);
+      --sans: "Inter", system-ui, -apple-system, "Helvetica Neue", Helvetica, Arial, sans-serif;
+      --serif: "Newsreader", "Times New Roman", Georgia, serif;
+      --mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; background: var(--paper); color: var(--ink); font-family: var(--sans); font-weight: 300; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility; }
+    body { min-height: 100vh; background: radial-gradient(ellipse at 50% 0%, rgba(184,148,58,0.05) 0%, transparent 55%), var(--paper); }
+    a { color: inherit; text-decoration: none; }
+
+    .meta { padding: 28px 40px; display: flex; justify-content: space-between; align-items: center; font-family: var(--mono); font-size: 10px; font-weight: 400; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-soft); }
+    .meta .left { display: flex; gap: 16px; align-items: center; }
+    .meta .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 8px rgba(184,148,58,0.5); }
+    .meta .right { display: flex; align-items: center; gap: 18px; }
+    .meta .right a { color: var(--ink-soft); transition: color 180ms ease; }
+    .meta .right a:hover { color: var(--gold); }
+
+    main { width: min(760px, calc(100% - 56px)); margin: 0 auto; padding: 24px 0 24px; }
+    .eyebrow { font-family: var(--mono); font-size: 10px; letter-spacing: 0.34em; text-transform: uppercase; color: var(--accent); margin: 0 0 16px; }
+    h1 { font-family: var(--serif); font-weight: 300; font-size: clamp(38px, 5.6vw, 64px); line-height: 0.96; letter-spacing: -0.01em; margin: 0 0 8px; }
+    h1 .stop { color: var(--accent); }
+    .lede { font-size: 16.5px; line-height: 1.7; color: var(--ink-soft); max-width: 44rem; margin: 0 0 48px; padding-bottom: 40px; border-bottom: 1px solid var(--rule); }
+
+    .block { padding: 0 0 38px; }
+    .block h2 { font-family: var(--serif); font-weight: 400; font-size: 22px; line-height: 1.2; margin: 0 0 14px; }
+    .block .num { font-family: var(--mono); font-size: 11px; color: var(--accent); margin-right: 10px; }
+    .block p { margin: 0 0 12px; font-size: 15.5px; line-height: 1.75; color: var(--ink); }
+    .block p:last-child { margin-bottom: 0; }
+    .block ul { margin: 0 0 12px; padding: 0; list-style: none; display: grid; gap: 9px; }
+    .block li { position: relative; padding-left: 20px; font-size: 15px; line-height: 1.6; color: var(--ink); }
+    .block li::before { content: ""; position: absolute; left: 0; top: 0.6em; width: 5px; height: 5px; background: var(--gold); transform: rotate(45deg); }
+    .block a.link { border-bottom: 1px solid var(--gold); padding-bottom: 1px; transition: color 180ms ease; }
+    .block a.link:hover { color: var(--gold); }
+    .block strong { font-weight: 500; }
+    .todo { color: var(--ink-soft); background: rgba(184,148,58,0.10); border: 1px dashed var(--gold); border-radius: 3px; padding: 1px 7px; font-family: var(--mono); font-size: 12px; }
+    .updated { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-soft); margin-top: 8px; }
+
+    footer { width: min(760px, calc(100% - 56px)); margin: 16px auto 0; border-top: 1px solid var(--rule); padding: 24px 0 48px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-soft); }
+    footer .links { display: flex; gap: 18px; }
+    footer a { transition: color 180ms ease; }
+    footer a.legal { border-bottom: 1px solid var(--gold); padding-bottom: 2px; }
+    footer a:hover { color: var(--gold); }
+
+    @media (max-width: 560px) { .meta { padding: 20px 22px; font-size: 9px; letter-spacing: 0.14em; } }
+  </style>
+</head>
+<body>
+  <header class="meta">
+    <div class="left">
+      <span class="dot" aria-hidden="true"></span>
+      <a href="index.html">Triarc</a>
+      <span aria-hidden="true">·</span>
+      <span>Datenschutz</span>
+    </div>
+    <div class="right">
+      <a href="index.html">Index</a>
+      <span>2026</span>
+    </div>
+  </header>
+
+  <main>
+    <p class="eyebrow">Rechtliches</p>
+    <h1>Datenschutz&shy;erklärung<span class="stop">.</span></h1>
+    <p class="lede">Wir bearbeiten Personendaten sparsam und nachvollziehbar — im Einklang mit dem revidierten Schweizer Datenschutzgesetz (revDSG) und, soweit anwendbar, der EU-Datenschutz-Grundverordnung (DSGVO). Diese Website setzt <strong>keine Tracking- oder Analyse-Tools und keine Werbe-Cookies</strong> ein.</p>
+
+    <section class="block">
+      <h2><span class="num">01</span>Verantwortliche Stelle</h2>
+      <p>Manuel Bänziger, Triarc, St. Gallen, Schweiz.<br>Kontakt: <a class="link" href="mailto:manuel@triarc.ch">manuel@triarc.ch</a></p>
+    </section>
+
+    <section class="block">
+      <h2><span class="num">02</span>Welche Daten wir bearbeiten</h2>
+      <p>Beim Besuch dieser Website fallen technisch notwendige Daten an, und Sie können uns von sich aus Daten übermitteln:</p>
+      <ul>
+        <li><strong>Server-Logdaten</strong> — beim Aufruf der Seite werden durch unseren Hosting-Dienstleister (siehe Ziff. 4) automatisch Informationen wie IP-Adresse, Datum/Uhrzeit, abgerufene Seite und Browser-Angaben verarbeitet. Sie dienen ausschliesslich dem sicheren, stabilen Betrieb der Website.</li>
+        <li><strong>Kontaktaufnahme</strong> — wenn Sie uns per E-Mail schreiben oder eine Offerte anfragen, bearbeiten wir die von Ihnen angegebenen Daten (Name, E-Mail-Adresse, Angaben zu Ihrem Betrieb, Inhalt Ihrer Nachricht), um Ihre Anfrage zu beantworten.</li>
+      </ul>
+      <p>Diese Website verwendet <strong>keine eigenen Cookies</strong> und kein Web-Tracking. Es findet keine Profilbildung statt.</p>
+    </section>
+
+    <section class="block">
+      <h2><span class="num">03</span>Zweck &amp; Rechtsgrundlage</h2>
+      <p>Wir bearbeiten Personendaten, um die Website bereitzustellen und abzusichern sowie um Anfragen zu beantworten und Geschäftsbeziehungen anzubahnen. Soweit die DSGVO anwendbar ist, stützt sich die Bearbeitung auf unser berechtigtes Interesse am sicheren Betrieb (Art. 6 Abs. 1 lit. f DSGVO) bzw. auf die Anbahnung oder Erfüllung eines Vertrags (Art. 6 Abs. 1 lit. b DSGVO).</p>
+    </section>
+
+    <section class="block">
+      <h2><span class="num">04</span>Hosting</h2>
+      <p>Diese Website wird bei <strong>Vercel Inc.</strong> gehostet. Vercel verarbeitet die unter Ziff. 2 genannten Server-Logdaten als unser Auftragsbearbeiter. Die Auslieferung erfolgt über ein globales Content-Delivery-Netzwerk; dabei kann eine Bearbeitung auf Servern ausserhalb der Schweiz und der EU (u. a. in den USA) erfolgen. Entsprechende vertragliche Garantien zum Datenschutz liegen vor.</p>
+    </section>
+
+    <section class="block">
+      <h2><span class="num">05</span>Schriftarten (Google Fonts)</h2>
+      <p>Zur einheitlichen Darstellung lädt diese Website Schriftarten von <strong>Google Fonts</strong> (Google Ireland Ltd.) nach. Dabei wird Ihre IP-Adresse an Google übermittelt. Es werden hierfür keine Cookies gesetzt.</p>
+    </section>
+
+    <section class="block">
+      <h2><span class="num">06</span>Weitergabe an Dritte</h2>
+      <p>Wir verkaufen keine Personendaten. Eine Weitergabe erfolgt nur an die zur Bereitstellung der Website eingesetzten Dienstleister (Ziff. 4 und 5), an gesetzlich Berechtigte oder mit Ihrer Einwilligung.</p>
+    </section>
+
+    <section class="block">
+      <h2><span class="num">07</span>Aufbewahrung</h2>
+      <p>Wir bewahren Personendaten nur so lange auf, wie es für die genannten Zwecke oder aufgrund gesetzlicher Pflichten erforderlich ist. Anfragen per E-Mail werden gelöscht, sobald sie nicht mehr benötigt werden und keine Aufbewahrungspflicht entgegensteht.</p>
+    </section>
+
+    <section class="block">
+      <h2><span class="num">08</span>Ihre Rechte</h2>
+      <p>Sie haben im Rahmen des anwendbaren Rechts insbesondere das Recht auf:</p>
+      <ul>
+        <li>Auskunft über die zu Ihnen bearbeiteten Daten</li>
+        <li>Berichtigung unrichtiger Daten</li>
+        <li>Löschung oder Einschränkung der Bearbeitung</li>
+        <li>Datenherausgabe bzw. -übertragung</li>
+        <li>Widerspruch gegen bestimmte Bearbeitungen</li>
+      </ul>
+      <p>Zur Ausübung genügt eine Nachricht an <a class="link" href="mailto:manuel@triarc.ch">manuel@triarc.ch</a>. Sie können sich zudem bei der zuständigen Aufsichtsbehörde beschweren — in der Schweiz beim Eidgenössischen Datenschutz- und Öffentlichkeitsbeauftragten (EDÖB).</p>
+    </section>
+
+    <section class="block">
+      <h2><span class="num">09</span>Änderungen</h2>
+      <p>Wir passen diese Datenschutzerklärung an, wenn sich unsere Website oder die Rechtslage ändert. Es gilt jeweils die hier veröffentlichte Fassung.</p>
+      <p class="updated">Stand: Juni 2026</p>
+    </section>
+  </main>
+
+  <footer>
+    <span>© Triarc 2026 · St. Gallen · Schweiz</span>
+    <span class="links">
+      <a class="legal" href="impressum.html">Impressum</a>
+      <a class="legal" href="datenschutz.html">Datenschutz</a>
+      <a href="gruender.html">Der Gründer</a>
+    </span>
+  </footer>
+</body>
+</html>

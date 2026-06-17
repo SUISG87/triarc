@@ -2,6 +2,11 @@
 offerte/
 worldline/
 positioning-brief.md
+site-audit.md
 *.pdf
 .git/
 .DS_Store
+
+# Stale homepage explorations — keep locally, don't ship/index
+index-v2.html
+index-panorama.html

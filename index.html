@@ -1,27 +1,43 @@
 <!doctype html>
-<html lang="en">
+<html lang="de">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Triarc — Swiss-engineered instruments for hospitality</title>
-  <meta name="description" content="Triarc. Swiss-engineered instruments for hospitality. Aurora · Nova · Zenith · Ceres." />
+  <title>Triarc — Instrumente für die Gastronomie</title>
+  <meta name="description" content="Triarc baut die digitale Betriebsschicht für die Gastronomie — vier Instrumente für Umsatz, Personal, Hygiene und Küchenplanung. Entwickelt von einem Küchenchef, nicht von einer Software-Firma." />
+  <link rel="canonical" href="https://triarc.ch/" />
 
   <!-- Favicon: three-arc mark (gold on warm paper) -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23f7f4ed'/><g fill='none' stroke='%23b8943a' stroke-width='6' stroke-linecap='round'><path d='M 90 50 A 40 40 0 0 1 36.32 87.59'/><path d='M 30 84.64 A 40 40 0 0 1 24.29 19.36'/><path d='M 30 15.36 A 40 40 0 0 1 89.39 43.05'/></g><polygon points='50,44 56,50 50,56 44,50' fill='%23b8943a'/></svg>" />
 
   <!-- Open Graph + Twitter card -->
   <meta property="og:title" content="Triarc" />
-  <meta property="og:description" content="Swiss-engineered instruments for hospitality. Aurora · Nova · Zenith · Ceres." />
+  <meta property="og:description" content="Instrumente für die Gastronomie — von jemandem, der am Pass stand. Aurora · Nova · Zenith · Ceres." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://triarc.ch/" />
   <meta property="og:site_name" content="Triarc" />
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Triarc" />
-  <meta name="twitter:description" content="Swiss-engineered instruments for hospitality." />
+  <meta name="twitter:description" content="Instrumente für die Gastronomie — von jemandem, der am Pass stand." />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Newsreader:ital,wght@0,300;0,400;1,300;1,400&family=Geist+Mono:wght@300;400&display=swap" rel="stylesheet" />
+
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Triarc",
+    "url": "https://triarc.ch/",
+    "email": "manuel@triarc.ch",
+    "founder": { "@type": "Person", "name": "Manuel Bänziger" },
+    "description": "Digitale Betriebsschicht für die Gastronomie — vier Instrumente für Umsatz, Personal, Hygiene und Küchenplanung.",
+    "address": { "@type": "PostalAddress", "addressLocality": "St. Gallen", "addressCountry": "CH" }
+  }
+  </script>
+
   <style>
     :root {
       --paper: #f7f4ed;
@@ -64,6 +80,10 @@
         var(--paper);
     }
 
+    /* ---- bilingual visibility ---- */
+    body:not(.show-en) .lang-en { display: none; }
+    body.show-en .lang-de { display: none; }
+
     /* Top register — tiny meta caption */
     .meta {
       padding: 28px 40px;
@@ -84,7 +104,20 @@
       background: var(--gold);
       box-shadow: 0 0 8px rgba(184, 148, 58, 0.5);
     }
-    .meta .right { opacity: 0.7; }
+    .meta .right { display: flex; align-items: center; gap: 16px; }
+    .meta .right .year { opacity: 0.7; }
+
+    /* language toggle */
+    .lang-toggle { display: inline-flex; align-items: center; gap: 8px; }
+    .lang-toggle button {
+      background: none; border: 0; padding: 2px 0; cursor: pointer;
+      font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--ink-soft);
+      transition: color 160ms ease;
+    }
+    .lang-toggle button[aria-pressed="true"] { color: var(--gold); border-bottom: 1px solid var(--gold); }
+    .lang-toggle button:hover { color: var(--ink); }
+    .lang-toggle .sep { opacity: 0.4; }
 
     /* Hero composition */
     .stage {
@@ -159,7 +192,7 @@
       max-width: 480px;
     }
 
-    /* Status block — coming soon */
+    /* Status block */
     .status {
       display: flex;
       flex-direction: column;
@@ -239,9 +272,6 @@
       background: var(--gold);
       transform-origin: 0 50%;
     }
-    .peek-trigger .chev::before { transform: translate(-50%, -50%) rotate(45deg); }
-    .peek-trigger .chev::after  { transform: translate(-50%, -50%) rotate(-45deg) translateX(0); margin-left: -6.5px; }
-    /* re-do chev cleanly */
     .peek-trigger .chev::before { transform: rotate(45deg) translate(-2px, -3px); }
     .peek-trigger .chev::after  { transform: rotate(-45deg) translate(-2px, 3px); }
     .peek-trigger:hover { color: var(--gold); gap: 18px; }
@@ -250,7 +280,7 @@
     .peek-trigger[aria-expanded="true"] .label-open { display: none; }
     .peek-trigger[aria-expanded="false"] .label-close { display: none; }
 
-    /* Peek panel — three instruments */
+    /* Peek panel — four instruments */
     .peek-panel {
       width: 100%;
       max-width: 1100px;
@@ -387,59 +417,8 @@
       color: var(--accent);
       border-color: currentColor;
     }
-    .instrument .detail-link {
-      align-self: flex-start;
-      margin-top: 4px;
-      padding: 8px 0 3px;
-      border-bottom: 1px solid var(--accent);
-      font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: 0.24em;
-      text-transform: uppercase;
-      color: var(--ink);
-      text-decoration: none;
-      transition: color 180ms ease, border-color 180ms ease;
-    }
-    .instrument .detail-link:hover {
-      color: var(--accent);
-      border-color: currentColor;
-    }
-    .instrument .detail-link {
-      align-self: flex-start;
-      margin-top: 4px;
-      padding: 8px 0 3px;
-      border-bottom: 1px solid var(--accent);
-      font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: 0.24em;
-      text-transform: uppercase;
-      color: var(--ink);
-      text-decoration: none;
-      transition: color 180ms ease, border-color 180ms ease;
-    }
-    .instrument .detail-link:hover {
-      color: var(--accent);
-      border-color: currentColor;
-    }
-    .instrument .detail-link {
-      align-self: flex-start;
-      margin-top: 4px;
-      padding: 8px 0 3px;
-      border-bottom: 1px solid var(--accent);
-      font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: 0.24em;
-      text-transform: uppercase;
-      color: var(--ink);
-      text-decoration: none;
-      transition: color 180ms ease, border-color 180ms ease;
-    }
-    .instrument .detail-link:hover {
-      color: var(--accent);
-      border-color: currentColor;
-    }
 
-    /* Footer — three product names + meta */
+    /* Footer */
     footer {
       padding: 28px 40px 40px;
       display: flex;
@@ -460,7 +439,6 @@
     }
     .siblings .name {
       transition: color 180ms ease;
-      cursor: default;
     }
     .siblings .name:hover { color: var(--gold); }
     .siblings .sep {
@@ -468,6 +446,21 @@
       height: 1px;
       background: var(--rule);
     }
+    .foot-founder {
+      font-family: var(--mono); font-size: 10px; letter-spacing: 0.24em;
+      text-transform: uppercase; color: var(--ink-soft);
+      border-bottom: 1px solid var(--gold); padding-bottom: 2px;
+      transition: color 180ms ease;
+    }
+    .foot-founder:hover { color: var(--gold); }
+    .foot-legal {
+      display: flex; align-items: center; gap: 12px;
+      font-family: var(--mono); font-size: 9px; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--ink-soft);
+    }
+    .foot-legal a { transition: color 180ms ease; border-bottom: 1px solid var(--gold); padding-bottom: 2px; }
+    .foot-legal a:hover { color: var(--gold); }
+    .foot-legal .sep { opacity: 0.4; border: 0; }
     .copyright {
       font-family: var(--mono);
       font-size: 9px;
@@ -520,7 +513,14 @@
       <span aria-hidden="true">·</span>
       <span>CH</span>
     </div>
-    <div class="right">2026</div>
+    <div class="right">
+      <div class="lang-toggle" role="group" aria-label="Sprache / Language">
+        <button type="button" data-lang="de" aria-pressed="true">DE</button>
+        <span class="sep" aria-hidden="true">/</span>
+        <button type="button" data-lang="en" aria-pressed="false">EN</button>
+      </div>
+      <span class="year">2026</span>
+    </div>
   </header>
 
   <main class="stage">
@@ -549,7 +549,8 @@
       </div>
 
       <p class="tagline">
-        Swiss-engineered instruments<br />for hospitality.
+        <span class="lang-de">Vier Instrumente.<br />Eine Betriebsschicht.</span>
+        <span class="lang-en">Swiss-engineered instruments<br />for hospitality.</span>
       </p>
 
       <div class="status">
@@ -558,83 +559,91 @@
           <span class="seg"></span>
           <span class="seg"></span>
         </div>
-        <span class="label">Coming&nbsp;Soon</span>
+        <span class="label">
+          <span class="lang-de">Im Aufbau · Anfragen offen</span>
+          <span class="lang-en">In build · Open for enquiries</span>
+        </span>
       </div>
 
       <!-- Peek-inside trigger -->
       <button class="peek-trigger" type="button" aria-expanded="false" aria-controls="peek-panel">
-        <span class="label-open">Inspect the instruments</span>
-        <span class="label-close">Close the case</span>
+        <span class="label-open lang-de">Instrumente ansehen</span>
+        <span class="label-open lang-en">Inspect the instruments</span>
+        <span class="label-close lang-de">Schliessen</span>
+        <span class="label-close lang-en">Close the case</span>
         <span class="chev" aria-hidden="true"></span>
       </button>
 
     </section>
 
-    <!-- Peek panel — three instruments -->
+    <!-- Peek panel — four instruments -->
     <section id="peek-panel" class="peek-panel" aria-hidden="true">
       <div class="peek-header">
         <span class="rule" aria-hidden="true"></span>
-        <span class="label">Four instruments</span>
+        <span class="label">
+          <span class="lang-de">Vier Instrumente</span>
+          <span class="lang-en">Four instruments</span>
+        </span>
         <span class="rule" aria-hidden="true"></span>
       </div>
 
-      <p class="peek-lede">Not one application for everyone. Tell us how your house runs — we find the right instrument and shape it around your work. And if none of the four fits, <span class="accent">we build what you need.</span></p>
+      <p class="peek-lede">
+        <span class="lang-de">Keine Lösung für alle. Sagen Sie uns, wie Ihr Haus arbeitet — wir finden das richtige Instrument und richten es auf Sie ein. Und passt keines der vier, <span class="accent">bauen wir, was Sie brauchen.</span></span>
+        <span class="lang-en">Not one application for everyone. Tell us how your house runs — we find the right instrument and shape it around your work. And if none of the four fits, <span class="accent">we build what you need.</span></span>
+      </p>
 
       <div class="instruments">
 
         <article class="instrument" style="--accent: var(--aurora);">
           <div class="accent-rule" aria-hidden="true"></div>
-          <span class="eyebrow"><span class="roman">I</span>Point of sale</span>
+          <span class="eyebrow"><span class="roman">I</span><span class="lang-de">Kasse &amp; Umsatz</span><span class="lang-en">Point of sale</span></span>
           <h2 class="name"><a href="aurora-detail.html">Aurora<span class="stop">.</span></a></h2>
-          <p class="hero">Next-gen revenue &amp; sales POS.</p>
-          <p class="role">The cash register, reimagined.</p>
+          <p class="hero"><span class="lang-de">Kasse, die mitdenkt.</span><span class="lang-en">Next-gen revenue &amp; sales POS.</span></p>
+          <p class="role"><span class="lang-de">Vom Bon bis zum Deckungsbeitrag.</span><span class="lang-en">The cash register, reimagined.</span></p>
           <p class="body">
-            Order, charge, settle. Aurora reads tabs, totals shifts, and closes the till — with the
-            same calm whether the room is empty or six-deep. Built for hospitality first, not
-            adapted from a retail POS.
+            <span class="lang-de">Bestellen, kassieren, abschliessen. Aurora führt Tische, rechnet Schichten ab und schliesst die Kasse — ruhig, ob das Lokal leer ist oder voll. Für die Gastronomie gebaut, nicht aus einer Retail-Kasse abgeleitet.</span>
+            <span class="lang-en">Order, charge, settle. Aurora reads tabs, totals shifts, and closes the till — with the same calm whether the room is empty or six-deep. Built for hospitality first, not adapted from a retail POS.</span>
           </p>
-          <a class="detail-link" href="aurora-detail.html">Read the instrument</a>
+          <a class="detail-link" href="aurora-detail.html"><span class="lang-de">Mehr erfahren</span><span class="lang-en">Read the instrument</span></a>
         </article>
 
         <article class="instrument" style="--accent: var(--nova);">
           <div class="accent-rule" aria-hidden="true"></div>
-          <span class="eyebrow"><span class="roman">II</span>Staffing loop</span>
+          <span class="eyebrow"><span class="roman">II</span><span class="lang-de">Dienstplanung</span><span class="lang-en">Staffing loop</span></span>
           <h2 class="name"><a href="nova-detail.html">Nova<span class="stop">.</span></a></h2>
-          <p class="hero">Every shift in its orbit.</p>
-          <p class="role">The schedule that survives the week.</p>
+          <p class="hero"><span class="lang-de">Der Plan, der sich selbst tauscht.</span><span class="lang-en">Every shift in its orbit.</span></p>
+          <p class="role"><span class="lang-de">Der Plan, der die Woche übersteht.</span><span class="lang-en">The schedule that survives the week.</span></p>
           <p class="body">
-            Shifts, applications, and the daily orchestration of a hospitality team. Conflicts
-            surface before they bite; the calendar holds. For managers who never wanted to be
-            schedulers.
+            <span class="lang-de">Schichten, Bewerbungen und das tägliche Organisieren eines Gastro-Teams. Konflikte zeigen sich, bevor sie zubeissen; der Plan hält. Für alle, die nie Dienstplaner werden wollten.</span>
+            <span class="lang-en">Shifts, applications, and the daily orchestration of a hospitality team. Conflicts surface before they bite; the calendar holds. For managers who never wanted to be schedulers.</span>
           </p>
-          <a class="detail-link" href="nova-detail.html">Read the instrument</a>
+          <a class="detail-link" href="nova-detail.html"><span class="lang-de">Mehr erfahren</span><span class="lang-en">Read the instrument</span></a>
         </article>
 
         <article class="instrument" style="--accent: var(--zenith);">
           <div class="accent-rule" aria-hidden="true"></div>
-          <span class="eyebrow"><span class="roman">III</span>Hygiene &amp; compliance</span>
+          <span class="eyebrow"><span class="roman">III</span><span class="lang-de">Hygiene &amp; HACCP</span><span class="lang-en">Hygiene &amp; compliance</span></span>
           <h2 class="name"><a href="zenith-detail.html">Zenith<span class="stop">.</span></a></h2>
-          <p class="hero">Your kitchen's true north.</p>
-          <p class="role">HACCP logging that doesn't fight you.</p>
+          <p class="hero"><span class="lang-de">Die Kontrolle kommt. Ihr Nachweis ist bereit.</span><span class="lang-en">Your kitchen's true north.</span></p>
+          <p class="role"><span class="lang-de">HACCP-Doku, die nicht gegen Sie arbeitet.</span><span class="lang-en">HACCP logging that doesn't fight you.</span></p>
           <p class="body">
-            Temperatures, cleaning checks, supplier batches — one quiet feed. Audit-ready every
-            day, not the night before the inspector arrives. The paperwork, without the paper.
+            <span class="lang-de">Temperaturen, Reinigungskontrollen, Wareneingänge — ein ruhiger Fluss. Jeden Tag prüfungsbereit, nicht erst am Abend vor der Kontrolle. Die Doku, ohne den Papierkram.</span>
+            <span class="lang-en">Temperatures, cleaning checks, supplier batches — one quiet feed. Audit-ready every day, not the night before the inspector arrives. The paperwork, without the paper.</span>
           </p>
-          <a class="detail-link" href="zenith-detail.html">Read the instrument</a>
+          <a class="detail-link" href="zenith-detail.html"><span class="lang-de">Mehr erfahren</span><span class="lang-en">Read the instrument</span></a>
         </article>
 
         <article class="instrument" style="--accent: var(--ceres);">
           <div class="accent-rule" aria-hidden="true"></div>
-          <span class="eyebrow"><span class="roman">IV</span>Menu &amp; production</span>
+          <span class="eyebrow"><span class="roman">IV</span><span class="lang-de">Menü &amp; Einkauf</span><span class="lang-en">Menu &amp; production</span></span>
           <h2 class="name"><a href="ceres-detail.html">Ceres<span class="stop">.</span></a></h2>
-          <p class="hero">From harvest to plate, planned.</p>
-          <p class="role">The prep list that counts itself.</p>
+          <p class="hero"><span class="lang-de">Plan für 200. Bestellung für genau 200.</span><span class="lang-en">From harvest to plate, planned.</span></p>
+          <p class="role"><span class="lang-de">Die Rechnung vom Plan zur Bestellung.</span><span class="lang-en">The prep list that counts itself.</span></p>
           <p class="body">
-            Menus, recipes, and the maths between them. Set the cover count and Ceres scales every
-            dish, then writes the supplier order itself — nothing over-prepped, nothing over-bought.
-            Planning that ends before the shift starts.
+            <span class="lang-de">Menüs, Rezepte und die Mathematik dazwischen. Pax eintragen — Ceres skaliert jedes Gericht und rechnet die Bestellung pro Lieferant. Nichts zu viel vorbereitet, nichts zu viel bestellt.</span>
+            <span class="lang-en">Menus, recipes, and the maths between them. Set the cover count and Ceres scales every dish, then writes the supplier order itself — nothing over-prepped, nothing over-bought.</span>
           </p>
-          <a class="detail-link" href="ceres-detail.html">Read the instrument</a>
+          <a class="detail-link" href="ceres-detail.html"><span class="lang-de">Mehr erfahren</span><span class="lang-en">Read the instrument</span></a>
         </article>
 
       </div>
@@ -653,22 +662,40 @@
       <a class="name" href="ceres-detail.html">Ceres</a>
       <span class="sep" aria-hidden="true"></span>
     </div>
-    <a class="name" href="gruender.html" style="font-family:var(--mono);font-size:10px;letter-spacing:0.24em;text-transform:uppercase;color:var(--ink-soft);border-bottom:1px solid var(--gold);padding-bottom:2px;transition:color 180ms ease;">Der Gründer →</a>
+    <a class="foot-founder" href="gruender.html"><span class="lang-de">Der Gründer →</span><span class="lang-en">The founder →</span></a>
+    <div class="foot-legal">
+      <a href="impressum.html">Impressum</a>
+      <hr class="sep" aria-hidden="true" style="width:14px;height:1px;background:var(--rule);" />
+      <a href="datenschutz.html">Datenschutz</a>
+    </div>
     <span class="copyright">© Triarc 2026 · St. Gallen · Switzerland</span>
   </footer>
 
   <script>
     (function () {
+      // ---- language toggle ----
+      const buttons = Array.from(document.querySelectorAll('.lang-toggle button'));
+      function setLang(lang) {
+        const en = lang === 'en';
+        document.body.classList.toggle('show-en', en);
+        document.documentElement.lang = lang;
+        buttons.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.lang === lang)));
+        try { localStorage.setItem('triarc-lang', lang); } catch (e) {}
+      }
+      buttons.forEach(b => b.addEventListener('click', () => setLang(b.dataset.lang)));
+      let saved = 'de';
+      try { saved = localStorage.getItem('triarc-lang') || 'de'; } catch (e) {}
+      setLang(saved);
+
+      // ---- peek panel ----
       const trigger = document.querySelector('.peek-trigger');
       const panel   = document.getElementById('peek-panel');
       if (!trigger || !panel) return;
-
       trigger.addEventListener('click', () => {
         const isOpen = panel.classList.toggle('open');
         trigger.setAttribute('aria-expanded', String(isOpen));
         panel.setAttribute('aria-hidden', String(!isOpen));
         if (isOpen) {
-          // gently scroll the panel into view after the animation kicks in
           window.setTimeout(() => {
             panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
           }, 200);
