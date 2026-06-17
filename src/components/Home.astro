@@ -72,7 +72,6 @@ const t = C[lang];
     <button class="peek-trigger" type="button" aria-expanded="false" aria-controls="peek-panel">
       <span class="label-open">{t.inspect}</span>
       <span class="label-close">{t.close}</span>
-      <span class="chev" aria-hidden="true"></span>
     </button>
   </section>
 
@@ -131,16 +130,12 @@ const t = C[lang];
   .pulse span:nth-child(3) { animation-delay: 0.6s; }
   @keyframes pulse { 0%, 100% { opacity: 0.25; transform: scaleX(0.7); } 50% { opacity: 1; transform: scaleX(1); } }
 
-  /* peek trigger */
-  .peek-trigger { margin-top: 4px; background: transparent; border: none; padding: 12px 6px 8px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--ink); cursor: pointer; display: inline-flex; align-items: center; gap: 14px; position: relative; transition: color 200ms ease, gap 220ms ease; }
-  .peek-trigger::after { content: ""; position: absolute; left: 6px; right: 6px; bottom: 0; height: 1px; background: var(--gold); opacity: 0.5; transition: opacity 200ms ease; }
-  .peek-trigger .chev { display: inline-block; width: 12px; height: 12px; position: relative; transition: transform 320ms var(--ease); }
-  .peek-trigger .chev::before, .peek-trigger .chev::after { content: ""; position: absolute; left: 50%; top: 50%; width: 7px; height: 1px; background: var(--gold); }
-  .peek-trigger .chev::before { transform: rotate(45deg) translate(-2px, -3px); }
-  .peek-trigger .chev::after { transform: rotate(-45deg) translate(-2px, 3px); }
-  .peek-trigger:hover { color: var(--gold); gap: 18px; }
-  .peek-trigger:hover::after { opacity: 0.9; }
-  .peek-trigger[aria-expanded="true"] .chev { transform: rotate(180deg); }
+  /* peek trigger — clean, centered, no arrow */
+  .peek-trigger { margin-top: 6px; background: transparent; border: none; padding: 14px 2px 11px; font-family: var(--mono); font-size: 11px; font-weight: 400; letter-spacing: 0.36em; text-indent: 0.36em; text-transform: uppercase; color: var(--ink); cursor: pointer; position: relative; text-align: center; transition: color 240ms ease; }
+  .peek-trigger::after { content: ""; position: absolute; left: 50%; bottom: 0; width: 26px; height: 1px; background: var(--gold); transform: translateX(-50%); opacity: 0.55; transition: width 320ms var(--ease), opacity 240ms ease; }
+  .peek-trigger:hover { color: var(--gold); }
+  .peek-trigger:hover::after { width: calc(100% - 4px); opacity: 0.9; }
+  .peek-trigger[aria-expanded="true"]::after { width: calc(100% - 4px); opacity: 0.8; }
   .peek-trigger[aria-expanded="true"] .label-open { display: none; }
   .peek-trigger[aria-expanded="false"] .label-close { display: none; }
 
@@ -181,6 +176,6 @@ const t = C[lang];
   @media (prefers-reduced-motion: reduce) {
     .pulse span { animation: none; opacity: 0.6; }
     .peek-panel { transition: none; }
-    .peek-trigger .chev { transition: none; }
+    .peek-trigger::after { transition: none; }
   }
 </style>
