@@ -6,6 +6,8 @@ const C = {
   de: {
     tagline: ['Vier Instrumente.', 'Eine Betriebsschicht.'],
     status: 'Im Aufbau · Anfragen offen',
+    inspect: 'Instrumente ansehen',
+    close: 'Schliessen',
     instrumentsLabel: 'Vier Instrumente',
     lede: 'Keine Lösung für alle. Sagen Sie uns, wie Ihr Haus arbeitet — wir finden das richtige Instrument und richten es auf Sie ein. Und passt keines der vier,',
     ledeAccent: 'bauen wir, was Sie brauchen.',
@@ -14,6 +16,8 @@ const C = {
   en: {
     tagline: ['Swiss-engineered instruments', 'for hospitality.'],
     status: 'In build · Open for enquiries',
+    inspect: 'Inspect the instruments',
+    close: 'Close the case',
     instrumentsLabel: 'Four instruments',
     lede: 'Not one application for everyone. Tell us how your house runs — we find the right instrument and shape it around your work. And if none of the four fits,',
     ledeAccent: 'we build what you need.',
@@ -64,19 +68,25 @@ const t = C[lang];
       <div class="pulse" aria-hidden="true"><span></span><span></span><span></span></div>
       <span class="status-label">{t.status}</span>
     </div>
+
+    <button class="peek-trigger" type="button" aria-expanded="false" aria-controls="peek-panel">
+      <span class="label-open">{t.inspect}</span>
+      <span class="label-close">{t.close}</span>
+      <span class="chev" aria-hidden="true"></span>
+    </button>
   </section>
 
-  <section class="instruments-section">
-    <div class="peek-header reveal">
+  <section id="peek-panel" class="peek-panel" aria-hidden="true">
+    <div class="peek-header">
       <span class="rule" aria-hidden="true"></span>
       <span class="label">{t.instrumentsLabel}</span>
       <span class="rule" aria-hidden="true"></span>
     </div>
-    <p class="peek-lede reveal">{t.lede} <span class="accent">{t.ledeAccent}</span></p>
+    <p class="peek-lede">{t.lede} <span class="accent">{t.ledeAccent}</span></p>
 
     <div class="instruments">
       {instruments.map((inst) => (
-        <article class="instrument reveal" style={`--accent:${inst.accent}`}>
+        <article class="instrument" style={`--accent:${inst.accent}`}>
           <div class="accent-rule" aria-hidden="true"></div>
           <span class="eyebrow"><span class="roman">{inst.roman}</span>{inst[lang].eyebrow}</span>
           <h2 class="name"><a href={inst.href}>{inst.name}<span class="stop">.</span></a></h2>
@@ -90,9 +100,24 @@ const t = C[lang];
   </section>
 </main>
 
+<script>
+  const trigger = document.querySelector('.peek-trigger');
+  const panel = document.getElementById('peek-panel');
+  if (trigger && panel) {
+    trigger.addEventListener('click', () => {
+      const open = panel.classList.toggle('open');
+      trigger.setAttribute('aria-expanded', String(open));
+      panel.setAttribute('aria-hidden', String(!open));
+      if (open) {
+        window.setTimeout(() => panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 200);
+      }
+    });
+  }
+</script>
+
 <style>
   .home-stage { display: flex; flex-direction: column; align-items: center; padding: 24px 32px 8px; }
-  .composition { display: flex; flex-direction: column; align-items: center; gap: 32px; max-width: 540px; width: 100%; padding: 16px 0 40px; }
+  .composition { display: flex; flex-direction: column; align-items: center; gap: 32px; max-width: 540px; width: 100%; padding: 16px 0 8px; }
   .wordmark { font-family: var(--sans); font-weight: 400; font-size: clamp(40px, 7vw, 64px); letter-spacing: 0.42em; text-indent: 0.42em; color: var(--ink); line-height: 1; margin: 0; }
   .hairline-row { display: flex; align-items: center; gap: 18px; width: 100%; max-width: 360px; }
   .hairline { flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
@@ -106,14 +131,30 @@ const t = C[lang];
   .pulse span:nth-child(3) { animation-delay: 0.6s; }
   @keyframes pulse { 0%, 100% { opacity: 0.25; transform: scaleX(0.7); } 50% { opacity: 1; transform: scaleX(1); } }
 
-  .instruments-section { width: 100%; max-width: 1100px; margin: 0 auto; padding-bottom: 24px; }
+  /* peek trigger */
+  .peek-trigger { margin-top: 4px; background: transparent; border: none; padding: 12px 6px 8px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--ink); cursor: pointer; display: inline-flex; align-items: center; gap: 14px; position: relative; transition: color 200ms ease, gap 220ms ease; }
+  .peek-trigger::after { content: ""; position: absolute; left: 6px; right: 6px; bottom: 0; height: 1px; background: var(--gold); opacity: 0.5; transition: opacity 200ms ease; }
+  .peek-trigger .chev { display: inline-block; width: 12px; height: 12px; position: relative; transition: transform 320ms var(--ease); }
+  .peek-trigger .chev::before, .peek-trigger .chev::after { content: ""; position: absolute; left: 50%; top: 50%; width: 7px; height: 1px; background: var(--gold); }
+  .peek-trigger .chev::before { transform: rotate(45deg) translate(-2px, -3px); }
+  .peek-trigger .chev::after { transform: rotate(-45deg) translate(-2px, 3px); }
+  .peek-trigger:hover { color: var(--gold); gap: 18px; }
+  .peek-trigger:hover::after { opacity: 0.9; }
+  .peek-trigger[aria-expanded="true"] .chev { transform: rotate(180deg); }
+  .peek-trigger[aria-expanded="true"] .label-open { display: none; }
+  .peek-trigger[aria-expanded="false"] .label-close { display: none; }
+
+  /* peek panel (collapsible instrument case) */
+  .peek-panel { width: 100%; max-width: 1100px; margin: 0 auto; overflow: hidden; max-height: 0; opacity: 0; transition: max-height 520ms var(--ease), opacity 380ms ease, margin-top 420ms ease; }
+  .peek-panel.open { max-height: 2600px; opacity: 1; margin-top: 56px; }
+
   .peek-header { display: flex; align-items: center; gap: 18px; justify-content: center; padding: 0 24px 36px; }
   .peek-header .rule { flex: 1; max-width: 120px; height: 1px; background: var(--rule); }
   .peek-header .label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.36em; text-transform: uppercase; color: var(--ink-soft); }
   .peek-lede { font-family: var(--serif); font-style: italic; font-weight: 300; font-size: clamp(18px, 2.2vw, 25px); line-height: 1.4; text-align: center; color: var(--ink); max-width: 30em; margin: 0 auto 48px; }
   .peek-lede .accent { color: var(--gold); font-style: normal; }
 
-  .instruments { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; padding: 0 24px; }
+  .instruments { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; padding: 0 24px 24px; }
   .instrument { display: flex; flex-direction: column; gap: 14px; }
   .instrument .accent-rule { width: 38px; height: 2px; background: var(--accent); margin-bottom: 4px; }
   .instrument .eyebrow { font-family: var(--mono); font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--ink-soft); }
@@ -128,16 +169,18 @@ const t = C[lang];
   .instrument .detail-link { align-self: flex-start; margin-top: 4px; padding: 8px 0 3px; border-bottom: 1px solid var(--accent); font-family: var(--mono); font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--ink); transition: color 180ms ease; }
   .instrument .detail-link:hover { color: var(--accent); }
 
-  /* stagger the reveal */
-  .instrument:nth-child(2) { transition-delay: 80ms; }
-  .instrument:nth-child(3) { transition-delay: 160ms; }
-  .instrument:nth-child(4) { transition-delay: 240ms; }
-
   @media (max-width: 1080px) { .instruments { grid-template-columns: repeat(2, 1fr); gap: 44px; max-width: 740px; margin: 0 auto; } .instrument .body { max-width: 100%; } }
   @media (max-width: 560px) {
     .home-stage { padding: 16px 22px; }
     .wordmark { letter-spacing: 0.36em; text-indent: 0.36em; }
     .instruments { grid-template-columns: 1fr; max-width: 420px; gap: 48px; }
+    .peek-header { padding: 0 8px 28px; gap: 12px; }
+    .peek-header .rule { max-width: 50px; }
+    .peek-panel.open { margin-top: 40px; }
   }
-  @media (prefers-reduced-motion: reduce) { .pulse span { animation: none; opacity: 0.6; } }
+  @media (prefers-reduced-motion: reduce) {
+    .pulse span { animation: none; opacity: 0.6; }
+    .peek-panel { transition: none; }
+    .peek-trigger .chev { transition: none; }
+  }
 </style>
