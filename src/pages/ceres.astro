@@ -21,7 +21,7 @@ const mailto = "mailto:manuel@triarc.ch?subject=Ceres%20%E2%80%93%20Anfrage&body
       <div>
         <p class="section-kicker">Menüplanung, Produktion &amp; Einkauf</p>
         <p class="role">Plan für 200.<br />Bestellung für genau 200.</p>
-        <p class="status-tag">Status: <b>Frühe Phase · Rechen-Kern live</b></p>
+        <p class="status-tag">Status: <b>Frühe Phase · Kern &amp; Planung live</b></p>
         <p class="hero-intro">Ceres rechnet aus dem Menüplan automatisch die Kochmenge und die Bestellung pro Lieferant — ohne Überproduktion, ohne Rechnen von Hand.</p>
         <div class="btn-row">
           <a class="btn" href={mailto}>Offerte anfragen <span class="arr" aria-hidden="true">→</span></a>
@@ -85,17 +85,17 @@ const mailto = "mailto:manuel@triarc.ch?subject=Ceres%20%E2%80%93%20Anfrage&body
       <div class="block-head">
         <p class="section-kicker">Was vorhanden ist — und was kommt</p>
         <p class="pull">Bewährter Kern. Ehrliche Roadmap.</p>
-        <p class="lede" style="margin-top:18px;">Heute ist der Rechen-Kern live: skalieren und bestellen. Das Ziel ist die durchgehend automatisierte Kette — von der Menü-Erstellung über Planung, Skalierung und Bestellung bis zur Produktion. Schritt für Schritt, ehrlich gekennzeichnet.</p>
+        <p class="lede" style="margin-top:18px;">Heute sind Rechen-Kern und Planung live: Rezepte und Menüs erfassen, skalieren und pro Lieferant bestellen. Das Ziel ist die durchgehend automatisierte Kette — von der Menü-Erstellung über Planung, Skalierung und Bestellung bis zur Produktion. Schritt für Schritt, ehrlich gekennzeichnet.</p>
       </div>
       <div class="cap-grid">
         <div class="cap"><span class="num">01</span><h3>Pax-Skalierung</h3><p>Rezepte werden von der hinterlegten auf die geplante Zahl Couverts skaliert — über den Rezept-Yield, nicht über Faustregeln. Live und getestet.</p></div>
         <div class="cap"><span class="num">02</span><h3>Bestell-Aggregation &amp; Gebinde-Rundung</h3><p>Der Zutatenbedarf wird über alle Rezepte zusammengezählt und erst danach einmal auf die Gebindegrösse aufgerundet. Live und getestet.</p></div>
         <div class="cap"><span class="num">03</span><h3>Gruppierung pro Lieferant &amp; CHF-Kosten</h3><p>Die fertige Bestellung wird nach Lieferant gruppiert und mit den Kosten in CHF versehen — prüfbar Position für Position. Live.</p></div>
         <div class="cap"><span class="num">04</span><h3>Datenmodell</h3><p>Zutaten, Lieferanten, Rezepte und Menüs sind als zusammenhängendes Datenmodell angelegt — die Grundlage für jede Berechnung. Live.</p></div>
-        <div class="cap"><span class="num">05</span><h3>Menüs aus der Rezeptsammlung</h3><p>Aus Ihren erfassten Rezepten neue Menüs zusammenstellen — ein Rezept lässt sich in vielen Menüs wiederverwenden.</p><span class="soon">Im Aufbau</span></div>
+        <div class="cap"><span class="num">05</span><h3>Menüs aus der Rezeptsammlung</h3><p>Aus Ihren erfassten Rezepten neue Menüs zusammenstellen — mit Live-Suche; ein Rezept lässt sich in vielen Menüs wiederverwenden. Live.</p></div>
         <div class="cap"><span class="num">06</span><h3>Automatischer Menü-Vorschlag</h3><p>Ceres schlägt Menüs vor — nach Saison, aktuellen Trends, Kosten und Abwechslung. Planung beginnt nicht mehr beim leeren Blatt.</p><span class="soon">Geplant</span></div>
         <div class="cap"><span class="num">07</span><h3>Rezept-Inspiration aus dem Web</h3><p>Anbindung kuratierter Koch-Seiten, damit frische Rezeptideen direkt in Ihre Sammlung und Menüplanung fliessen.</p><span class="soon">Geplant</span></div>
-        <div class="cap"><span class="num">08</span><h3>Self-Service-Erfassung &amp; Starterbibliothek</h3><p>Oberfläche, um Zutaten, Rezepte und Menüs selbst zu pflegen (CRUD) — inklusive vorbereiteter Rezepte als Startpunkt.</p><span class="soon">Im Aufbau</span></div>
+        <div class="cap"><span class="num">08</span><h3>Self-Service-Erfassung &amp; Starterbibliothek</h3><p>Zutaten, Rezepte, Menüs und Lieferanten pflegen Sie selbst über die Oberfläche — die Self-Service-Erfassung (CRUD) ist live. Eine vorbereitete Starterbibliothek als Startpunkt ist im Aufbau.</p><span class="soon">Starterbibliothek im Aufbau</span></div>
         <div class="cap"><span class="num">09</span><h3>Produktionsübersicht &amp; Mise en place</h3><p>Aus dem Menü entstehen Produktionslisten und Mise-en-place pro Station — Posten bereits zugewiesen, in Zenith integriert. Kein handschriftlicher Handover mehr.</p><span class="soon">Geplant</span></div>
         <div class="cap"><span class="num">10</span><h3>Zenith-Sync für Bestellungen</h3><p>Bestellungen aus Ceres fliessen in die Beschaffung von Zenith — ein Lieferanten- und Bestellfluss statt zwei.</p><span class="soon">Geplant (Phase 3)</span></div>
         <div class="cap"><span class="num">11</span><h3>Gästemenükarten</h3><p>Aus dem Menüplan entstehen druckfertige, mehrsprachige Karten und Aushänge für die Gäste.</p><span class="soon">Geplant (Phase 5)</span></div>
@@ -163,7 +163,7 @@ const mailto = "mailto:manuel@triarc.ch?subject=Ceres%20%E2%80%93%20Anfrage&body
 
     <section class="cta-band reveal">
       <h2>Bestellen Sie, was Sie wirklich brauchen.</h2>
-      <p>Ceres ist früh: Der Rechen-Kern steht und ist getestet, die Oberfläche und die Bibliothek entstehen gerade. Wenn Sie zu den ersten Küchen gehören wollen, richten wir Ceres gemeinsam auf Ihre Rezepte und Lieferanten ein und zeigen Ihnen die Rechnung an Ihren eigenen Mengen.</p>
+      <p>Ceres ist früh, aber Kern und Planung stehen: Rezepte und Menüs erfassen, skalieren und pro Lieferant bestellen — live und getestet. Wenn Sie zu den ersten Küchen gehören wollen, richten wir Ceres gemeinsam auf Ihre Rezepte und Lieferanten ein und zeigen Ihnen die Rechnung an Ihren eigenen Mengen.</p>
       <p>Ceres ist in früher Phase — werden Sie eine unserer ersten Pilotküchen und prägen Sie mit, wie das Werkzeug wächst.</p>
       <div class="btn-row" style="justify-content:center"><a class="btn" href={mailto}>Pilotküche werden <span class="arr" aria-hidden="true">→</span></a></div>
       <p class="contact-line">Direkt: <a href="mailto:manuel@triarc.ch">manuel@triarc.ch</a></p>
