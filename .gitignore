@@ -3,6 +3,10 @@
 node_modules
 *.log
 
+# Astro build
+dist/
+.astro/
+
 # Local-only design exploration
 index-v2.html
 index-panorama.html

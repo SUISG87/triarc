@@ -1,0 +1,26 @@
+---
+import Base from '../layouts/Base.astro';
+import Home from '../components/Home.astro';
+
+const jsonld = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Triarc',
+  url: 'https://triarc.ch/',
+  email: 'manuel@triarc.ch',
+  founder: { '@type': 'Person', name: 'Manuel Bänziger' },
+  description: 'Digitale Betriebsschicht für die Gastronomie — vier Instrumente für Umsatz, Personal, Hygiene und Küchenplanung.',
+  address: { '@type': 'PostalAddress', addressLocality: 'St. Gallen', addressCountry: 'CH' },
+};
+---
+<Base
+  title="Triarc — Instrumente für die Gastronomie"
+  description="Triarc baut die digitale Betriebsschicht für die Gastronomie — vier Instrumente für Umsatz, Personal, Hygiene und Küchenplanung. Entwickelt von einem Küchenchef, nicht von einer Software-Firma."
+  lang="de"
+  crumb="CH"
+  altHref="/en/"
+  hreflang={{ de: '/', en: '/en/' }}
+>
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(jsonld)} />
+  <Home lang="de" />
+</Base>

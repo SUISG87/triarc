@@ -1,0 +1,28 @@
+---
+// Top meta register with language + theme toggles.
+// Props: crumb (right-of-Triarc label), lang ('de'|'en'), altHref (other-language URL for this page or null)
+const { crumb = 'CH', lang = 'de', altHref = null } = Astro.props;
+const home = lang === 'en' ? '/en/' : '/';
+---
+<header class="meta">
+  <div class="left">
+    <span class="dot" aria-hidden="true"></span>
+    <a href={home}>Triarc</a>
+    <span aria-hidden="true">·</span>
+    <span>{crumb}</span>
+  </div>
+  <div class="right">
+    {altHref && (
+      <span class="lang-toggle" aria-label="Sprache / Language">
+        <a href={lang === 'de' ? '#' : altHref} aria-current={lang === 'de' ? 'true' : 'false'}>DE</a>
+        <span class="sep" aria-hidden="true">/</span>
+        <a href={lang === 'en' ? '#' : altHref} aria-current={lang === 'en' ? 'true' : 'false'}>EN</a>
+      </span>
+    )}
+    <button class="toggle-btn theme-toggle" type="button" aria-label="Theme wechseln" data-theme-toggle>
+      <span class="moon" aria-hidden="true">☾</span>
+      <span class="sun" aria-hidden="true">☀</span>
+    </button>
+    <span class="year">2026</span>
+  </div>
+</header>
