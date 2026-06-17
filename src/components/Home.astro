@@ -4,7 +4,7 @@ const { lang = 'de' } = Astro.props;
 
 const C = {
   de: {
-    tagline: ['Vier Instrumente.', 'Eine Betriebsschicht.'],
+    tagline: ['Individuell, Schweizer Ingenieurskunst.', 'Instrumente für die Gastronomie.'],
     status: 'Im Aufbau · Anfragen offen',
     inspect: 'Instrumente ansehen',
     close: 'Schliessen',
@@ -14,7 +14,7 @@ const C = {
     more: 'Mehr erfahren',
   },
   en: {
-    tagline: ['Swiss-engineered instruments', 'for hospitality.'],
+    tagline: ['Individual, Swiss-engineered.', 'Instruments for hospitality.'],
     status: 'In build · Open for enquiries',
     inspect: 'Inspect the instruments',
     close: 'Close the case',
@@ -122,7 +122,7 @@ const pre = lang === 'en' ? '/en' : '';
   .hairline-row { display: flex; align-items: center; gap: 18px; width: 100%; max-width: 360px; }
   .hairline { flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
   .est { font-family: var(--mono); font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); white-space: nowrap; }
-  .tagline { font-family: var(--serif); font-weight: 300; font-style: italic; font-size: clamp(20px, 2.6vw, 26px); line-height: 1.35; text-align: center; color: var(--ink); margin: 0; max-width: 480px; }
+  .tagline { font-family: var(--serif); font-weight: 300; font-style: italic; font-size: clamp(20px, 2.6vw, 26px); line-height: 1.35; text-align: center; color: var(--ink); margin: 0; max-width: 600px; }
   .status { display: flex; flex-direction: column; align-items: center; gap: 10px; }
   .status-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--ink-soft); }
   .pulse { display: flex; gap: 6px; align-items: center; }
