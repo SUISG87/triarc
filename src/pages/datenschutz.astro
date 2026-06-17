@@ -1,0 +1,62 @@
+---
+import Base from '../layouts/Base.astro';
+
+const sections = [
+  { n: '01', h: 'Verantwortliche Stelle', body: ['Manuel Bänziger, Triarc, St. Gallen, Schweiz.<br>Kontakt: <a class="link" href="mailto:manuel@triarc.ch">manuel@triarc.ch</a>'] },
+  { n: '02', h: 'Welche Daten wir bearbeiten', body: [
+    'Beim Besuch dieser Website fallen technisch notwendige Daten an, und Sie können uns von sich aus Daten übermitteln:',
+    '<ul><li><strong>Server-Logdaten</strong> — beim Aufruf der Seite werden durch unseren Hosting-Dienstleister (siehe Ziff. 4) automatisch Informationen wie IP-Adresse, Datum/Uhrzeit, abgerufene Seite und Browser-Angaben verarbeitet. Sie dienen ausschliesslich dem sicheren, stabilen Betrieb der Website.</li><li><strong>Kontaktaufnahme</strong> — wenn Sie uns per E-Mail schreiben oder eine Offerte anfragen, bearbeiten wir die von Ihnen angegebenen Daten (Name, E-Mail-Adresse, Angaben zu Ihrem Betrieb, Inhalt Ihrer Nachricht), um Ihre Anfrage zu beantworten.</li></ul>',
+    'Diese Website verwendet <strong>keine eigenen Cookies</strong> und kein Web-Tracking. Es findet keine Profilbildung statt.',
+  ] },
+  { n: '03', h: 'Zweck & Rechtsgrundlage', body: ['Wir bearbeiten Personendaten, um die Website bereitzustellen und abzusichern sowie um Anfragen zu beantworten und Geschäftsbeziehungen anzubahnen. Soweit die DSGVO anwendbar ist, stützt sich die Bearbeitung auf unser berechtigtes Interesse am sicheren Betrieb (Art. 6 Abs. 1 lit. f DSGVO) bzw. auf die Anbahnung oder Erfüllung eines Vertrags (Art. 6 Abs. 1 lit. b DSGVO).'] },
+  { n: '04', h: 'Hosting', body: ['Diese Website wird bei <strong>Vercel Inc.</strong> gehostet. Vercel verarbeitet die unter Ziff. 2 genannten Server-Logdaten als unser Auftragsbearbeiter. Die Auslieferung erfolgt über ein globales Content-Delivery-Netzwerk; dabei kann eine Bearbeitung auf Servern ausserhalb der Schweiz und der EU (u. a. in den USA) erfolgen. Entsprechende vertragliche Garantien zum Datenschutz liegen vor.'] },
+  { n: '05', h: 'Schriftarten (Google Fonts)', body: ['Zur einheitlichen Darstellung lädt diese Website Schriftarten von <strong>Google Fonts</strong> (Google Ireland Ltd.) nach. Dabei wird Ihre IP-Adresse an Google übermittelt. Es werden hierfür keine Cookies gesetzt.'] },
+  { n: '06', h: 'Weitergabe an Dritte', body: ['Wir verkaufen keine Personendaten. Eine Weitergabe erfolgt nur an die zur Bereitstellung der Website eingesetzten Dienstleister (Ziff. 4 und 5), an gesetzlich Berechtigte oder mit Ihrer Einwilligung.'] },
+  { n: '07', h: 'Aufbewahrung', body: ['Wir bewahren Personendaten nur so lange auf, wie es für die genannten Zwecke oder aufgrund gesetzlicher Pflichten erforderlich ist. Anfragen per E-Mail werden gelöscht, sobald sie nicht mehr benötigt werden und keine Aufbewahrungspflicht entgegensteht.'] },
+  { n: '08', h: 'Ihre Rechte', body: [
+    'Sie haben im Rahmen des anwendbaren Rechts insbesondere das Recht auf:',
+    '<ul><li>Auskunft über die zu Ihnen bearbeiteten Daten</li><li>Berichtigung unrichtiger Daten</li><li>Löschung oder Einschränkung der Bearbeitung</li><li>Datenherausgabe bzw. -übertragung</li><li>Widerspruch gegen bestimmte Bearbeitungen</li></ul>',
+    'Zur Ausübung genügt eine Nachricht an <a class="link" href="mailto:manuel@triarc.ch">manuel@triarc.ch</a>. Sie können sich zudem bei der zuständigen Aufsichtsbehörde beschweren — in der Schweiz beim Eidgenössischen Datenschutz- und Öffentlichkeitsbeauftragten (EDÖB).',
+  ] },
+  { n: '09', h: 'Änderungen', body: ['Wir passen diese Datenschutzerklärung an, wenn sich unsere Website oder die Rechtslage ändert. Es gilt jeweils die hier veröffentlichte Fassung.', '<span class="updated">Stand: Juni 2026</span>'] },
+];
+---
+<Base
+  title="Datenschutzerklärung | Triarc"
+  description="Datenschutzerklärung von Triarc — wie wir mit Personendaten umgehen. revDSG- und DSGVO-konform, ohne Tracking."
+  lang="de"
+  crumb="Datenschutz"
+>
+  <main class="legal">
+    <p class="eyebrow">Rechtliches</p>
+    <h1>Datenschutz&shy;erklärung<span class="stop">.</span></h1>
+    <p class="lede">Wir bearbeiten Personendaten sparsam und nachvollziehbar — im Einklang mit dem revidierten Schweizer Datenschutzgesetz (revDSG) und, soweit anwendbar, der EU-Datenschutz-Grundverordnung (DSGVO). Diese Website setzt <strong>keine Tracking- oder Analyse-Tools und keine Werbe-Cookies</strong> ein.</p>
+
+    {sections.map((s) => (
+      <section class="lblock">
+        <h2><span class="num">{s.n}</span>{s.h}</h2>
+        {s.body.map((p) => <p set:html={p}></p>)}
+      </section>
+    ))}
+  </main>
+</Base>
+
+<style>
+  .legal { width: min(760px, calc(100% - 56px)); margin: 0 auto; padding: 24px 0; }
+  .eyebrow { font-family: var(--mono); font-size: 10px; letter-spacing: 0.34em; text-transform: uppercase; color: var(--gold); margin: 0 0 16px; }
+  h1 { font-family: var(--serif); font-weight: 300; font-size: clamp(38px, 5.6vw, 64px); line-height: 0.96; letter-spacing: -0.01em; margin: 0 0 8px; }
+  h1 .stop { color: var(--gold); }
+  .lede { font-size: 16.5px; line-height: 1.7; color: var(--ink-soft); max-width: 44rem; margin: 0 0 48px; padding-bottom: 40px; border-bottom: 1px solid var(--rule); }
+  .lede strong { color: var(--ink); font-weight: 500; }
+  .lblock { padding: 0 0 38px; }
+  .lblock h2 { font-family: var(--serif); font-weight: 400; font-size: 22px; line-height: 1.2; margin: 0 0 14px; }
+  .lblock :global(.num) { font-family: var(--mono); font-size: 11px; color: var(--gold); margin-right: 10px; }
+  .lblock p { margin: 0 0 12px; font-size: 15.5px; line-height: 1.75; color: var(--ink); }
+  .lblock :global(ul) { margin: 0 0 12px; padding: 0; list-style: none; display: grid; gap: 9px; }
+  .lblock :global(li) { position: relative; padding-left: 20px; font-size: 15px; line-height: 1.6; color: var(--ink); }
+  .lblock :global(li)::before { content: ""; position: absolute; left: 0; top: 0.6em; width: 5px; height: 5px; background: var(--gold); transform: rotate(45deg); }
+  .lblock :global(strong) { font-weight: 500; }
+  .lblock :global(.link) { border-bottom: 1px solid var(--gold); padding-bottom: 1px; transition: color 180ms ease; }
+  .lblock :global(.link):hover { color: var(--gold); }
+  .lblock :global(.updated) { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-soft); }
+</style>
