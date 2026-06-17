@@ -1,0 +1,171 @@
+---
+import Base from '../layouts/Base.astro';
+import Mark from '../components/Mark.astro';
+import '../styles/detail.css';
+const mailto = "mailto:manuel@triarc.ch?subject=Zenith%20%E2%80%93%20Anfrage&body=Betrieb%3A%0AStandorte%3A%0AHeutiges%20System%3A%0A";
+---
+<Base
+  title="Zenith — HACCP-Selbstkontrolle | Triarc"
+  description="Zenith führt die gesamte HACCP-Selbstkontrolle Ihres Betriebs an einem Ort: Temperaturen, Reinigung, Wareneingang, Inspektionen und Schulungen — jeden Tag erfasst, auf Knopfdruck als kontrollbereiter Nachweis im LMI-010-Format."
+  lang="de"
+  crumb="Zenith"
+>
+  <main class="detail" style="--accent: var(--zenith); --accent-wash: rgba(59,130,246,0.07);">
+    <section class="instrument-hero">
+      <div>
+        <Mark size={76} />
+        <p class="d-eyebrow"><span class="roman">III</span>Hygiene &amp; Selbstkontrolle</p>
+        <h1 class="d-h1">Zenith<span class="stop">.</span></h1>
+      </div>
+      <div>
+        <p class="section-kicker">HACCP-Selbstkontrolle</p>
+        <p class="role">Die Kontrolle kommt.<br />Ihr Nachweis ist einen Klick entfernt.</p>
+        <p class="hero-intro">Zenith führt die gesamte Selbstkontrolle Ihres Betriebs an einem Ort: Temperaturen, Reinigung, Wareneingang, Inspektionen und Schulungen. Jeden Tag im Tagesgeschäft erfasst — und auf Knopfdruck als prüfungsfertiger Nachweis im LMI-010-Format.</p>
+        <div class="btn-row">
+          <a class="btn" href={mailto}>Offerte anfragen <span class="arr" aria-hidden="true">→</span></a>
+          <a class="btn-ghost" href="#nachweis">Den Nachweis ansehen</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="trust-strip">
+      <span class="who">Entwickelt von <strong>Manuel Bänziger</strong></span>
+      <span class="items"><span>Executive Chef &amp; F&amp;B-Leader</span><span>International ausgezeichnet</span><span>HACCP Level 4</span><span>HACCP- &amp; ISO-14001-Auditor</span><span>20+ Jahre Gastronomie</span></span>
+      <a class="more" href="/gruender">Die Geschichte →</a>
+    </section>
+
+    <section class="split reveal">
+      <div>
+        <p class="section-kicker">Das Problem</p>
+        <p class="pull">Ein Ordner, der nur am Kontrolltag zählt.</p>
+      </div>
+      <div>
+        <p class="body">Die meisten Küchen führen ihre Selbstkontrolle auf Papier — oder sie führen sie gar nicht. Listen werden nachträglich ausgefüllt, Temperaturen geschätzt, fehlende Einträge fallen erst auf, wenn die Lebensmittelkontrolle vor der Tür steht.</p>
+        <p class="body">Das kostet Zeit im Service, Nerven beim Chef und im schlechtesten Fall die Note im Kontrollbericht. <strong>Der Aufwand ist real, der Nachweis am Ende trotzdem lückenhaft.</strong></p>
+        <p class="body">Zenith dreht das um: Die Dokumentation entsteht dort, wo gearbeitet wird, und ist jeden einzelnen Tag vollständig — nicht erst in der Nacht vor dem Besuch.</p>
+        <p class="body">Die meisten HACCP-Apps sind digitale Formulare. Zenith liefert den prüfungsfertigen Nachweis — entwickelt von einem Küchenchef mit HACCP Level 4.</p>
+      </div>
+    </section>
+
+    <section class="block reveal">
+      <div class="block-head">
+        <p class="section-kicker">Was sich ändert</p>
+        <p class="pull">Vier Dinge, die Sie ab Tag eins spüren.</p>
+      </div>
+      <div class="outcomes">
+        <article class="outcome"><div class="accent-rule"></div><h3>Jeden Tag kontrollbereit</h3><p>Jede Temperatur, jede Reinigung, jede Schulung wird im Moment erfasst. Der Nachweis wächst im Tagesgeschäft — fertig, bevor der Inspektor klingelt.</p></article>
+        <article class="outcome"><div class="accent-rule"></div><h3>Weniger Aufwand, nicht mehr</h3><p>Erfassen am Tablet oder Handy in Sekunden. Überfällige Aufgaben tragen sich selbst vor — niemand muss eine Liste suchen oder nachts nachtragen.</p></article>
+        <article class="outcome"><div class="accent-rule"></div><h3>Lückenlose Nachweise</h3><p>Verpasste Aufgaben, geschlossene Tage und Korrekturmassnahmen bleiben sichtbar und dokumentiert — statt im Papier zu verschwinden.</p></article>
+        <article class="outcome"><div class="accent-rule"></div><h3>Verantwortung sichtbar</h3><p>Jeder Eintrag trägt Namen und Schicht. Im Ernstfall ist nachvollziehbar, wer was wann kontrolliert hat — sauber für Sie, glaubwürdig für die Behörde.</p></article>
+      </div>
+    </section>
+
+    <section class="nachweis reveal" id="nachweis">
+      <div>
+        <p class="section-kicker">Der Nachweis</p>
+        <h2>Ein Klick. Der ganze Kontrollbericht.</h2>
+        <p>Auf Knopfdruck erzeugt Zenith den <strong>Selbstkontroll-Nachweis</strong> als A4-PDF, ausgerichtet am Format der St. Galler Lebensmittelkontrolle (LMI&nbsp;010). Abweichungen und nicht erledigte Aufgaben sind rot markiert, jede Korrekturmassnahme ist hinterlegt. Frei wählbarer Zeitraum — vom einzelnen Tag bis zum ganzen Jahr.</p>
+      </div>
+      <div>
+        <ul class="doc-list">
+          <p class="lbl">Im Nachweis enthalten</p>
+          <li>Temperaturkontrollen mit Soll-Bereich &amp; Abweichungen</li>
+          <li>Reinigung &amp; Schichtaufgaben mit Bestätigung</li>
+          <li>Verpasste Aufgaben &amp; verantwortliche Schicht</li>
+          <li>Inspektionen mit Befund &amp; Massnahme</li>
+          <li>Wareneingang mit Temperatur &amp; Annahme</li>
+          <li>Personalschulungen (LMI&nbsp;018)</li>
+          <li>Betriebsferien &amp; Schliessungen</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="block reveal">
+      <div class="block-head">
+        <p class="section-kicker">Was alles möglich ist</p>
+        <p class="pull">Die ganze Selbstkontrolle in einem System.</p>
+      </div>
+      <div class="cap-grid">
+        <div class="cap"><span class="num">01</span><h3>Temperaturkontrollen</h3><p>Pro Kühl-, Tiefkühl- und Frischegerät mit eigenem Soll-Bereich (LMI&nbsp;010), automatischer Abweichungs-Erkennung und geführter Korrekturmassnahme.</p></div>
+        <div class="cap"><span class="num">02</span><h3>Reinigung &amp; Schichtaufgaben</h3><p>Geplante Aufgaben mit mehreren Zeitfenstern, Bestätigung pro Mitarbeitende und automatischem Vortrag, sobald etwas überfällig wird.</p></div>
+        <div class="cap"><span class="num">03</span><h3>Wareneingang &amp; Rückverfolgbarkeit</h3><p>Lieferkontrolle mit Temperatur, Zustand, Lieferant und Annahme- oder Ablehnungsentscheid — inklusive Korrekturmassnahme bei Mängeln.</p></div>
+        <div class="cap"><span class="num">04</span><h3>Inspektionen</h3><p>Tägliche Selbstkontroll-Rundgänge mit Foto, Pass/Fail-Bewertung und direkt verknüpften Korrekturmassnahmen.</p></div>
+        <div class="cap"><span class="num">05</span><h3>Personalschulungen</h3><p>Dokumentierte Hygieneschulungen (LMI&nbsp;018, 7-Punkt) mit Bestätigung pro Person — der Schulungsnachweis schreibt sich mit.</p></div>
+        <div class="cap"><span class="num">06</span><h3>Bestellungen</h3><p>Lieferanten- und Produktkatalog; Bestellungen werden pro Lieferant gruppiert und direkt per E-Mail verschickt.</p></div>
+        <div class="cap"><span class="num">07</span><h3>Zugang per PIN</h3><p>Serverseitig geprüfter PIN-Login, getrennt für Leitung und Mitarbeitende. Kein geteiltes Passwort, keine Zettel an der Pinnwand.</p></div>
+        <div class="cap"><span class="num">08</span><h3>Automatische Temperaturmessung</h3><p>Optionale Funkfühler erfassen Temperaturen rund um die Uhr und melden Abweichungen selbständig — ganz ohne manuelles Ablesen.</p><span class="soon">In Entwicklung</span></div>
+      </div>
+    </section>
+
+    <section class="block reveal">
+      <p class="section-kicker">Für wen</p>
+      <div class="audience-grid">
+        <div class="aud"><span class="ic">◷</span><h3>Restaurants &amp; Bars</h3><p>Schnelle Erfassung, die den Service nicht ausbremst.</p></div>
+        <div class="aud"><span class="ic">❍</span><h3>Heim- &amp; Pflegeküchen</h3><p>Mehrere Stationen, klare Verantwortung, prüfungssichere Belege.</p></div>
+        <div class="aud"><span class="ic">▤</span><h3>Betriebs- &amp; Personalrestaurants</h3><p>Tägliche Routine und sauberer Nachweis am selben Ort.</p></div>
+        <div class="aud"><span class="ic">✶</span><h3>Catering &amp; Grossküchen</h3><p>Wareneingang und Rückverfolgbarkeit über jeden Standort.</p></div>
+      </div>
+      <p class="audience-note">Zenith ist konfigurierbar: Stationen, Geräte, Soll-Werte und Aufgaben werden auf Ihren Betrieb eingestellt — ohne Sonderprogrammierung und ohne dass Sie sich an ein fremdes System anpassen müssen.</p>
+    </section>
+
+    <section class="block integration reveal">
+      <p class="section-kicker">Teil von Triarc</p>
+      <p class="body">Zenith ist eines von vier Instrumenten von Triarc. Sie teilen eine Designsprache und sind so gebaut, dass sie ineinandergreifen — Daten einmal erfassen, mehrfach nutzen. Schritt für Schritt verbinden sich die Instrumente zu einer durchgängigen Betriebsschicht:</p>
+      <div class="wiring">
+        <div class="wire"><span class="pair"><b>Zenith</b> → Nova</span><span class="desc">Erledigte Aufgaben belegen Anwesenheit und stützen die Schichtplanung in Nova.</span><span class="tag">Geplant</span></div>
+        <div class="wire"><span class="pair">Ceres → <b>Zenith</b></span><span class="desc">Bestellungen und Lieferantenkatalog wachsen mit der Beschaffung aus Ceres zusammen.</span><span class="tag">Geplant</span></div>
+        <div class="wire"><span class="pair">Aurora · Nova · Ceres</span><span class="desc">Gemeinsame Designsprache und ein Login-Gedanke über alle vier Instrumente hinweg.</span><span class="tag">Architektur</span></div>
+      </div>
+    </section>
+
+    <section class="block reveal">
+      <p class="section-kicker">Warum Zenith</p>
+      <p class="founder-line">Zenith stammt von einem Küchenchef mit HACCP Level 4 — zusätzlich HACCP- und ISO-14001-Auditor, SHIPSAN-zertifiziert und USPH-geschult —, der das WEF-Catering in Davos unter ISO 9001/14001 verantwortet und am Waldhaus Flims die Hygiene- und Einkaufssysteme digitalisiert hat. Gelebte Hygiene-Praxis — in Software gegossen. <a href="/gruender">Die ganze Geschichte →</a></p>
+      <div class="why-grid">
+        <div class="why"><div class="accent-rule"></div><h3>Schweizer Standard</h3><p>Am Format der kantonalen Lebensmittelkontrolle ausgerichtet (LMI&nbsp;010 / 018).</p></div>
+        <div class="why"><div class="accent-rule"></div><h3>Täglich nützlich</h3><p>Hilft im Tagesgeschäft — nicht nur am Kontrolltag.</p></div>
+        <div class="why"><div class="accent-rule"></div><h3>Auf Ihren Betrieb eingestellt</h3><p>Konfigurierbar pro Küche, ohne teure Sonderlösung.</p></div>
+        <div class="why"><div class="accent-rule"></div><h3>Kein Papier mehr</h3><p>Kein verlorener Ordner, keine nachträglich ausgefüllten Listen.</p></div>
+      </div>
+    </section>
+
+    <section class="split reveal">
+      <div>
+        <p class="section-kicker">Massgeschneidert</p>
+        <p class="pull">Keine Lösung von der Stange.</p>
+      </div>
+      <div>
+        <p class="body">Erzählen Sie uns, wie Ihre Küche wirklich arbeitet. Gemeinsam finden wir das richtige Instrument — und richten es auf Ihre Stationen, Geräte und Eigenheiten ein. Keine Software, in die Sie sich hineinzwängen, sondern eine, die sich Ihrem Betrieb anpasst.</p>
+        <p class="body">Fehlt Ihnen etwas, das keines unserer Instrumente abdeckt? Sagen Sie es uns — wir entwickeln rund um Ihren Bedarf, statt eine Lösung für alle zu verkaufen.</p>
+      </div>
+    </section>
+
+    <section class="block reveal">
+      <p class="section-kicker">Einführung</p>
+      <p class="pull">So läuft die Einführung ab.</p>
+      <div class="steps">
+        <div class="step"><span class="n">1</span><h3>Gespräch</h3><p>Sie zeigen uns, wie Ihre Küche arbeitet — Stationen, Geräte, heutige Dokumentation.</p></div>
+        <div class="step"><span class="n">2</span><h3>Einrichtung</h3><p>Wir konfigurieren Stationen, Geräte und Soll-Werte auf Ihre Küche.</p></div>
+        <div class="step"><span class="n">3</span><h3>Start</h3><p>Sie dokumentieren ab Tag eins kontrollbereit, wir begleiten die ersten Wochen.</p></div>
+      </div>
+      <div class="assurance">
+        <span>Schweizer Datenschutz — Daten in CH/EU, revDSG- &amp; DSGVO-konform</span>
+        <span>Kein Knebelvertrag, monatlich kündbar</span>
+        <span>Ihre Nachweise jederzeit als PDF exportierbar</span>
+        <span>Einrichtung begleiten wir persönlich</span>
+      </div>
+    </section>
+
+    <section class="cta-band reveal">
+      <h2>Bereit, den Ordner zu schliessen?</h2>
+      <p>Sagen Sie uns, wie Ihre Küche arbeitet — wir richten Zenith auf Ihren Betrieb ein und zeigen Ihnen den Nachweis an Ihren eigenen Abläufen.</p>
+      <div class="btn-row" style="justify-content:center"><a class="btn" href={mailto}>Offerte anfragen <span class="arr" aria-hidden="true">→</span></a></div>
+      <p class="contact-line">Direkt: <a href="mailto:manuel@triarc.ch">manuel@triarc.ch</a></p>
+    </section>
+
+    <nav class="instrument-nav" aria-label="Triarc Instrumente">
+      <a href="/">← Übersicht</a>
+      <div class="links"><a href="/aurora">Aurora</a><a href="/nova">Nova</a><a href="/zenith" aria-current="page">Zenith</a><a href="/ceres">Ceres</a></div>
+    </nav>
+  </main>
+</Base>

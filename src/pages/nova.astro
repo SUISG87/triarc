@@ -1,0 +1,170 @@
+---
+import Base from '../layouts/Base.astro';
+import Mark from '../components/Mark.astro';
+import '../styles/detail.css';
+const mailto = "mailto:manuel@triarc.ch?subject=Nova%20%E2%80%93%20Anfrage&body=Betrieb%3A%0AStandorte%3A%0AHeutiges%20System%3A%0A";
+---
+<Base
+  title="Nova — Dienstplanung | Triarc"
+  description="Nova plant Schichten ohne Doppelbuchungen und überlässt das Tauschen dem Team — mobil, in Echtzeit. Vorlagen, Massengenerator, Schichtmarkt mit Admin-Freigabe und persönlicher iCal-Feed."
+  lang="de"
+  crumb="Nova"
+>
+  <main class="detail" style="--accent: var(--nova); --accent-wash: rgba(34,211,238,0.10);">
+    <section class="instrument-hero">
+      <div>
+        <Mark size={76} />
+        <p class="d-eyebrow"><span class="roman">II</span>Dienstplanung</p>
+        <h1 class="d-h1">Nova<span class="stop">.</span></h1>
+      </div>
+      <div>
+        <p class="section-kicker">Dienstplanung</p>
+        <p class="role">Der Dienstplan,<br />der sich selbst tauscht.</p>
+        <p class="hero-intro">Nova plant Schichten ohne Doppelbuchungen und überlässt das Tauschen dem Team — mobil, in Echtzeit.</p>
+        <div class="btn-row">
+          <a class="btn" href={mailto}>Offerte anfragen <span class="arr" aria-hidden="true">→</span></a>
+          <a class="btn-ghost" href="#signature">Den Schichtmarkt ansehen</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="trust-strip">
+      <span class="who">Entwickelt von <strong>Manuel Bänziger</strong></span>
+      <span class="items"><span>Executive Chef &amp; F&amp;B-Leader</span><span>International ausgezeichnet</span><span>20+ Jahre Gastronomie</span></span>
+      <a class="more" href="/gruender">Die Geschichte →</a>
+    </section>
+
+    <section class="split reveal">
+      <div>
+        <p class="section-kicker">Das Problem</p>
+        <p class="pull">Der Dienstplan zerfällt in WhatsApp und Excel.</p>
+      </div>
+      <div>
+        <p class="body">Der Plan steht im Excel, die Änderungen stehen im Gruppenchat. Ständige Tausch-Nachrichten, jemand springt ein, jemand fällt aus — und niemand weiss am Ende verlässlich, wer wann arbeitet.</p>
+        <p class="body">Doppelbuchungen fallen erst auf, wenn zwei Leute gleichzeitig dastehen oder gar niemand. <strong>Jede Änderung läuft über die Leitung</strong> — Sie sind die Vermittlungsstelle für jeden einzelnen Tausch.</p>
+        <p class="body">Nova dreht das um: Der Plan lebt an einem Ort, Konflikte werden im Moment erkannt, und das Team tauscht selbst — sauber abgesichert, ohne dass Sie jede Nachricht weiterleiten müssen.</p>
+        <p class="body">Generische Dienstplan-Tools verwalten Schichten. Nova gibt das Tauschen dem Team zurück — gebaut von jemandem, der selbst Teams unter Druck geplant hat.</p>
+      </div>
+    </section>
+
+    <section class="block reveal">
+      <div class="block-head">
+        <p class="section-kicker">Was sich ändert</p>
+        <p class="pull">Vier Dinge, die Sie ab Tag eins spüren.</p>
+      </div>
+      <div class="outcomes">
+        <article class="outcome"><div class="accent-rule"></div><h3>Planen in Minuten</h3><p>Wiederkehrende Wochen als Vorlage speichern und mit dem Massengenerator in einem Schritt ausrollen — statt jede Schicht von Hand zu setzen.</p></article>
+        <article class="outcome"><div class="accent-rule"></div><h3>Keine Doppelbuchung</h3><p>Die atomare Konflikterkennung prüft jede Zuteilung im Moment. Zwei Schichten zur selben Zeit lassen sich gar nicht erst speichern.</p></article>
+        <article class="outcome"><div class="accent-rule"></div><h3>Tausch ohne Sie als Vermittler</h3><p>Mitarbeitende geben Schichten ab und übernehmen untereinander. Sie geben nur noch frei — statt jede Anfrage selbst zu verhandeln.</p></article>
+        <article class="outcome"><div class="accent-rule"></div><h3>Das Team schaut wirklich rein</h3><p>Eigener Kalender, Push-Hinweise und die Möglichkeit, sich auf offene Schichten zu bewerben — der Plan landet dort, wo das Team ohnehin hinschaut.</p></article>
+      </div>
+    </section>
+
+    <section class="nachweis reveal" id="signature">
+      <div>
+        <p class="section-kicker">Der Schichtmarkt</p>
+        <h2>Tausch ohne Sie als Vermittler.</h2>
+        <p>Mitarbeitende stellen offene Schichten ein oder fragen direkte Tausche untereinander an. Jede Übergabe läuft sauber über die <strong>Admin-Freigabe</strong> — und greift atomar in den Plan, sodass nie eine Doppelbuchung entsteht. Sie behalten die Kontrolle, ohne jede Nachricht selbst weiterzuleiten.</p>
+      </div>
+      <div>
+        <ul class="doc-list">
+          <p class="lbl">Schichtmarkt-Funktionen</p>
+          <li>Offene Listings — Schichten zur Übernahme anbieten</li>
+          <li>Direkte Tausch-Anfragen zwischen Mitarbeitenden</li>
+          <li>Admin-Freigabe für jede Übergabe</li>
+          <li>Aktivitätsprotokoll über alle Wechsel</li>
+          <li>Persönlicher iCal-Feed (Apple / Google / Outlook)</li>
+          <li>Web-Push bei Angeboten &amp; Freigaben</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="block reveal">
+      <div class="block-head">
+        <p class="section-kicker">Was alles möglich ist</p>
+        <p class="pull">Die ganze Dienstplanung in einem System.</p>
+      </div>
+      <div class="cap-grid">
+        <div class="cap"><span class="num">01</span><h3>Wochen- &amp; Monatskalender</h3><p>Der gesamte Plan auf einen Blick — pro Woche oder pro Monat, mit Rollen, Standorten und freien Schichten klar sichtbar.</p></div>
+        <div class="cap"><span class="num">02</span><h3>Vorlagen &amp; Massengenerator</h3><p>Typische Wochen als Vorlage speichern und in einem Schritt über einen ganzen Zeitraum ausrollen.</p></div>
+        <div class="cap"><span class="num">03</span><h3>Bewerbungen mit Admin-Freigabe</h3><p>Mitarbeitende bewerben sich auf offene Schichten; die Leitung gibt frei — nichts wird ohne Bestätigung verbindlich.</p></div>
+        <div class="cap"><span class="num">04</span><h3>Atomare Konflikterkennung</h3><p>Überschneidungen werden im Moment der Zuteilung erkannt und verhindert — keine doppelt besetzten Schichten.</p></div>
+        <div class="cap"><span class="num">05</span><h3>Schichtmarkt (offen + direkt)</h3><p>Offene Angebote und direkte Tausche zwischen Mitarbeitenden, jede Übergabe abgesichert durch die Admin-Freigabe.</p></div>
+        <div class="cap"><span class="num">06</span><h3>Anwesenheits-Übersicht</h3><p>Geplante Stunden nach Mitarbeiter, Rolle und Standort — eine Planungssicht, keine Stempeluhr.</p></div>
+        <div class="cap"><span class="num">07</span><h3>PWA mit Offline-Modus</h3><p>Läuft als App auf dem Handy, funktioniert auch offline und meldet sich per Web-Push bei Änderungen.</p></div>
+        <div class="cap"><span class="num">08</span><h3>Persönlicher iCal-Feed</h3><p>Jede Person abonniert ihre Schichten direkt im eigenen Kalender — Apple, Google oder Outlook.</p></div>
+      </div>
+    </section>
+
+    <section class="block reveal">
+      <p class="section-kicker">Für wen</p>
+      <div class="audience-grid">
+        <div class="aud"><span class="ic">◷</span><h3>Bars</h3><p>Wechselnde Abende und Aushilfen sauber im Plan statt im Gruppenchat.</p></div>
+        <div class="aud"><span class="ic">❍</span><h3>Restaurants</h3><p>Service und Küche an einem Plan, Tausche ohne Umwege über die Leitung.</p></div>
+        <div class="aud"><span class="ic">▤</span><h3>Kleine Gastro-Gruppen</h3><p>Mehrere Standorte und Rollen unter einer Leitung, an einem Ort geplant.</p></div>
+        <div class="aud"><span class="ic">✶</span><h3>Betriebe mit wechselndem Personal</h3><p>Aushilfen, Springer und Saison — der Plan bleibt verlässlich, egal wer einspringt.</p></div>
+      </div>
+      <p class="audience-note">Mehrere Standorte und Rollen unter einer Leitung — Nova hält den Überblick, auch wenn das Team über Häuser und Schichten verteilt ist.</p>
+    </section>
+
+    <section class="block integration reveal">
+      <p class="section-kicker">Teil von Triarc</p>
+      <p class="body">Nova ist eines von vier Instrumenten von Triarc. Sie teilen eine Designsprache und sind so gebaut, dass sie ineinandergreifen — Daten einmal erfassen, mehrfach nutzen. Schritt für Schritt verbinden sich die Instrumente zu einer durchgängigen Betriebsschicht:</p>
+      <div class="wiring">
+        <div class="wire"><span class="pair">Aurora → <b>Nova</b></span><span class="desc">Geleistete Stunden und Trinkgeld aus Aurora fliessen in die Planung und Auswertung in Nova zurück.</span><span class="tag">Geplant</span></div>
+        <div class="wire"><span class="pair">Zenith → <b>Nova</b></span><span class="desc">Erledigte Aufgaben in Zenith belegen Anwesenheit und stützen die Schichtplanung in Nova.</span><span class="tag">Geplant</span></div>
+        <div class="wire"><span class="pair">Aurora · Zenith · Ceres</span><span class="desc">Gemeinsame Designsprache und ein Login-Gedanke über alle vier Instrumente hinweg.</span><span class="tag">Architektur</span></div>
+      </div>
+    </section>
+
+    <section class="block reveal">
+      <p class="section-kicker">Warum Nova</p>
+      <p class="founder-line">Nova stammt von einem Küchenchef, der 45 Mitarbeitende über 10 Outlets geführt und das WEF-Catering für bis zu 5'000 Personen bestafft hat — er weiss, wie Schichtplanung unter Druck reisst. <a href="/gruender">Die ganze Geschichte →</a></p>
+      <div class="why-grid">
+        <div class="why"><div class="accent-rule"></div><h3>Mobil zuerst</h3><p>Als PWA gebaut — der Plan lebt auf dem Handy, nicht im Büroordner.</p></div>
+        <div class="why"><div class="accent-rule"></div><h3>Vom Operator gebaut</h3><p>Von jemandem, der selbst Dienstpläne unter Druck geführt hat.</p></div>
+        <div class="why"><div class="accent-rule"></div><h3>Echtzeit, keine Doppelbuchung</h3><p>Konflikte werden im Moment erkannt — der Plan bleibt verlässlich.</p></div>
+        <div class="why"><div class="accent-rule"></div><h3>Das Team macht mit</h3><p>Eigener Kalender, Bewerbung auf Schichten, Tausch im Schichtmarkt.</p></div>
+      </div>
+    </section>
+
+    <section class="split reveal">
+      <div>
+        <p class="section-kicker">Massgeschneidert</p>
+        <p class="pull">Keine Lösung von der Stange.</p>
+      </div>
+      <div>
+        <p class="body">Erzählen Sie uns, wie Ihr Betrieb wirklich arbeitet. Gemeinsam finden wir das richtige Instrument — und richten es auf Ihre Standorte, Rollen und Eigenheiten ein. Keine Software, in die Sie sich hineinzwängen, sondern eine, die sich Ihrem Haus anpasst.</p>
+        <p class="body">Fehlt Ihnen etwas, das keines unserer Instrumente abdeckt? Sagen Sie es uns — wir entwickeln rund um Ihren Bedarf, statt eine Lösung für alle zu verkaufen.</p>
+      </div>
+    </section>
+
+    <section class="block reveal">
+      <p class="section-kicker">Einführung</p>
+      <p class="pull">So läuft die Einführung ab.</p>
+      <div class="steps">
+        <div class="step"><span class="n">1</span><h3>Gespräch</h3><p>Sie zeigen uns, wie Ihr Betrieb arbeitet — Standorte, Rollen, heutige Planung.</p></div>
+        <div class="step"><span class="n">2</span><h3>Einrichtung</h3><p>Wir legen Ihre Standorte, Rollen und Schichtvorlagen an.</p></div>
+        <div class="step"><span class="n">3</span><h3>Start</h3><p>Ihr Team plant und tauscht mobil, wir begleiten die ersten Wochen.</p></div>
+      </div>
+      <div class="assurance">
+        <span>Schweizer Datenschutz — Daten in CH/EU, revDSG- &amp; DSGVO-konform</span>
+        <span>Kein Knebelvertrag, monatlich kündbar</span>
+        <span>Ihre Daten jederzeit exportierbar</span>
+        <span>Einrichtung begleiten wir persönlich</span>
+      </div>
+    </section>
+
+    <section class="cta-band reveal">
+      <h2>Geben Sie den Dienstplan an Ihr Team zurück.</h2>
+      <p>Sagen Sie uns, wie Ihr Betrieb plant — wir richten Nova auf Ihre Standorte, Rollen und Schichten ein und zeigen Ihnen den Schichtmarkt an Ihren eigenen Abläufen.</p>
+      <div class="btn-row" style="justify-content:center"><a class="btn" href={mailto}>Offerte anfragen <span class="arr" aria-hidden="true">→</span></a></div>
+      <p class="contact-line">Direkt: <a href="mailto:manuel@triarc.ch">manuel@triarc.ch</a></p>
+    </section>
+
+    <nav class="instrument-nav" aria-label="Triarc Instrumente">
+      <a href="/">← Übersicht</a>
+      <div class="links"><a href="/aurora">Aurora</a><a href="/nova" aria-current="page">Nova</a><a href="/zenith">Zenith</a><a href="/ceres">Ceres</a></div>
+    </nav>
+  </main>
+</Base>

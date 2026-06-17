@@ -1,0 +1,176 @@
+---
+import Base from '../layouts/Base.astro';
+import Mark from '../components/Mark.astro';
+import '../styles/detail.css';
+const mailto = "mailto:manuel@triarc.ch?subject=Ceres%20%E2%80%93%20Anfrage&body=Betrieb%3A%0AStandorte%3A%0AHeutiges%20System%3A%0A";
+---
+<Base
+  title="Ceres — Menüplanung, Produktion & Einkauf | Triarc"
+  description="Ceres rechnet aus dem Menüplan automatisch die Kochmenge und die Bestellung pro Lieferant — ohne Überproduktion, ohne Rechnen von Hand. Bewährter Rechen-Kern, ehrliche Roadmap."
+  lang="de"
+  crumb="Ceres"
+>
+  <main class="detail" style="--accent: var(--ceres); --accent-wash: rgba(180,83,9,0.06);">
+    <section class="instrument-hero">
+      <div>
+        <Mark size={76} />
+        <p class="d-eyebrow"><span class="roman">IV</span>Menüplanung, Produktion &amp; Einkauf</p>
+        <h1 class="d-h1">Ceres<span class="stop">.</span></h1>
+      </div>
+      <div>
+        <p class="section-kicker">Menüplanung, Produktion &amp; Einkauf</p>
+        <p class="role">Plan für 200.<br />Bestellung für genau 200.</p>
+        <p class="status-tag">Status: <b>Frühe Phase · Rechen-Kern live</b></p>
+        <p class="hero-intro">Ceres rechnet aus dem Menüplan automatisch die Kochmenge und die Bestellung pro Lieferant — ohne Überproduktion, ohne Rechnen von Hand.</p>
+        <div class="btn-row">
+          <a class="btn" href={mailto}>Offerte anfragen <span class="arr" aria-hidden="true">→</span></a>
+          <a class="btn-ghost" href="#signature">Die Rechen-Logik ansehen</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="trust-strip">
+      <span class="who">Entwickelt von <strong>Manuel Bänziger</strong></span>
+      <span class="items"><span>Executive Chef &amp; F&amp;B-Leader</span><span>International ausgezeichnet</span><span>20+ Jahre Gastronomie</span></span>
+      <a class="more" href="/gruender">Die Geschichte →</a>
+    </section>
+
+    <section class="split reveal">
+      <div>
+        <p class="section-kicker">Das Problem</p>
+        <p class="pull">Aus dem Bauch bestellt, am Ende zu viel im Kühlhaus.</p>
+      </div>
+      <div>
+        <p class="body">In vielen Mengenküchen entsteht der Einkauf aus Erfahrung und Schätzung. Mengen werden von Hand auf die erwartete Zahl Couverts hochgerechnet, Rezepte im Kopf skaliert, Bestelllisten pro Lieferant einzeln zusammengetragen.</p>
+        <p class="body">Das Ergebnis: <strong>Überproduktion auf dem Teller und Überbestellung im Lager.</strong> Reste wandern in die Tonne, ganze Gebinde liegen ungenutzt, und der Foodcost gerät aus der Kontrolle — ohne dass jemand genau sagen kann, wo.</p>
+        <p class="body">Ceres dreht das um: Aus dem Menüplan und der geplanten Zahl Gäste entsteht die exakte Kochmenge und daraus die Bestellung — gerechnet, nicht geschätzt.</p>
+        <p class="body">Tabellen rechnen, was Sie eingeben. Ceres rechnet, was die Küche wirklich braucht — aus echter Grossküchen-Praxis.</p>
+      </div>
+    </section>
+
+    <section class="block reveal">
+      <div class="block-head">
+        <p class="section-kicker">Was sich ändert</p>
+        <p class="pull">Vier Dinge, die der Rechen-Kern heute leistet.</p>
+      </div>
+      <div class="outcomes">
+        <article class="outcome"><div class="accent-rule"></div><h3>Skaliert auf den Punkt</h3><p>Die Kochmenge entsteht aus den geplanten Couverts und dem Yield jedes Rezepts — für 200 Gäste so präzise wie für 40.</p></article>
+        <article class="outcome"><div class="accent-rule"></div><h3>Bestellung ohne Überkauf</h3><p>Der Bedarf wird über alle Rezepte zusammengezählt und erst am Schluss auf die Gebindegrösse gerundet — statt pro Rezept ein Gebinde zu viel.</p></article>
+        <article class="outcome"><div class="accent-rule"></div><h3>Pro Lieferant, mit CHF-Kosten</h3><p>Die Bestellung ist nach Lieferant gruppiert und die Kosten in CHF errechnet — bereit, um sie zu prüfen und zu versenden.</p></article>
+        <article class="outcome"><div class="accent-rule"></div><h3>Fertig vor der Schicht</h3><p>Die Planung steht, bevor die erste Pfanne auf dem Herd ist — kein Rechnen von Hand zwischen Posten und Service.</p></article>
+      </div>
+    </section>
+
+    <section class="nachweis reveal" id="signature">
+      <div>
+        <p class="section-kicker">Die Rechen-Logik</p>
+        <h2>Die Mathematik, die nicht zu viel bestellt.</h2>
+        <p>Ceres aggregiert <strong>jede Zutat über alle Rezepte</strong> eines Menüplans und rundet erst <strong>danach einmal</strong> auf die Gebindegrösse auf — statt pro Rezept zu runden. Das spart ganze Gebinde: Drei Rezepte, die je 0,4&nbsp;kg Butter brauchen, ergeben 1,2&nbsp;kg und damit ein Päckli — nicht drei.</p>
+        <p>Dieser Rechen-Kern ist <strong>real und getestet</strong> — die Pax-Skalierung und die Bestell-Aggregation laufen und sind mit Tests abgedeckt. Er ist das Fundament, auf dem alles Weitere aufbaut.</p>
+      </div>
+      <div>
+        <ul class="doc-list">
+          <p class="lbl">Was der Kern rechnet</p>
+          <li>Kochmenge je Rezept aus Plan-Couverts &amp; Yield</li>
+          <li>Aggregierter Zutatenbedarf über alle Rezepte</li>
+          <li>Aufrundung auf die Gebindegrösse — einmal, am Schluss</li>
+          <li>Gruppierung der Bestellung pro Lieferant</li>
+          <li>Kostenrechnung in CHF</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="block reveal">
+      <div class="block-head">
+        <p class="section-kicker">Was vorhanden ist — und was kommt</p>
+        <p class="pull">Bewährter Kern. Ehrliche Roadmap.</p>
+        <p class="lede" style="margin-top:18px;">Heute ist der Rechen-Kern live: skalieren und bestellen. Das Ziel ist die durchgehend automatisierte Kette — von der Menü-Erstellung über Planung, Skalierung und Bestellung bis zur Produktion. Schritt für Schritt, ehrlich gekennzeichnet.</p>
+      </div>
+      <div class="cap-grid">
+        <div class="cap"><span class="num">01</span><h3>Pax-Skalierung</h3><p>Rezepte werden von der hinterlegten auf die geplante Zahl Couverts skaliert — über den Rezept-Yield, nicht über Faustregeln. Live und getestet.</p></div>
+        <div class="cap"><span class="num">02</span><h3>Bestell-Aggregation &amp; Gebinde-Rundung</h3><p>Der Zutatenbedarf wird über alle Rezepte zusammengezählt und erst danach einmal auf die Gebindegrösse aufgerundet. Live und getestet.</p></div>
+        <div class="cap"><span class="num">03</span><h3>Gruppierung pro Lieferant &amp; CHF-Kosten</h3><p>Die fertige Bestellung wird nach Lieferant gruppiert und mit den Kosten in CHF versehen — prüfbar Position für Position. Live.</p></div>
+        <div class="cap"><span class="num">04</span><h3>Datenmodell</h3><p>Zutaten, Lieferanten, Rezepte und Menüs sind als zusammenhängendes Datenmodell angelegt — die Grundlage für jede Berechnung. Live.</p></div>
+        <div class="cap"><span class="num">05</span><h3>Menüs aus der Rezeptsammlung</h3><p>Aus Ihren erfassten Rezepten neue Menüs zusammenstellen — ein Rezept lässt sich in vielen Menüs wiederverwenden.</p><span class="soon">Im Aufbau</span></div>
+        <div class="cap"><span class="num">06</span><h3>Automatischer Menü-Vorschlag</h3><p>Ceres schlägt Menüs vor — nach Saison, aktuellen Trends, Kosten und Abwechslung. Planung beginnt nicht mehr beim leeren Blatt.</p><span class="soon">Geplant</span></div>
+        <div class="cap"><span class="num">07</span><h3>Rezept-Inspiration aus dem Web</h3><p>Anbindung kuratierter Koch-Seiten, damit frische Rezeptideen direkt in Ihre Sammlung und Menüplanung fliessen.</p><span class="soon">Geplant</span></div>
+        <div class="cap"><span class="num">08</span><h3>Self-Service-Erfassung &amp; Starterbibliothek</h3><p>Oberfläche, um Zutaten, Rezepte und Menüs selbst zu pflegen (CRUD) — inklusive vorbereiteter Rezepte als Startpunkt.</p><span class="soon">Im Aufbau</span></div>
+        <div class="cap"><span class="num">09</span><h3>Produktionsübersicht &amp; Mise en place</h3><p>Aus dem Menü entstehen Produktionslisten und Mise-en-place pro Station — Posten bereits zugewiesen, in Zenith integriert. Kein handschriftlicher Handover mehr.</p><span class="soon">Geplant</span></div>
+        <div class="cap"><span class="num">10</span><h3>Zenith-Sync für Bestellungen</h3><p>Bestellungen aus Ceres fliessen in die Beschaffung von Zenith — ein Lieferanten- und Bestellfluss statt zwei.</p><span class="soon">Geplant (Phase 3)</span></div>
+        <div class="cap"><span class="num">11</span><h3>Gästemenükarten</h3><p>Aus dem Menüplan entstehen druckfertige, mehrsprachige Karten und Aushänge für die Gäste.</p><span class="soon">Geplant (Phase 5)</span></div>
+      </div>
+    </section>
+
+    <section class="block reveal">
+      <p class="section-kicker">Für wen</p>
+      <div class="audience-grid">
+        <div class="aud"><span class="ic">✶</span><h3>Catering &amp; Grossküchen</h3><p>Wechselnde Gästezahlen, präzise auf jede Veranstaltung gerechnet.</p></div>
+        <div class="aud"><span class="ic">❍</span><h3>Heim- &amp; Pflegeküchen</h3><p>Tägliche Mengen auf feste Bewohnerzahlen, ohne Reste zu produzieren.</p></div>
+        <div class="aud"><span class="ic">▤</span><h3>Betriebs- &amp; Personalrestaurants</h3><p>Planbare Couverts, planbarer Einkauf, kontrollierter Foodcost.</p></div>
+        <div class="aud"><span class="ic">◷</span><h3>Mengenküchen mit Pax-Planung</h3><p>Überall, wo nach Köpfen geplant und für Köpfe eingekauft wird.</p></div>
+      </div>
+      <p class="audience-note">Ceres ist für Küchen gebaut, die nach Couverts planen und einkaufen — wo die Zahl der Gäste den Topf und die Bestellliste bestimmt.</p>
+    </section>
+
+    <section class="block integration reveal">
+      <p class="section-kicker">Teil von Triarc</p>
+      <p class="body">Ceres ist eines von vier Instrumenten von Triarc. Sie teilen eine Designsprache und sind so gedacht, dass sie ineinandergreifen — Daten einmal erfassen, mehrfach nutzen. Vieles davon ist Roadmap, nicht Gegenwart; hier steht ehrlich, was wann kommt:</p>
+      <div class="wiring">
+        <div class="wire"><span class="pair"><b>Ceres</b> → Zenith</span><span class="desc">Bestellungen aus Ceres fliessen in die Beschaffung von Zenith — ein gemeinsamer Lieferanten- und Bestellfluss.</span><span class="tag">Geplant (Phase 3)</span></div>
+        <div class="wire"><span class="pair">Aurora · Nova · Zenith</span><span class="desc">Gemeinsame Designsprache und ein Login-Gedanke über alle vier Instrumente hinweg.</span><span class="tag">Architektur</span></div>
+        <div class="wire"><span class="pair"><b>Ceres</b> → Gast</span><span class="desc">Gästemenükarten aus dem Menüplan als spätere Ausbaustufe — druckfertig für Aushang und Tisch.</span><span class="tag">Geplant (Phase 5)</span></div>
+      </div>
+    </section>
+
+    <section class="block reveal">
+      <p class="section-kicker">Warum Ceres</p>
+      <p class="founder-line">Ceres stammt von einem Küchenchef, der in Grossbetrieben Menü- und Rezept-Engineering betrieben und Einkaufssysteme digitalisiert hat — die Rechen-Logik ist aus echter Küchenpraxis entstanden. <a href="/gruender">Die ganze Geschichte →</a></p>
+      <div class="why-grid">
+        <div class="why"><div class="accent-rule"></div><h3>Bewährter Rechen-Kern</h3><p>Pax-Skalierung und Bestell-Aggregation laufen und sind mit Tests abgedeckt.</p></div>
+        <div class="why"><div class="accent-rule"></div><h3>Vom Küchenchef gebaut</h3><p>Aus echter Mengenküchen-Praxis, nicht am Reissbrett entworfen.</p></div>
+        <div class="why"><div class="accent-rule"></div><h3>Ehrliche Roadmap</h3><p>Was live ist, ist live. Was kommt, ist klar als geplant gekennzeichnet.</p></div>
+        <div class="why"><div class="accent-rule"></div><h3>Schweizer Massküche</h3><p>Rechnet in CHF und plant nach Couverts — auf den hiesigen Betrieb zugeschnitten.</p></div>
+      </div>
+    </section>
+
+    <section class="split reveal">
+      <div>
+        <p class="section-kicker">Massgeschneidert</p>
+        <p class="pull">Keine Lösung von der Stange.</p>
+      </div>
+      <div>
+        <p class="body">Erzählen Sie uns, wie Ihre Küche wirklich plant und einkauft. Gemeinsam finden wir das richtige Instrument — und richten es auf Ihre Rezepte, Lieferanten und Eigenheiten ein. Keine Software, in die Sie sich hineinzwängen, sondern eine, die sich Ihrem Betrieb anpasst.</p>
+        <p class="body">Fehlt Ihnen etwas, das keines unserer Instrumente abdeckt? Sagen Sie es uns — wir entwickeln rund um Ihren Bedarf, statt eine Lösung für alle zu verkaufen.</p>
+      </div>
+    </section>
+
+    <section class="block reveal">
+      <p class="section-kicker">Einführung</p>
+      <p class="pull">So werden Sie Pilotküche.</p>
+      <div class="steps">
+        <div class="step"><span class="n">1</span><h3>Gespräch</h3><p>Sie zeigen uns, wie Ihre Küche plant und einkauft.</p></div>
+        <div class="step"><span class="n">2</span><h3>Einrichtung</h3><p>Wir erfassen Ihre Rezepte, Lieferanten und Gebindegrössen gemeinsam.</p></div>
+        <div class="step"><span class="n">3</span><h3>Start</h3><p>Sie rechnen Pläne und Bestellungen — und prägen mit, wie Ceres wächst.</p></div>
+      </div>
+      <div class="assurance">
+        <span>Schweizer Datenschutz — Daten in CH/EU, revDSG- &amp; DSGVO-konform</span>
+        <span>Kein Knebelvertrag, monatlich kündbar</span>
+        <span>Ihre Daten jederzeit exportierbar</span>
+        <span>Einrichtung begleiten wir persönlich</span>
+      </div>
+    </section>
+
+    <section class="cta-band reveal">
+      <h2>Bestellen Sie, was Sie wirklich brauchen.</h2>
+      <p>Ceres ist früh: Der Rechen-Kern steht und ist getestet, die Oberfläche und die Bibliothek entstehen gerade. Wenn Sie zu den ersten Küchen gehören wollen, richten wir Ceres gemeinsam auf Ihre Rezepte und Lieferanten ein und zeigen Ihnen die Rechnung an Ihren eigenen Mengen.</p>
+      <p>Ceres ist in früher Phase — werden Sie eine unserer ersten Pilotküchen und prägen Sie mit, wie das Werkzeug wächst.</p>
+      <div class="btn-row" style="justify-content:center"><a class="btn" href={mailto}>Pilotküche werden <span class="arr" aria-hidden="true">→</span></a></div>
+      <p class="contact-line">Direkt: <a href="mailto:manuel@triarc.ch">manuel@triarc.ch</a></p>
+    </section>
+
+    <nav class="instrument-nav" aria-label="Triarc Instrumente">
+      <a href="/">← Übersicht</a>
+      <div class="links"><a href="/aurora">Aurora</a><a href="/nova">Nova</a><a href="/zenith">Zenith</a><a href="/ceres" aria-current="page">Ceres</a></div>
+    </nav>
+  </main>
+</Base>
