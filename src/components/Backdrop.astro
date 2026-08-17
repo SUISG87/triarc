@@ -1,0 +1,94 @@
+---
+/*
+  Backdrop — the Alpstein at alpenglow behind the home hero.
+
+  The photograph sits in the same slot the engraved ridge occupied (see
+  Ridge.astro, kept as the line-art alternative): anchored to the floor of the
+  hero, masked so the sky dissolves into the page rather than ending on an
+  edge. Light and dark carry different weight — on paper the frame is held
+  back so only the silhouette reads; on dark the alpenglow is already the
+  brand's gold, so it runs close to full strength.
+*/
+import { Image } from 'astro:assets';
+import alpstein from '../assets/alpstein-saentis.jpg';
+
+const { alt } = Astro.props;
+---
+<div class="backdrop" role="img" aria-label={alt}>
+  <Image
+    src={alpstein}
+    alt=""
+    widths={[900, 1400, 2000, 2400]}
+    sizes="100vw"
+    format="webp"
+    quality={72}
+    loading="eager"
+    fetchpriority="high"
+    decoding="async"
+  />
+</div>
+
+<script>
+  // A slow drift as the hero scrolls away — the horizon lingers.
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const backdrop = document.querySelector('.backdrop img');
+  if (backdrop && !reduce.matches) {
+    let queued = false;
+    const paint = () => {
+      queued = false;
+      backdrop.style.transform = `translate3d(0, ${window.scrollY * 0.07}px, 0)`;
+    };
+    window.addEventListener('scroll', () => {
+      if (!queued) { queued = true; window.requestAnimationFrame(paint); }
+    }, { passive: true });
+    paint();
+  }
+</script>
+
+<style>
+  .backdrop {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 100vw;
+    transform: translateX(-50%);
+    height: clamp(260px, 42vh, 460px);
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+    /* the frame has no edges: it dissolves into the page at both ends, so
+       only the lit ridge survives */
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, transparent 20%, #000 56%, #000 84%, transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0%, transparent 20%, #000 56%, #000 84%, transparent 100%);
+    opacity: 0;
+    animation: backdrop-in 1600ms var(--ease) 260ms forwards;
+  }
+  .backdrop :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 72%;
+    display: block;
+    will-change: transform;
+    /* on paper: hold the frame back and let the silhouette do the work */
+    opacity: 0.30;
+    filter: saturate(0.65) contrast(1.14);
+  }
+
+  @keyframes backdrop-in { to { opacity: 1; } }
+
+  /* on dark the alpenglow is already the brand gold — let it run */
+  :global(:root[data-theme="dark"]) .backdrop :global(img) {
+    opacity: 0.78;
+    filter: saturate(0.92) contrast(1.02);
+  }
+
+  @media (max-width: 640px) {
+    .backdrop { height: clamp(200px, 30vh, 300px); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .backdrop { opacity: 1; animation: none; }
+    .backdrop :global(img) { will-change: auto; }
+  }
+</style>

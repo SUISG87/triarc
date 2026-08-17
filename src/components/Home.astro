@@ -1,12 +1,14 @@
 ---
 import Mark from './Mark.astro';
-import Ridge from './Ridge.astro';
+// Ridge.astro holds the engraved line-art horizon — the alternative to the photograph.
+import Backdrop from './Backdrop.astro';
 const { lang = 'de' } = Astro.props;
 
 const C = {
   de: {
     tagline: ['Individuelle Instrumente für die Gastronomie.', 'Schweizer Ingenieurskunst.'],
     status: 'Im Aufbau · Anfragen offen',
+    backdropAlt: 'Das Alpsteinmassiv mit dem Säntis im Morgenlicht.',
     inspect: 'Instrumente ansehen',
     instrumentsLabel: 'Vier Instrumente',
     lede: 'Keine Lösung für alle. Sagen Sie uns, wie Ihr Haus arbeitet — wir finden das richtige Instrument und richten es auf Sie ein. Und passt keines der vier,',
@@ -16,6 +18,7 @@ const C = {
   en: {
     tagline: ['Individual instruments for hospitality.', 'Swiss-engineered.'],
     status: 'In build · Open for enquiries',
+    backdropAlt: 'The Alpstein massif with the Säntis at first light.',
     inspect: 'Inspect the instruments',
     instrumentsLabel: 'Four instruments',
     lede: 'Not one application for everyone. Tell us how your house runs — we find the right instrument and shape it around your work. And if none of the four fits,',
@@ -56,7 +59,7 @@ const pre = lang === 'en' ? '/en' : '';
 ---
 <main class="home-stage">
   <section class="composition">
-    <Ridge />
+    <Backdrop alt={t.backdropAlt} />
     <div class="composition-inner">
       <Mark size={96} draw={true} />
       <h1 class="wordmark">TRIARC</h1>
@@ -159,8 +162,9 @@ const pre = lang === 'en' ? '/en' : '';
     text-transform: uppercase; color: var(--ink-soft);
     transition: color 240ms ease, opacity 420ms ease, transform 420ms var(--ease);
   }
-  /* soft paper halo so the label stays legible where it crosses the ridge */
-  .cue-label { padding: 8px 26px; background: radial-gradient(ellipse at center, var(--paper) 0%, var(--paper) 45%, transparent 78%); }
+  /* a halo that hugs the glyphs, so the label stays legible over the massif
+     without putting a box on the photograph */
+  .cue-label { text-shadow: 0 0 3px var(--paper), 0 0 8px var(--paper), 0 0 16px var(--paper), 0 0 30px var(--paper); }
   .scroll-cue:hover { color: var(--gold); }
   .scroll-cue.gone { opacity: 0; transform: translateX(-50%) translateY(8px); pointer-events: none; }
   .cue-line { width: 1px; height: 42px; background: linear-gradient(180deg, var(--gold), transparent); opacity: 0.7; transform-origin: top; animation: cue-drop 2.8s var(--ease) infinite; }
