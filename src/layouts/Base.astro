@@ -16,10 +16,12 @@ const {
 
 const site = Astro.site ?? new URL('https://triarc.ch');
 const canonical = new URL(Astro.url.pathname, site).href;
-const favicon = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23f7f4ed'/><g fill='none' stroke='%23b8943a' stroke-width='6' stroke-linecap='round'><path d='M 90 50 A 40 40 0 0 1 36.32 87.59'/><path d='M 30 84.64 A 40 40 0 0 1 24.29 19.36'/><path d='M 30 15.36 A 40 40 0 0 1 89.39 43.05'/></g><polygon points='50,44 56,50 50,56 44,50' fill='%23b8943a'/></svg>";
+// gold arcs on the dark paper, matching the house theme
+const favicon = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%2314120d'/><g fill='none' stroke='%23c8a84b' stroke-width='6' stroke-linecap='round'><path d='M 90 50 A 40 40 0 0 1 36.32 87.59'/><path d='M 30 84.64 A 40 40 0 0 1 24.29 19.36'/><path d='M 30 15.36 A 40 40 0 0 1 89.39 43.05'/></g><polygon points='50,44 56,50 50,56 44,50' fill='%23c8a84b'/></svg>";
 ---
 <!doctype html>
-<html lang={lang}>
+<!-- dark is the house theme: stamped server-side so it also holds without JS -->
+<html lang={lang} data-theme="dark">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -27,8 +29,7 @@ const favicon = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'
   <meta name="description" content={description} />
   <link rel="canonical" href={canonical} />
   <link rel="icon" type="image/svg+xml" href={favicon} />
-  <meta name="theme-color" content="#f7f4ed" media="(prefers-color-scheme: light)" />
-  <meta name="theme-color" content="#14120d" media="(prefers-color-scheme: dark)" />
+  <meta name="theme-color" content="#14120d" />
 
   {hreflang && (
     <>
@@ -66,9 +67,17 @@ const favicon = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'
     (function () {
       document.documentElement.classList.add('js');
       try {
-        var t = localStorage.getItem('triarc-theme');
-        if (!t) t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        // Dark unless the visitor has chosen light — the system preference no
+        // longer decides, because dark is the brand's front door.
+        var t = localStorage.getItem('triarc-theme') || 'dark';
         document.documentElement.setAttribute('data-theme', t);
+        if (t === 'light') {
+          var m = document.createElement('meta');
+          m.setAttribute('name', 'theme-color');
+          m.setAttribute('data-manual', '');
+          m.setAttribute('content', '#f7f4ed');
+          document.head.appendChild(m);
+        }
       } catch (e) {}
     })();
   </script>
