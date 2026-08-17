@@ -1,5 +1,6 @@
 ---
 import Mark from './Mark.astro';
+import Ridge from './Ridge.astro';
 const { lang = 'de' } = Astro.props;
 
 const C = {
@@ -7,7 +8,6 @@ const C = {
     tagline: ['Individuelle Instrumente für die Gastronomie.', 'Schweizer Ingenieurskunst.'],
     status: 'Im Aufbau · Anfragen offen',
     inspect: 'Instrumente ansehen',
-    close: 'Schliessen',
     instrumentsLabel: 'Vier Instrumente',
     lede: 'Keine Lösung für alle. Sagen Sie uns, wie Ihr Haus arbeitet — wir finden das richtige Instrument und richten es auf Sie ein. Und passt keines der vier,',
     ledeAccent: 'bauen wir, was Sie brauchen.',
@@ -17,7 +17,6 @@ const C = {
     tagline: ['Individual instruments for hospitality.', 'Swiss-engineered.'],
     status: 'In build · Open for enquiries',
     inspect: 'Inspect the instruments',
-    close: 'Close the case',
     instrumentsLabel: 'Four instruments',
     lede: 'Not one application for everyone. Tell us how your house runs — we find the right instrument and shape it around your work. And if none of the four fits,',
     ledeAccent: 'we build what you need.',
@@ -57,36 +56,39 @@ const pre = lang === 'en' ? '/en' : '';
 ---
 <main class="home-stage">
   <section class="composition">
-    <Mark size={96} />
-    <h1 class="wordmark">TRIARC</h1>
-    <div class="hairline-row">
-      <span class="hairline" aria-hidden="true"></span>
-      <span class="est">EST · CH · MMXXVI</span>
-      <span class="hairline" aria-hidden="true"></span>
-    </div>
-    <p class="tagline">{t.tagline[0]}<br />{t.tagline[1]}</p>
-    <div class="status">
-      <div class="pulse" aria-hidden="true"><span></span><span></span><span></span></div>
-      <span class="status-label">{t.status}</span>
+    <Ridge />
+    <div class="composition-inner">
+      <Mark size={96} draw={true} />
+      <h1 class="wordmark">TRIARC</h1>
+      <div class="hairline-row">
+        <span class="hairline" aria-hidden="true"></span>
+        <span class="est">EST · CH · MMXXVI</span>
+        <span class="hairline" aria-hidden="true"></span>
+      </div>
+      <p class="tagline">{t.tagline[0]}<br />{t.tagline[1]}</p>
+      <div class="status">
+        <div class="pulse" aria-hidden="true"><span></span><span></span><span></span></div>
+        <span class="status-label">{t.status}</span>
+      </div>
     </div>
 
-    <button class="peek-trigger" type="button" aria-expanded="false" aria-controls="peek-panel">
-      <span class="label-open">{t.inspect}</span>
-      <span class="label-close">{t.close}</span>
-    </button>
+    <a class="scroll-cue" href="#instruments">
+      <span class="cue-label">{t.inspect}</span>
+      <span class="cue-line" aria-hidden="true"></span>
+    </a>
   </section>
 
-  <section id="peek-panel" class="peek-panel" aria-hidden="true">
-    <div class="peek-header">
+  <section id="instruments" class="instrument-case">
+    <div class="peek-header reveal">
       <span class="rule" aria-hidden="true"></span>
       <span class="label">{t.instrumentsLabel}</span>
       <span class="rule" aria-hidden="true"></span>
     </div>
-    <p class="peek-lede">{t.lede} <span class="accent">{t.ledeAccent}</span></p>
+    <p class="peek-lede reveal">{t.lede} <span class="accent">{t.ledeAccent}</span></p>
 
     <div class="instruments">
-      {instruments.map((inst) => (
-        <article class="instrument" style={`--accent:${inst.accent}`}>
+      {instruments.map((inst, i) => (
+        <article class="instrument reveal" style={`--accent:${inst.accent}; --delay:${i * 90}ms`}>
           <div class="accent-rule" aria-hidden="true"></div>
           <span class="eyebrow"><span class="roman">{inst.roman}</span>{inst[lang].eyebrow}</span>
           <h2 class="name"><a href={pre + inst.href}>{inst.name}<span class="stop">.</span></a></h2>
@@ -101,24 +103,40 @@ const pre = lang === 'en' ? '/en' : '';
 </main>
 
 <script>
-  const trigger = document.querySelector('.peek-trigger');
-  const panel = document.getElementById('peek-panel');
-  if (trigger && panel) {
-    trigger.addEventListener('click', () => {
-      const open = panel.classList.toggle('open');
-      trigger.setAttribute('aria-expanded', String(open));
-      panel.setAttribute('aria-hidden', String(!open));
-      if (open) {
-        window.setTimeout(() => panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 200);
-      }
+  // The cue scrolls to the case; it also fades out once the case is in view,
+  // so it never competes with what it pointed at.
+  const cue = document.querySelector('.scroll-cue');
+  const case_ = document.getElementById('instruments');
+  if (cue && case_) {
+    cue.addEventListener('click', (e) => {
+      e.preventDefault();
+      case_.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
+    let queued = false;
+    const sync = () => {
+      queued = false;
+      cue.classList.toggle('gone', window.scrollY > 80);
+    };
+    window.addEventListener('scroll', () => {
+      if (!queued) { queued = true; window.requestAnimationFrame(sync); }
+    }, { passive: true });
+    sync();
   }
 </script>
 
 <style>
-  .home-stage { display: flex; flex-direction: column; align-items: center; padding: 24px 32px 8px; }
-  .composition { display: flex; flex-direction: column; align-items: center; gap: 32px; max-width: 540px; width: 100%; padding: 16px 0 8px; }
-  .wordmark { font-family: var(--sans); font-weight: 400; font-size: clamp(40px, 7vw, 64px); letter-spacing: 0.42em; text-indent: 0.42em; color: var(--ink); line-height: 1; margin: 0; }
+  .home-stage { display: flex; flex-direction: column; align-items: center; padding: 0 32px 8px; }
+
+  /* the hero is a stage: it owns the viewport, with the ridge on its floor */
+  .composition {
+    position: relative;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    width: 100%;
+    min-height: clamp(560px, calc(100svh - 96px), 860px);
+    padding: 24px 0 96px;
+  }
+  .composition-inner { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 32px; max-width: 540px; width: 100%; }
+  .wordmark { font-family: var(--sans); font-weight: 400; font-size: clamp(44px, 8.4vw, 88px); letter-spacing: 0.4em; text-indent: 0.4em; color: var(--ink); line-height: 1; margin: 0; }
   .hairline-row { display: flex; align-items: center; gap: 18px; width: 100%; max-width: 360px; }
   .hairline { flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
   .est { font-family: var(--mono); font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); white-space: nowrap; }
@@ -131,18 +149,26 @@ const pre = lang === 'en' ? '/en' : '';
   .pulse span:nth-child(3) { animation-delay: 0.6s; }
   @keyframes pulse { 0%, 100% { opacity: 0.25; transform: scaleX(0.7); } 50% { opacity: 1; transform: scaleX(1); } }
 
-  /* peek trigger — clean, centered, no arrow */
-  .peek-trigger { margin-top: 6px; background: transparent; border: none; padding: 14px 2px 11px; font-family: var(--mono); font-size: 11px; font-weight: 400; letter-spacing: 0.36em; text-indent: 0.36em; text-transform: uppercase; color: var(--ink); cursor: pointer; position: relative; text-align: center; transition: color 240ms ease; }
-  .peek-trigger::after { content: ""; position: absolute; left: 50%; bottom: 0; width: 26px; height: 1px; background: var(--gold); transform: translateX(-50%); opacity: 0.55; transition: width 320ms var(--ease), opacity 240ms ease; }
-  .peek-trigger:hover { color: var(--gold); }
-  .peek-trigger:hover::after { width: calc(100% - 4px); opacity: 0.9; }
-  .peek-trigger[aria-expanded="true"]::after { width: calc(100% - 4px); opacity: 0.8; }
-  .peek-trigger[aria-expanded="true"] .label-open { display: none; }
-  .peek-trigger[aria-expanded="false"] .label-close { display: none; }
+  /* scroll cue — a hairline dropping toward the case */
+  .scroll-cue {
+    position: absolute; left: 50%; bottom: 26px; transform: translateX(-50%);
+    z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 14px;
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.36em; text-indent: 0.36em;
+    text-transform: uppercase; color: var(--ink-soft);
+    transition: color 240ms ease, opacity 420ms ease, transform 420ms var(--ease);
+  }
+  /* soft paper halo so the label stays legible where it crosses the ridge */
+  .cue-label { padding: 8px 26px; background: radial-gradient(ellipse at center, var(--paper) 0%, var(--paper) 45%, transparent 78%); }
+  .scroll-cue:hover { color: var(--gold); }
+  .scroll-cue.gone { opacity: 0; transform: translateX(-50%) translateY(8px); pointer-events: none; }
+  .cue-line { width: 1px; height: 42px; background: linear-gradient(180deg, var(--gold), transparent); opacity: 0.7; transform-origin: top; animation: cue-drop 2.8s var(--ease) infinite; }
+  @keyframes cue-drop {
+    0%, 100% { transform: scaleY(0.55); opacity: 0.35; }
+    45% { transform: scaleY(1); opacity: 0.9; }
+  }
 
-  /* peek panel (collapsible instrument case) */
-  .peek-panel { width: 100%; max-width: 1100px; margin: 0 auto; overflow: hidden; max-height: 0; opacity: 0; transition: max-height 520ms var(--ease), opacity 380ms ease, margin-top 420ms ease; }
-  .peek-panel.open { max-height: 2600px; opacity: 1; margin-top: 56px; }
+  /* the instrument case */
+  .instrument-case { position: relative; z-index: 1; width: 100%; max-width: 1100px; margin: 0 auto; padding-top: clamp(48px, 8vh, 88px); }
 
   .peek-header { display: flex; align-items: center; gap: 18px; justify-content: center; padding: 0 24px 36px; }
   .peek-header .rule { flex: 1; max-width: 120px; height: 1px; background: var(--rule); }
@@ -151,8 +177,10 @@ const pre = lang === 'en' ? '/en' : '';
   .peek-lede .accent { color: var(--gold); font-style: normal; }
 
   .instruments { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; padding: 0 24px 24px; }
-  .instrument { display: flex; flex-direction: column; gap: 14px; }
-  .instrument .accent-rule { width: 38px; height: 2px; background: var(--accent); margin-bottom: 4px; }
+  .instrument { display: flex; flex-direction: column; gap: 14px; transition: transform 320ms var(--ease); }
+  .instrument:hover { transform: translateY(-3px); }
+  .instrument .accent-rule { width: 38px; height: 2px; background: var(--accent); margin-bottom: 4px; transition: width 420ms var(--ease); }
+  .instrument:hover .accent-rule { width: 100%; }
   .instrument .eyebrow { font-family: var(--mono); font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--ink-soft); }
   .instrument .eyebrow .roman { color: var(--accent); margin-right: 8px; }
   .instrument .hero { font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); line-height: 1.4; margin: -4px 0 0; }
@@ -165,18 +193,24 @@ const pre = lang === 'en' ? '/en' : '';
   .instrument .detail-link { align-self: flex-start; margin-top: 4px; padding: 8px 0 3px; border-bottom: 1px solid var(--accent); font-family: var(--mono); font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--ink); transition: color 180ms ease; }
   .instrument .detail-link:hover { color: var(--accent); }
 
+  /* staggered reveal for the four cards */
+  :global(.js) .instrument.reveal { transition-delay: var(--delay, 0ms); }
+
   @media (max-width: 1080px) { .instruments { grid-template-columns: repeat(2, 1fr); gap: 44px; max-width: 740px; margin: 0 auto; } .instrument .body { max-width: 100%; } }
   @media (max-width: 560px) {
-    .home-stage { padding: 16px 22px; }
-    .wordmark { letter-spacing: 0.36em; text-indent: 0.36em; }
+    .home-stage { padding: 0 22px 16px; }
+    .composition { min-height: clamp(480px, calc(100svh - 80px), 720px); padding-bottom: 80px; }
+    .wordmark { letter-spacing: 0.34em; text-indent: 0.34em; }
+    .scroll-cue { font-size: 10px; letter-spacing: 0.28em; text-indent: 0.28em; bottom: 18px; }
+    .cue-line { height: 30px; }
     .instruments { grid-template-columns: 1fr; max-width: 420px; gap: 48px; }
     .peek-header { padding: 0 8px 28px; gap: 12px; }
     .peek-header .rule { max-width: 50px; }
-    .peek-panel.open { margin-top: 40px; }
   }
   @media (prefers-reduced-motion: reduce) {
     .pulse span { animation: none; opacity: 0.6; }
-    .peek-panel { transition: none; }
-    .peek-trigger::after { transition: none; }
+    .cue-line { animation: none; opacity: 0.7; transform: none; }
+    .scroll-cue, .instrument, .instrument .accent-rule { transition: none; }
+    .instrument:hover { transform: none; }
   }
 </style>
