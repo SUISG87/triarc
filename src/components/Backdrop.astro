@@ -49,17 +49,19 @@ const { alt } = Astro.props;
   .backdrop {
     position: absolute;
     left: 50%;
-    bottom: 0;
+    /* anchored to the wordmark, not to the floor: the massif rises to meet
+       the logo rather than sitting in its own band far below */
+    top: var(--backdrop-top, 45%);
+    height: clamp(210px, 30vh, 320px);
     width: 100vw;
     transform: translateX(-50%);
-    height: clamp(260px, 42vh, 460px);
     z-index: 0;
     pointer-events: none;
     overflow: hidden;
     /* the frame has no edges: it dissolves into the page at both ends, so
        only the lit ridge survives */
-    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, transparent 20%, #000 56%, #000 84%, transparent 100%);
-    mask-image: linear-gradient(to bottom, transparent 0%, transparent 20%, #000 56%, #000 84%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 34%, #000 78%, transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0%, #000 34%, #000 78%, transparent 100%);
     opacity: 0;
     /* kept short: the backdrop is the largest element above the fold, so a
        long fade would land straight in the reported LCP */
@@ -69,7 +71,7 @@ const { alt } = Astro.props;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: 50% 72%;
+    object-position: 50% 30%;
     display: block;
     will-change: transform;
     /* on paper: hold the frame back and let the silhouette do the work */
@@ -86,7 +88,7 @@ const { alt } = Astro.props;
   }
 
   @media (max-width: 640px) {
-    .backdrop { height: clamp(200px, 30vh, 300px); }
+    .backdrop { top: var(--backdrop-top, 52%); }
   }
 
   @media (prefers-reduced-motion: reduce) {

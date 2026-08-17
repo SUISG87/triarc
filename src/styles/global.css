@@ -4,6 +4,9 @@
    ============================================================ */
 
 :root {
+  /* tells the UA to render native chrome (scrollbars, form controls) to match */
+  color-scheme: light;
+
   /* light (paper) — default */
   --paper: #f7f4ed;
   --paper-deep: #ede7d8;
@@ -28,6 +31,7 @@
 }
 
 :root[data-theme="dark"] {
+  color-scheme: dark;
   --paper: #14120d;
   --paper-deep: #1d1a13;
   --ink: #f2ede1;
@@ -45,6 +49,31 @@
 * { box-sizing: border-box; }
 a { color: inherit; text-decoration: none; }
 
+/* one visible focus ring for the whole site — the UA default is invisible
+   against paper, and every interactive element here is custom-styled */
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+  border-radius: 1px;
+}
+
+/* skip link — visible only once focused */
+.skip-link {
+  position: absolute;
+  left: 16px;
+  top: -100px;
+  z-index: 100;
+  padding: 12px 20px;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  transition: top 160ms var(--ease);
+}
+.skip-link:focus { top: 16px; }
+
 html, body {
   margin: 0;
   padding: 0;
@@ -52,6 +81,9 @@ html, body {
   color: var(--ink);
   font-family: var(--sans);
   font-weight: 300;
+  /* no 300ms tap delay, and no default blue flash over the paper */
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: rgba(184, 148, 58, 0.18);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
@@ -104,7 +136,7 @@ body {
 .lang-toggle { display: inline-flex; align-items: center; gap: 8px; }
 .lang-toggle a { color: var(--ink-soft); transition: color 160ms ease; }
 .lang-toggle a:hover { color: var(--ink); }
-.lang-toggle a[aria-current="true"] { color: var(--gold); border-bottom: 1px solid var(--gold); }
+.lang-toggle [aria-current="true"] { color: var(--gold); border-bottom: 1px solid var(--gold); }
 .lang-toggle .sep { opacity: 0.4; }
 .theme-toggle .moon { display: inline; }
 .theme-toggle .sun { display: none; }

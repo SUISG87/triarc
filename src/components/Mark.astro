@@ -8,7 +8,7 @@ const { size = 76, draw = false } = Astro.props;
       <path d="M 30 84.64 A 40 40 0 0 1 24.29 19.36" />
       <path d="M 30 15.36 A 40 40 0 0 1 89.39 43.05" />
     </g>
-    <polygon points="50,46 54,50 50,54 46,50" fill="var(--gold)" />
+    <g class="pivot"><polygon points="50,46 54,50 50,54 46,50" fill="var(--gold)" /></g>
   </svg>
 </div>
 
@@ -18,14 +18,14 @@ const { size = 76, draw = false } = Astro.props;
   .mark.draw path { stroke-dasharray: 92; stroke-dashoffset: 92; animation: arc-draw 1100ms var(--ease) forwards; }
   .mark.draw path:nth-child(2) { animation-delay: 180ms; }
   .mark.draw path:nth-child(3) { animation-delay: 360ms; }
-  .mark.draw polygon { opacity: 0; animation: pivot-in 600ms var(--ease) 1000ms forwards; }
+  /* the transform sits on a <g> wrapper, not the shape itself */
+  .mark.draw .pivot { opacity: 0; transform-origin: 50px 50px; animation: pivot-in 600ms var(--ease) 1000ms forwards; }
 
   @keyframes arc-draw { to { stroke-dashoffset: 0; } }
   @keyframes pivot-in { from { opacity: 0; transform: scale(0.4); } to { opacity: 1; transform: scale(1); } }
-  .mark.draw polygon { transform-origin: 50px 50px; }
 
   @media (prefers-reduced-motion: reduce) {
     .mark.draw path { stroke-dasharray: none; stroke-dashoffset: 0; animation: none; }
-    .mark.draw polygon { opacity: 1; animation: none; }
+    .mark.draw .pivot { opacity: 1; transform: none; animation: none; }
   }
 </style>

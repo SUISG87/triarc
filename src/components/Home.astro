@@ -44,7 +44,7 @@ const instruments = [
     accent: 'var(--zenith)', roman: 'III', href: '/zenith',
     name: 'Zenith',
     de: { eyebrow: 'Hygiene & HACCP', hero: 'Die Kontrolle kommt. Ihr Nachweis ist bereit.', role: 'HACCP-Doku, die nicht gegen Sie arbeitet.', body: 'Temperaturen, Reinigungskontrollen, Wareneingänge — ein ruhiger Fluss. Jeden Tag prüfungsbereit, nicht erst am Abend vor der Kontrolle. Die Doku, ohne den Papierkram.' },
-    en: { eyebrow: 'Hygiene & compliance', hero: "Your kitchen's true north.", role: "HACCP logging that doesn't fight you.", body: 'Temperatures, cleaning checks, supplier batches — one quiet feed. Audit-ready every day, not the night before the inspector arrives. The paperwork, without the paper.' },
+    en: { eyebrow: 'Hygiene & compliance', hero: 'Your kitchen’s true north.', role: 'HACCP logging that doesn’t fight you.', body: 'Temperatures, cleaning checks, supplier batches — one quiet feed. Audit-ready every day, not the night before the inspector arrives. The paperwork, without the paper.' },
   },
   {
     accent: 'var(--ceres)', roman: 'IV', href: '/ceres',
@@ -57,12 +57,12 @@ const instruments = [
 const t = C[lang];
 const pre = lang === 'en' ? '/en' : '';
 ---
-<main class="home-stage">
+<main id="main" class="home-stage">
   <section class="composition">
     <Backdrop alt={t.backdropAlt} />
     <div class="composition-inner">
       <Mark size={96} draw={true} />
-      <h1 class="wordmark">TRIARC</h1>
+      <h1 class="wordmark" translate="no">TRIARC</h1>
       <div class="hairline-row">
         <span class="hairline" aria-hidden="true"></span>
         <span class="est">EST · CH · MMXXVI</span>
@@ -94,7 +94,7 @@ const pre = lang === 'en' ? '/en' : '';
         <article class="instrument reveal" style={`--accent:${inst.accent}; --delay:${i * 90}ms`}>
           <div class="accent-rule" aria-hidden="true"></div>
           <span class="eyebrow"><span class="roman">{inst.roman}</span>{inst[lang].eyebrow}</span>
-          <h2 class="name"><a href={pre + inst.href}>{inst.name}<span class="stop">.</span></a></h2>
+          <h2 class="name"><a href={pre + inst.href}><span translate="no">{inst.name}</span><span class="stop">.</span></a></h2>
           <p class="hero">{inst[lang].hero}</p>
           <p class="role">{inst[lang].role}</p>
           <p class="body">{inst[lang].body}</p>
@@ -130,7 +130,8 @@ const pre = lang === 'en' ? '/en' : '';
 </script>
 
 <style>
-  .home-stage { display: flex; flex-direction: column; align-items: center; padding: 0 32px 8px; }
+  /* the hero runs full-bleed, so respect the notch on landscape iPhones */
+  .home-stage { display: flex; flex-direction: column; align-items: center; padding: 0 max(32px, env(safe-area-inset-left)) 8px max(32px, env(safe-area-inset-right)); }
 
   /* the hero is a stage: it owns the viewport, with the ridge on its floor */
   .composition {
@@ -145,7 +146,11 @@ const pre = lang === 'en' ? '/en' : '';
   .hairline-row { display: flex; align-items: center; gap: 18px; width: 100%; max-width: 360px; }
   .hairline { flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
   .est { font-family: var(--mono); font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); white-space: nowrap; }
-  .tagline { font-family: var(--serif); font-weight: 300; font-style: italic; font-size: clamp(20px, 2.6vw, 26px); line-height: 1.35; text-align: center; color: var(--ink); margin: 0; max-width: 600px; }
+  .tagline { font-family: var(--serif); font-weight: 300; font-style: italic; font-size: clamp(20px, 2.6vw, 26px); line-height: 1.35; text-align: center; text-wrap: balance; color: var(--ink); margin: 0; max-width: 600px; }
+  /* the lockup now sits on the massif — these three lines carry a paper halo
+     so they read over snow in either theme */
+  .est, .status-label { text-shadow: 0 0 4px var(--paper), 0 0 10px var(--paper), 0 0 22px var(--paper); }
+  .tagline { text-shadow: 0 0 6px var(--paper), 0 0 14px var(--paper), 0 0 30px var(--paper), 0 0 50px var(--paper); }
   .status { display: flex; flex-direction: column; align-items: center; gap: 10px; }
   .status-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--ink-soft); }
   .pulse { display: flex; gap: 6px; align-items: center; }
@@ -176,21 +181,23 @@ const pre = lang === 'en' ? '/en' : '';
   }
 
   /* the instrument case */
-  .instrument-case { position: relative; z-index: 1; width: 100%; max-width: 1100px; margin: 0 auto; padding-top: clamp(48px, 8vh, 88px); }
+  .instrument-case { position: relative; z-index: 1; width: 100%; max-width: 1100px; margin: 0 auto; padding-top: clamp(48px, 8vh, 88px); scroll-margin-top: 24px; }
   .instrument-case:focus { outline: none; }
   .instrument-case:focus-visible { outline: 1px solid var(--gold); outline-offset: 12px; }
 
   .peek-header { display: flex; align-items: center; gap: 18px; justify-content: center; padding: 0 24px 36px; }
   .peek-header .rule { flex: 1; max-width: 120px; height: 1px; background: var(--rule); }
   .peek-header .label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.36em; text-transform: uppercase; color: var(--ink-soft); }
-  .peek-lede { font-family: var(--serif); font-style: italic; font-weight: 300; font-size: clamp(18px, 2.2vw, 25px); line-height: 1.4; text-align: center; color: var(--ink); max-width: 30em; margin: 0 auto 48px; }
+  .peek-lede { font-family: var(--serif); font-style: italic; font-weight: 300; font-size: clamp(18px, 2.2vw, 25px); line-height: 1.4; text-align: center; text-wrap: pretty; color: var(--ink); max-width: 30em; margin: 0 auto 48px; }
   .peek-lede .accent { color: var(--gold); font-style: normal; }
 
   .instruments { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; padding: 0 24px 24px; }
   .instrument { display: flex; flex-direction: column; gap: 14px; transition: transform 320ms var(--ease); }
   .instrument:hover { transform: translateY(-3px); }
-  .instrument .accent-rule { width: 38px; height: 2px; background: var(--accent); margin-bottom: 4px; transition: width 420ms var(--ease); }
-  .instrument:hover .accent-rule { width: 100%; }
+  /* the rule extends on hover via transform, not width — width would relayout
+     the card on every frame */
+  .instrument .accent-rule { width: 100%; height: 2px; background: var(--accent); margin-bottom: 4px; transform: scaleX(0.155); transform-origin: left center; transition: transform 420ms var(--ease); }
+  .instrument:hover .accent-rule { transform: scaleX(1); }
   .instrument .eyebrow { font-family: var(--mono); font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--ink-soft); }
   .instrument .eyebrow .roman { color: var(--accent); margin-right: 8px; }
   .instrument .hero { font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); line-height: 1.4; margin: -4px 0 0; }
@@ -208,7 +215,7 @@ const pre = lang === 'en' ? '/en' : '';
 
   @media (max-width: 1080px) { .instruments { grid-template-columns: repeat(2, 1fr); gap: 44px; max-width: 740px; margin: 0 auto; } .instrument .body { max-width: 100%; } }
   @media (max-width: 560px) {
-    .home-stage { padding: 0 22px 16px; }
+    .home-stage { padding: 0 max(22px, env(safe-area-inset-left)) 16px max(22px, env(safe-area-inset-right)); }
     .composition { min-height: clamp(480px, calc(100svh - 80px), 720px); padding-bottom: 80px; }
     .wordmark { letter-spacing: 0.34em; text-indent: 0.34em; }
     .scroll-cue { font-size: 10px; letter-spacing: 0.28em; text-indent: 0.28em; bottom: 18px; }
