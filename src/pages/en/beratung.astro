@@ -47,12 +47,39 @@ const mailto = "mailto:manuel@triarc.ch?subject=Consulting%20%E2%80%93%20confide
       </div>
     </section>
 
+
+    <section class="block reveal" id="check">
+      <div class="block-head">
+        <h2 class="section-kicker">Where does it hurt?</h2>
+        <p class="pull">Tick whatever sounds familiar.</p>
+      </div>
+      <p class="body" style="max-width:44rem; margin:-20px 0 30px;">No form, no address, no newsletter. Whatever you tick lands in a prepared e-mail — sending it is still your decision.</p>
+      <form class="check" id="check-form">
+        <ul class="check-list">
+          <li><label><input type="checkbox" value="Food cost adds up on paper but not in the bank." /><span class="box" aria-hidden="true"></span><span class="txt">Food cost adds up on paper but not in the bank.</span></label></li>
+          <li><label><input type="checkbox" value="The menu has grown; the margin has not." /><span class="box" aria-hidden="true"></span><span class="txt">The menu has grown; the margin has not.</span></label></li>
+          <li><label><input type="checkbox" value="The same argument about the rota, every week." /><span class="box" aria-hidden="true"></span><span class="txt">The same argument about the rota, every week.</span></label></li>
+          <li><label><input type="checkbox" value="Handovers between reception, kitchen and service get lost." /><span class="box" aria-hidden="true"></span><span class="txt">Handovers between reception, kitchen and service get lost.</span></label></li>
+          <li><label><input type="checkbox" value="The team turns over faster than we can train people." /><span class="box" aria-hidden="true"></span><span class="txt">The team turns over faster than we can train people.</span></label></li>
+          <li><label><input type="checkbox" value="A head-of role is open — or about to be." /><span class="box" aria-hidden="true"></span><span class="txt">A head-of role is open — or about to be.</span></label></li>
+          <li><label><input type="checkbox" value="We only know how the month went at the end of it." /><span class="box" aria-hidden="true"></span><span class="txt">We only know how the month went at the end of it.</span></label></li>
+          <li><label><input type="checkbox" value="The systems cost money, but nobody uses them fully." /><span class="box" aria-hidden="true"></span><span class="txt">The systems cost money, but nobody uses them fully.</span></label></li>
+          <li><label><input type="checkbox" value="The hygiene records are written the night before the inspection." /><span class="box" aria-hidden="true"></span><span class="txt">The hygiene records are written the night before the inspection.</span></label></li>
+          <li><label><input type="checkbox" value="The concept no longer fits the guest who actually walks in." /><span class="box" aria-hidden="true"></span><span class="txt">The concept no longer fits the guest who actually walks in.</span></label></li>
+        </ul>
+        <div class="check-foot">
+          <a class="btn" id="check-send" href={mailto} data-subject="Consulting – confidential enquiry" data-intro="This is where it hurts:" data-none="Nothing ticked? Just write what is on your mind.">Prepare the enquiry <span class="arr" aria-hidden="true">→</span></a>
+          <p class="check-note" id="check-count" aria-live="polite">Nothing selected — you can simply write instead.</p>
+        </div>
+      </form>
+    </section>
+
     <section class="block reveal" id="professionals">
       <div class="block-head">
         <h2 class="section-kicker">Who comes to you</h2>
         <p class="pull">Your problem. Exactly the right professional.</p>
       </div>
-      <p class="body" style="max-width:44rem; margin:-20px 0 34px;">You will never get a consultant here who isn’t still working in hospitality themselves. Whoever comes to you had the same problem in their own house last week — we find them in a worldwide network of practitioners, not on a consultants' roster.</p>
+      <p class="body" style="max-width:44rem; margin:-20px 0 34px;">Not a consultant looking in from outside — someone who knows the shift because they still work it. You will never get a consultant here who isn’t still working in hospitality themselves. Whoever comes to you had the same problem in their own house last week — we find them in a worldwide network of practitioners, not on a consultants' roster.</p>
       <div class="cap-grid">
         <div class="cap"><span class="num">01</span><h3>Front office &amp; reception</h3><p>A working front office manager takes on your front desk — arrival, reservations, handovers, and the system work from Opera to the daily shift handover.</p></div>
         <div class="cap"><span class="num">02</span><h3>Kitchen &amp; production</h3><p>An executive chef who still stands in it daily walks your stations, mise en place, menu and costing with you.</p></div>
@@ -114,9 +141,58 @@ const mailto = "mailto:manuel@triarc.ch?subject=Consulting%20%E2%80%93%20confide
   </main>
 </Base>
 
+<script>
+  // The checklist writes the enquiry for you: whatever is ticked becomes the
+  // body of a normal mailto. No form post, no storage, nothing leaves the
+  // page until the visitor sends the mail themselves.
+  const form = document.getElementById('check-form');
+  const send = document.getElementById('check-send');
+  const note = document.getElementById('check-count');
+  if (form && send && note) {
+    const base = send.getAttribute('href');
+    const subject = send.dataset.subject;
+    const intro = send.dataset.intro;
+    const none = send.dataset.none;
+    const emptyNote = note.textContent;
+    const sync = () => {
+      const picked = Array.from(form.querySelectorAll('input:checked')).map((i) => '- ' + i.value);
+      if (!picked.length) {
+        send.setAttribute('href', base);
+        note.textContent = emptyNote;
+        return;
+      }
+      const body = intro + '\n\n' + picked.join('\n') + '\n\nBetrieb:\n';
+      send.setAttribute('href', 'mailto:manuel@triarc.ch?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body));
+      note.textContent = picked.length === 1 ? '1 Punkt ausgewählt' : picked.length + ' Punkte ausgewählt';
+    };
+    form.addEventListener('change', sync);
+    form.addEventListener('submit', (e) => e.preventDefault());
+    sync();
+  }
+</script>
+
+
 <style>
   /* the service names are longer words than Aurora/Nova/Zenith/Ceres,
      so the display size steps down to keep them inside the column */
   .d-h1 { font-size: clamp(40px, 5.8vw, 74px); }
+
+  /* the self-check: ticking is the whole interaction, so the boxes are the
+     only new atom — a hairline square that takes the house diamond */
+  .check-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px; background: var(--rule); border: 1px solid var(--rule); }
+  .check-list li { background: var(--paper); }
+  .check-list label { display: flex; align-items: flex-start; gap: 14px; padding: 18px 22px; cursor: pointer; transition: background 200ms ease; }
+  .check-list label:hover { background: var(--accent-wash); }
+  .check-list input { position: absolute; opacity: 0; width: 0; height: 0; }
+  .check-list .box { flex: none; width: 13px; height: 13px; margin-top: 3px; border: 1px solid var(--rule); position: relative; transition: border-color 200ms ease; }
+  .check-list label:hover .box { border-color: var(--gold); }
+  .check-list .box::after { content: ""; position: absolute; inset: 2px; background: var(--gold); transform: rotate(45deg) scale(0); transition: transform 200ms var(--ease); }
+  .check-list input:checked + .box::after { transform: rotate(45deg) scale(1); }
+  .check-list input:focus-visible + .box { outline: 2px solid var(--gold); outline-offset: 3px; }
+  .check-list .txt { font-size: 14.5px; line-height: 1.6; color: var(--ink); }
+  .check-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 18px 24px; margin-top: 28px; }
+  .check-note { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-soft); margin: 0; }
+  @media (max-width: 820px) { .check-list { grid-template-columns: 1fr; } }
+  @media (prefers-reduced-motion: reduce) { .check-list .box::after, .check-list label { transition: none; } }
 
 </style>
