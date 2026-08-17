@@ -1,10 +1,39 @@
 ---
-const { lang = 'de' } = Astro.props;
+const { lang = 'en' } = Astro.props;
 const pre = lang === 'en' ? '/en' : '';
-const t = lang === 'en'
-  ? { founder: 'The founder', impressum: 'Imprint', privacy: 'Privacy', loc: 'St. Gallen · Switzerland' }
-  : { founder: 'Der Gründer', impressum: 'Impressum', privacy: 'Datenschutz', loc: 'St. Gallen · Schweiz' };
+const en = lang === 'en';
+const t = en
+  ? { label: 'The founders', impressum: 'Imprint', privacy: 'Privacy', loc: 'St. Gallen · Switzerland' }
+  : { label: 'Die Gründer', impressum: 'Impressum', privacy: 'Datenschutz', loc: 'St. Gallen · Schweiz' };
+
+// Both founders, each with the half of the house they come from.
+const founders = [
+  {
+    name: 'Manuel Bänziger',
+    role: en ? 'Executive chef & F&B leader' : 'Executive Chef & F&B-Leader',
+    regions: en ? 'Europe · Middle East · Caribbean · Russia · Asia' : 'Europa · Naher Osten · Karibik · Russland · Asien',
+  },
+  {
+    name: 'Lalaine Bänziger',
+    role: en ? 'Internationally experienced front office manager' : 'International erfahrene Front Office Managerin',
+    regions: en ? 'Europe · Middle East · Asia · Japan' : 'Europa · Naher Osten · Asien · Japan',
+  },
+];
 ---
+<section class="foot-founders" aria-label={t.label}>
+  <p class="ff-label">{t.label}</p>
+  <div class="ff-grid">
+    {founders.map((f) => (
+      <div class="ff-person">
+        <span class="ff-rule" aria-hidden="true"></span>
+        <p class="ff-name">{f.name}</p>
+        <p class="ff-role">{f.role}</p>
+        <p class="ff-regions">{f.regions}<span class="ff-years">{en ? '20+ years' : '20+ Jahre'}</span></p>
+      </div>
+    ))}
+  </div>
+</section>
+
 <footer class="site-foot">
   <span>© Triarc 2026 · {t.loc}</span>
   <span class="links">

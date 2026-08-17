@@ -8,7 +8,10 @@ const jsonld = {
   name: 'Triarc',
   url: 'https://triarc.ch/',
   email: 'manuel@triarc.ch',
-  founder: { '@type': 'Person', name: 'Manuel Bänziger' },
+  founder: [
+    { '@type': 'Person', name: 'Manuel Bänziger', jobTitle: 'Executive Chef & F&B Leader' },
+    { '@type': 'Person', name: 'Lalaine Bänziger', jobTitle: 'Front Office Manager' },
+  ],
   description: 'Three services for hospitality: operational consulting, recruiting and head-of cover, and software for the operation — from professionals who still work the floor.',
   address: { '@type': 'PostalAddress', addressLocality: 'St. Gallen', addressCountry: 'CH' },
   hasOfferCatalog: {
