@@ -1,14 +1,56 @@
 ---
 import Base from '../../layouts/Base.astro';
 import Home from '../../components/Home.astro';
+
+const jsonld = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Triarc',
+  url: 'https://triarc.ch/en/',
+  email: 'manuel@triarc.ch',
+  founder: { '@type': 'Person', name: 'Manuel Bänziger' },
+  description: 'Three services for hospitality: software, consulting and recruiting.',
+  address: { '@type': 'PostalAddress', addressLocality: 'St. Gallen', addressCountry: 'CH' },
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Services',
+    itemListElement: [
+      {
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Service',
+          name: 'Hospitality software',
+          description: 'Four instruments for revenue, staffing, hygiene and kitchen planning — plus custom software built in the Atelier.',
+        },
+      },
+      {
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Service',
+          name: 'Hospitality consulting',
+          description: 'Front and back office, operations and costing, openings and concept, leadership and team.',
+        },
+      },
+      {
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Service',
+          name: 'Hospitality recruiting',
+          description: 'Head-of roles and every position in kitchen and service, including cover at short notice.',
+        },
+      },
+    ],
+  },
+};
 ---
 <Base
-  title="Triarc — Instruments for hospitality"
-  description="Triarc builds the digital operating layer for hospitality — four instruments for revenue, staffing, hygiene and kitchen planning. Built by a chef, not by a software company."
+  title="Triarc — Software, consulting and recruiting for hospitality"
+  description="Three services for hospitality: software — four instruments plus custom builds from the Atelier —, consulting and recruiting. Built by a chef, not by a software company."
   lang="en"
   crumb="CH"
   altHref="/"
   hreflang={{ de: '/', en: '/en/' }}
 >
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(jsonld)} />
   <Home lang="en" />
 </Base>

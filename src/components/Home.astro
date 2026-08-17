@@ -4,26 +4,101 @@ import Mark from './Mark.astro';
 import Backdrop from './Backdrop.astro';
 const { lang = 'de' } = Astro.props;
 
+const MAIL = 'manuel@triarc.ch';
+
 const C = {
   de: {
     tagline: ['Individuelle Instrumente für die Gastronomie.', 'Schweizer Ingenieurskunst.'],
     status: 'Im Aufbau · Anfragen offen',
     backdropAlt: 'Das Alpsteinmassiv mit dem Säntis im Morgenlicht.',
-    inspect: 'Instrumente ansehen',
+    inspect: 'Leistungen ansehen',
+    servicesLabel: 'Drei Leistungen',
+    servicesLede: 'Ein Haus zu führen ist mehr als eine Software. Wir arbeiten an drei Stellen —',
+    servicesLedeAccent: 'und Sie wählen, wo es klemmt.',
     instrumentsLabel: 'Vier Instrumente',
-    lede: 'Keine Lösung für alle. Sagen Sie uns, wie Ihr Haus arbeitet — wir finden das richtige Instrument und richten es auf Sie ein. Und passt keines der vier,',
-    ledeAccent: 'bauen wir, was Sie brauchen.',
+    lede: 'Keine Lösung für alle. Sagen Sie uns, wie Ihr Haus arbeitet — wir finden das richtige Instrument und richten es auf Sie ein.',
     more: 'Mehr erfahren',
   },
   en: {
     tagline: ['Individual instruments for hospitality.', 'Swiss-engineered.'],
     status: 'In build · Open for enquiries',
     backdropAlt: 'The Alpstein massif with the Säntis at first light.',
-    inspect: 'Inspect the instruments',
+    inspect: 'See what we do',
+    servicesLabel: 'Three services',
+    servicesLede: 'Running a house takes more than software. We work at three points —',
+    servicesLedeAccent: 'you choose where it hurts.',
     instrumentsLabel: 'Four instruments',
-    lede: 'Not one application for everyone. Tell us how your house runs — we find the right instrument and shape it around your work. And if none of the four fits,',
-    ledeAccent: 'we build what you need.',
+    lede: 'Not one application for everyone. Tell us how your house runs — we find the right instrument and shape it around your work.',
     more: 'Read the instrument',
+  },
+};
+
+// The three services. Software opens into the instrument case below; the other
+// two lead to a plain enquiry — no thin pages promising more than exists.
+const services = [
+  {
+    roman: 'I', key: 'software', href: '#instruments',
+    de: {
+      eyebrow: 'Gastronomie-Software', name: 'Software',
+      role: 'Vier Instrumente. Oder eines, das es noch nicht gibt.',
+      body: 'Kasse, Dienstplan, HACCP, Küchenplanung — vier Instrumente, für die Gastronomie gebaut. Passt keines davon zu Ihrem Haus, baut das Atelier, was Sie brauchen.',
+      action: 'Instrumente ansehen',
+    },
+    en: {
+      eyebrow: 'Hospitality software', name: 'Software',
+      role: 'Four instruments. Or one that does not exist yet.',
+      body: 'Point of sale, scheduling, HACCP, kitchen planning — four instruments, built for hospitality. If none of them fits your house, the Atelier builds what you need.',
+      action: 'Inspect the instruments',
+    },
+  },
+  {
+    roman: 'II', key: 'beratung', subject: { de: 'Anfrage Beratung', en: 'Consulting enquiry' },
+    de: {
+      eyebrow: 'Gastronomie & Hotellerie', name: 'Beratung',
+      role: 'Von der Reception bis zur Patisserie.',
+      body: 'Nicht nur Küche, sondern das ganze Haus: Front und Back Office, Betrieb und Kalkulation, Neueröffnung und Konzept, Führung und Team. Von der Opera-Schulung an der Reception bis zur Organisation von Küche und Patisserie — und zur Frage, welche Systeme ein Haus wirklich braucht.',
+      action: 'Anfrage senden',
+    },
+    en: {
+      eyebrow: 'Hospitality consulting', name: 'Consulting',
+      role: 'From the front desk to the patisserie.',
+      body: 'Not only the kitchen — the whole house: front and back office, operations and costing, openings and concept, leadership and team. From Opera training at reception to organising a kitchen or a patisserie — and to the question of which systems a house actually needs.',
+      action: 'Send an enquiry',
+    },
+  },
+  {
+    roman: 'III', key: 'recruiting', subject: { de: 'Anfrage Recruiting', en: 'Recruiting enquiry' },
+    de: {
+      eyebrow: 'Personal & Vermittlung', name: 'Recruiting',
+      role: 'Besetzt. Auch übermorgen.',
+      body: 'Kaderstellen und jede Position in Küche und Service — vermittelt und eingearbeitet, direkt im Dienstplan. Und wenn Krankheit, Unfall oder ein kurzfristiger Ausfall ein Loch reisst: erfahrene Fachkräfte, international abrufbar, die einspringen — so lange, wie es nötig ist.',
+      action: 'Anfrage senden',
+    },
+    en: {
+      eyebrow: 'People & placement', name: 'Recruiting',
+      role: 'Covered. The day after tomorrow, too.',
+      body: 'Head-of roles and every position in kitchen and service — placed and settled in, straight into the schedule. And when illness, an accident or a sudden absence tears a hole: experienced professionals, available internationally at short notice, stepping in for as long as it takes.',
+      action: 'Send an enquiry',
+    },
+  },
+];
+
+// Atelier — the custom build. Deliberately not numbered: it is not a fifth
+// instrument, it is the workshop behind the four.
+const atelier = {
+  de: {
+    eyebrow: 'Individuell gebaut',
+    role: 'Passt keines der vier? Dann bauen wir es.',
+    body: 'Manche Häuser arbeiten anders — und sollen sich nicht verbiegen, damit eine Software passt. Das Atelier baut um Ihren Betrieb herum, auf demselben Fundament wie die vier Instrumente. Zu einem Preis, der zu einem Gastrobetrieb passt, nicht zu einem Konzern.',
+    action: 'Gespräch anfragen',
+    subject: 'Anfrage Atelier',
+  },
+  en: {
+    eyebrow: 'Custom-built',
+    role: 'None of the four fits? Then we build it.',
+    body: 'Some houses run differently — and should not bend themselves to fit a piece of software. The Atelier builds around your operation, on the same foundation as the four instruments. At a price that fits a hospitality business, not a corporation.',
+    action: 'Request a conversation',
+    subject: 'Atelier enquiry',
   },
 };
 
@@ -55,7 +130,9 @@ const instruments = [
 ];
 
 const t = C[lang];
+const a = atelier[lang];
 const pre = lang === 'en' ? '/en' : '';
+const mailto = (subject) => `mailto:${MAIL}?subject=${encodeURIComponent(subject)}`;
 ---
 <main id="main" class="home-stage">
   <section class="composition">
@@ -74,10 +151,36 @@ const pre = lang === 'en' ? '/en' : '';
         <span class="status-label">{t.status}</span>
       </div>
 
-      <a class="scroll-cue" href="#instruments">
+      <a class="scroll-cue" href="#services">
         <span class="cue-label">{t.inspect}</span>
         <span class="cue-line" aria-hidden="true"></span>
       </a>
+    </div>
+  </section>
+
+  <section id="services" class="services-case" tabindex="-1">
+    <div class="peek-header reveal">
+      <span class="rule" aria-hidden="true"></span>
+      <span class="label">{t.servicesLabel}</span>
+      <span class="rule" aria-hidden="true"></span>
+    </div>
+    <p class="peek-lede reveal">{t.servicesLede} <span class="accent">{t.servicesLedeAccent}</span></p>
+
+    <div class="services">
+      {services.map((svc, i) => (
+        <article class="service reveal" style={`--delay:${i * 90}ms`}>
+          <div class="accent-rule" aria-hidden="true"></div>
+          <span class="eyebrow"><span class="roman">{svc.roman}</span>{svc[lang].eyebrow}</span>
+          <h2 class="name">{svc[lang].name}<span class="stop">.</span></h2>
+          <p class="role">{svc[lang].role}</p>
+          <p class="body">{svc[lang].body}</p>
+          <a
+            class="action"
+            href={svc.href ?? mailto(svc.subject[lang])}
+            data-jump={svc.href ? 'instruments' : undefined}
+          >{svc[lang].action}</a>
+        </article>
+      ))}
     </div>
   </section>
 
@@ -87,7 +190,7 @@ const pre = lang === 'en' ? '/en' : '';
       <span class="label">{t.instrumentsLabel}</span>
       <span class="rule" aria-hidden="true"></span>
     </div>
-    <p class="peek-lede reveal">{t.lede} <span class="accent">{t.ledeAccent}</span></p>
+    <p class="peek-lede reveal">{t.lede}</p>
 
     <div class="instruments">
       {instruments.map((inst, i) => (
@@ -102,21 +205,39 @@ const pre = lang === 'en' ? '/en' : '';
         </article>
       ))}
     </div>
+
+    <aside class="atelier reveal">
+      <div class="atelier-head">
+        <span class="eyebrow">{a.eyebrow}</span>
+        <h2 class="name" translate="no">Atelier<span class="stop">.</span></h2>
+      </div>
+      <div class="atelier-body">
+        <p class="role">{a.role}</p>
+        <p class="body">{a.body}</p>
+        <a class="detail-link" href={mailto(a.subject)}>{a.action}</a>
+      </div>
+    </aside>
   </section>
 </main>
 
 <script>
-  // The cue scrolls to the case; it also fades out once the case is in view,
-  // so it never competes with what it pointed at.
-  const cue = document.querySelector('.scroll-cue');
-  const case_ = document.getElementById('instruments');
-  if (cue && case_) {
-    cue.addEventListener('click', (e) => {
+  // The cue scrolls to the services; it also fades out once they are in view,
+  // so it never competes with what it pointed at. The Software card jumps on
+  // down to the instrument case with the same smooth-scroll + focus handoff.
+  const smoothJump = (el, targetId) => {
+    const target = document.getElementById(targetId);
+    if (!target) return;
+    el.addEventListener('click', (e) => {
       e.preventDefault();
-      case_.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      // the cue fades out behind us, so hand focus to what it pointed at
-      case_.focus({ preventScroll: true });
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      // hand focus to what the link pointed at, so keyboard users follow along
+      target.focus({ preventScroll: true });
     });
+  };
+
+  const cue = document.querySelector('.scroll-cue');
+  if (cue) {
+    smoothJump(cue, 'services');
     let queued = false;
     const sync = () => {
       queued = false;
@@ -127,6 +248,10 @@ const pre = lang === 'en' ? '/en' : '';
     }, { passive: true });
     sync();
   }
+
+  document.querySelectorAll('[data-jump]').forEach((el) => {
+    smoothJump(el, el.getAttribute('data-jump'));
+  });
 </script>
 
 <style>
@@ -159,7 +284,7 @@ const pre = lang === 'en' ? '/en' : '';
   .pulse span:nth-child(3) { animation-delay: 0.6s; }
   @keyframes pulse { 0%, 100% { opacity: 0.25; transform: scaleX(0.7); } 50% { opacity: 1; transform: scaleX(1); } }
 
-  /* scroll cue — a hairline dropping toward the case. In normal flow, so the
+  /* scroll cue — a hairline dropping toward the choice. In normal flow, so the
      hero never has to reserve empty space underneath it. */
   .scroll-cue {
     margin-top: 4px;
@@ -181,16 +306,38 @@ const pre = lang === 'en' ? '/en' : '';
     45% { transform: scaleY(1); opacity: 0.9; }
   }
 
-  /* the instrument case */
-  .instrument-case { position: relative; z-index: 1; width: 100%; max-width: 1100px; margin: 0 auto; padding-top: clamp(20px, 3vh, 40px); scroll-margin-top: 24px; }
-  .instrument-case:focus { outline: none; }
-  .instrument-case:focus-visible { outline: 1px solid var(--gold); outline-offset: 12px; }
+  /* the two cases share the frame; only their contents differ */
+  .services-case, .instrument-case { position: relative; z-index: 1; width: 100%; max-width: 1100px; margin: 0 auto; padding-top: clamp(20px, 3vh, 40px); scroll-margin-top: 24px; }
+  .instrument-case { padding-top: clamp(64px, 9vh, 120px); }
+  .services-case:focus, .instrument-case:focus { outline: none; }
+  .services-case:focus-visible, .instrument-case:focus-visible { outline: 1px solid var(--gold); outline-offset: 12px; }
 
   .peek-header { display: flex; align-items: center; gap: 18px; justify-content: center; padding: 0 24px 36px; }
   .peek-header .rule { flex: 1; max-width: 120px; height: 1px; background: var(--rule); }
   .peek-header .label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.36em; text-transform: uppercase; color: var(--ink-soft); }
   .peek-lede { font-family: var(--serif); font-style: italic; font-weight: 300; font-size: clamp(18px, 2.2vw, 25px); line-height: 1.4; text-align: center; text-wrap: pretty; color: var(--ink); max-width: 30em; margin: 0 auto 48px; }
   .peek-lede .accent { color: var(--gold); font-style: normal; }
+
+  /* the three services — panelled, so the choice reads as the first decision;
+     the instruments below stay borderless and lighter */
+  .services { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; padding: 0 24px; align-items: stretch; }
+  .service {
+    display: flex; flex-direction: column; gap: 14px;
+    padding: 30px 30px 32px; border: 1px solid var(--rule);
+    background: color-mix(in srgb, var(--paper-deep) 55%, transparent);
+    transition: border-color 320ms var(--ease), transform 320ms var(--ease);
+  }
+  .service:hover { border-color: color-mix(in srgb, var(--gold) 55%, transparent); transform: translateY(-3px); }
+  .service .accent-rule { width: 100%; height: 2px; background: var(--gold); margin-bottom: 4px; transform: scaleX(0.2); transform-origin: left center; transition: transform 420ms var(--ease); }
+  .service:hover .accent-rule { transform: scaleX(1); }
+  .service .eyebrow { font-family: var(--mono); font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--ink-soft); }
+  .service .eyebrow .roman { color: var(--gold); margin-right: 8px; }
+  .service .name { font-family: var(--serif); font-weight: 300; font-size: clamp(32px, 3.4vw, 42px); line-height: 0.98; letter-spacing: -0.01em; color: var(--ink); margin: 0; }
+  .service .name .stop { color: var(--gold); }
+  .service .role { font-family: var(--serif); font-style: italic; font-weight: 300; font-size: 17px; color: var(--gold); margin: 0; line-height: 1.3; text-wrap: balance; }
+  .service .body { font-size: 14px; line-height: 1.65; color: var(--ink); margin: 2px 0 0; text-wrap: pretty; }
+  .service .action { align-self: flex-start; margin-top: auto; padding: 12px 0 3px; border-bottom: 1px solid var(--gold); font-family: var(--mono); font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--ink); transition: color 180ms ease; }
+  .service .action:hover { color: var(--gold); }
 
   .instruments { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; padding: 0 24px 24px; }
   .instrument { display: flex; flex-direction: column; gap: 14px; transition: transform 320ms var(--ease); }
@@ -211,24 +358,48 @@ const pre = lang === 'en' ? '/en' : '';
   .instrument .detail-link { align-self: flex-start; margin-top: 4px; padding: 8px 0 3px; border-bottom: 1px solid var(--accent); font-family: var(--mono); font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--ink); transition: color 180ms ease; }
   .instrument .detail-link:hover { color: var(--accent); }
 
-  /* staggered reveal for the four cards */
+  /* the atelier closes the case: no roman numeral, no accent colour of its own —
+     it is the workshop behind the four, not a fifth instrument */
+  .atelier {
+    display: grid; grid-template-columns: minmax(200px, 1fr) 2fr; gap: 32px 48px;
+    margin: 12px 24px clamp(28px, 5vh, 64px); padding: 34px 0 0; border-top: 1px solid var(--rule);
+  }
+  .atelier .eyebrow { display: block; font-family: var(--mono); font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+  .atelier .name { font-family: var(--serif); font-weight: 300; font-size: clamp(34px, 3.6vw, 44px); line-height: 0.95; letter-spacing: -0.01em; color: var(--ink); margin: 0; }
+  .atelier .name .stop { color: var(--gold); }
+  .atelier-body { display: flex; flex-direction: column; gap: 12px; }
+  .atelier .role { font-family: var(--serif); font-style: italic; font-weight: 300; font-size: 19px; color: var(--ink); margin: 0; line-height: 1.3; }
+  .atelier .body { font-size: 14px; line-height: 1.7; color: var(--ink-soft); margin: 0; max-width: 62ch; }
+  .atelier .detail-link { align-self: flex-start; margin-top: 6px; padding: 8px 0 3px; border-bottom: 1px solid var(--gold); font-family: var(--mono); font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--ink); transition: color 180ms ease; }
+  .atelier .detail-link:hover { color: var(--gold); }
+
+  /* staggered reveal for the cards */
+  :global(.js) .service.reveal,
   :global(.js) .instrument.reveal { transition-delay: var(--delay, 0ms); }
 
-  @media (max-width: 1080px) { .instruments { grid-template-columns: repeat(2, 1fr); gap: 44px; max-width: 740px; margin: 0 auto; } .instrument .body { max-width: 100%; } }
+  @media (max-width: 1080px) {
+    .services { grid-template-columns: 1fr; gap: 24px; max-width: 740px; margin: 0 auto; }
+    .instruments { grid-template-columns: repeat(2, 1fr); gap: 44px; max-width: 740px; margin: 0 auto; }
+    .instrument .body { max-width: 100%; }
+    .atelier { grid-template-columns: 1fr; gap: 18px; max-width: 740px; margin: 12px auto clamp(28px, 5vh, 56px); }
+  }
   @media (max-width: 560px) {
     .home-stage { padding: 0 max(22px, env(safe-area-inset-left)) 16px max(22px, env(safe-area-inset-right)); }
     .composition { min-height: clamp(480px, calc(100svh - 80px), 720px); padding-bottom: 80px; }
     .wordmark { letter-spacing: 0.34em; text-indent: 0.34em; }
     .scroll-cue { font-size: 10px; letter-spacing: 0.28em; text-indent: 0.28em; }
     .cue-line { height: 30px; }
+    .services { padding: 0 4px; max-width: 420px; }
+    .service { padding: 26px 22px 28px; }
     .instruments { grid-template-columns: 1fr; max-width: 420px; gap: 48px; }
+    .atelier { margin: 12px 4px 32px; max-width: 420px; padding-top: 30px; }
     .peek-header { padding: 0 8px 28px; gap: 12px; }
     .peek-header .rule { max-width: 50px; }
   }
   @media (prefers-reduced-motion: reduce) {
     .pulse span { animation: none; opacity: 0.6; }
     .cue-line { animation: none; opacity: 0.7; transform: none; }
-    .scroll-cue, .instrument, .instrument .accent-rule { transition: none; }
-    .instrument:hover { transform: none; }
+    .scroll-cue, .instrument, .instrument .accent-rule, .service, .service .accent-rule { transition: none; }
+    .instrument:hover, .service:hover { transform: none; }
   }
 </style>
