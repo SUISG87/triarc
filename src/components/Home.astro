@@ -73,12 +73,12 @@ const pre = lang === 'en' ? '/en' : '';
         <div class="pulse" aria-hidden="true"><span></span><span></span><span></span></div>
         <span class="status-label">{t.status}</span>
       </div>
-    </div>
 
-    <a class="scroll-cue" href="#instruments">
-      <span class="cue-label">{t.inspect}</span>
-      <span class="cue-line" aria-hidden="true"></span>
-    </a>
+      <a class="scroll-cue" href="#instruments">
+        <span class="cue-label">{t.inspect}</span>
+        <span class="cue-line" aria-hidden="true"></span>
+      </a>
+    </div>
   </section>
 
   <section id="instruments" class="instrument-case" tabindex="-1">
@@ -138,8 +138,8 @@ const pre = lang === 'en' ? '/en' : '';
     position: relative;
     display: flex; flex-direction: column; align-items: center; justify-content: center;
     width: 100%;
-    min-height: clamp(560px, calc(100svh - 96px), 860px);
-    padding: 24px 0 96px;
+    min-height: clamp(500px, calc(100svh - 168px), 740px);
+    padding: 8px 0 40px;
   }
   .composition-inner { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 32px; max-width: 540px; width: 100%; }
   .wordmark { font-family: var(--sans); font-weight: 400; font-size: clamp(44px, 8.4vw, 88px); letter-spacing: 0.4em; text-indent: 0.4em; color: var(--ink); line-height: 1; margin: 0; }
@@ -159,9 +159,10 @@ const pre = lang === 'en' ? '/en' : '';
   .pulse span:nth-child(3) { animation-delay: 0.6s; }
   @keyframes pulse { 0%, 100% { opacity: 0.25; transform: scaleX(0.7); } 50% { opacity: 1; transform: scaleX(1); } }
 
-  /* scroll cue — a hairline dropping toward the case */
+  /* scroll cue — a hairline dropping toward the case. In normal flow, so the
+     hero never has to reserve empty space underneath it. */
   .scroll-cue {
-    position: absolute; left: 50%; bottom: 26px; transform: translateX(-50%);
+    margin-top: 4px;
     z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 14px;
     font-family: var(--mono); font-size: 11px; letter-spacing: 0.36em; text-indent: 0.36em;
     text-transform: uppercase; color: var(--ink-soft);
@@ -171,7 +172,7 @@ const pre = lang === 'en' ? '/en' : '';
      without putting a box on the photograph */
   .cue-label { text-shadow: 0 0 3px var(--paper), 0 0 8px var(--paper), 0 0 16px var(--paper), 0 0 30px var(--paper); }
   .scroll-cue:hover { color: var(--gold); }
-  .scroll-cue.gone { opacity: 0; transform: translateX(-50%) translateY(8px); pointer-events: none; }
+  .scroll-cue.gone { opacity: 0; transform: translateY(8px); pointer-events: none; }
   /* the hairline is the actual affordance — it needs the same halo as the
      label to survive over lit snow */
   .cue-line { width: 1px; height: 42px; background: linear-gradient(180deg, var(--gold), transparent); opacity: 0.7; transform-origin: top; filter: drop-shadow(0 0 5px var(--paper)) drop-shadow(0 0 10px var(--paper)); animation: cue-drop 2.8s var(--ease) infinite; }
@@ -181,7 +182,7 @@ const pre = lang === 'en' ? '/en' : '';
   }
 
   /* the instrument case */
-  .instrument-case { position: relative; z-index: 1; width: 100%; max-width: 1100px; margin: 0 auto; padding-top: clamp(48px, 8vh, 88px); scroll-margin-top: 24px; }
+  .instrument-case { position: relative; z-index: 1; width: 100%; max-width: 1100px; margin: 0 auto; padding-top: clamp(20px, 3vh, 40px); scroll-margin-top: 24px; }
   .instrument-case:focus { outline: none; }
   .instrument-case:focus-visible { outline: 1px solid var(--gold); outline-offset: 12px; }
 
@@ -218,7 +219,7 @@ const pre = lang === 'en' ? '/en' : '';
     .home-stage { padding: 0 max(22px, env(safe-area-inset-left)) 16px max(22px, env(safe-area-inset-right)); }
     .composition { min-height: clamp(480px, calc(100svh - 80px), 720px); padding-bottom: 80px; }
     .wordmark { letter-spacing: 0.34em; text-indent: 0.34em; }
-    .scroll-cue { font-size: 10px; letter-spacing: 0.28em; text-indent: 0.28em; bottom: 18px; }
+    .scroll-cue { font-size: 10px; letter-spacing: 0.28em; text-indent: 0.28em; }
     .cue-line { height: 30px; }
     .instruments { grid-template-columns: 1fr; max-width: 420px; gap: 48px; }
     .peek-header { padding: 0 8px 28px; gap: 12px; }
