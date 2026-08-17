@@ -161,7 +161,7 @@ const mailto = (subject) => `mailto:${MAIL}?subject=${encodeURIComponent(subject
   <section id="services" class="services-case" tabindex="-1">
     <div class="peek-header reveal">
       <span class="rule" aria-hidden="true"></span>
-      <span class="label">{t.servicesLabel}</span>
+      <h2 class="label">{t.servicesLabel}</h2>
       <span class="rule" aria-hidden="true"></span>
     </div>
     <p class="peek-lede reveal">{t.servicesLede} <span class="accent">{t.servicesLedeAccent}</span></p>
@@ -171,7 +171,7 @@ const mailto = (subject) => `mailto:${MAIL}?subject=${encodeURIComponent(subject
         <article class="service reveal" style={`--delay:${i * 90}ms`}>
           <div class="accent-rule" aria-hidden="true"></div>
           <span class="eyebrow"><span class="roman">{svc.roman}</span>{svc[lang].eyebrow}</span>
-          <h2 class="name">{svc[lang].name}<span class="stop">.</span></h2>
+          <h3 class="name">{svc[lang].name}<span class="stop">.</span></h3>
           <p class="role">{svc[lang].role}</p>
           <p class="body">{svc[lang].body}</p>
           <a
@@ -187,7 +187,7 @@ const mailto = (subject) => `mailto:${MAIL}?subject=${encodeURIComponent(subject
   <section id="instruments" class="instrument-case" tabindex="-1">
     <div class="peek-header reveal">
       <span class="rule" aria-hidden="true"></span>
-      <span class="label">{t.instrumentsLabel}</span>
+      <h2 class="label">{t.instrumentsLabel}</h2>
       <span class="rule" aria-hidden="true"></span>
     </div>
     <p class="peek-lede reveal">{t.lede}</p>
@@ -197,7 +197,7 @@ const mailto = (subject) => `mailto:${MAIL}?subject=${encodeURIComponent(subject
         <article class="instrument reveal" style={`--accent:${inst.accent}; --delay:${i * 90}ms`}>
           <div class="accent-rule" aria-hidden="true"></div>
           <span class="eyebrow"><span class="roman">{inst.roman}</span>{inst[lang].eyebrow}</span>
-          <h2 class="name"><a href={pre + inst.href}><span translate="no">{inst.name}</span><span class="stop">.</span></a></h2>
+          <h3 class="name"><a href={pre + inst.href}><span translate="no">{inst.name}</span><span class="stop">.</span></a></h3>
           <p class="hero">{inst[lang].hero}</p>
           <p class="role">{inst[lang].role}</p>
           <p class="body">{inst[lang].body}</p>
@@ -206,17 +206,17 @@ const mailto = (subject) => `mailto:${MAIL}?subject=${encodeURIComponent(subject
       ))}
     </div>
 
-    <aside class="atelier reveal">
+    <div class="atelier reveal">
       <div class="atelier-head">
         <span class="eyebrow">{a.eyebrow}</span>
-        <h2 class="name" translate="no">Atelier<span class="stop">.</span></h2>
+        <h3 class="name" translate="no">Atelier<span class="stop">.</span></h3>
       </div>
       <div class="atelier-body">
         <p class="role">{a.role}</p>
         <p class="body">{a.body}</p>
         <a class="detail-link" href={mailto(a.subject)}>{a.action}</a>
       </div>
-    </aside>
+    </div>
   </section>
 </main>
 
@@ -314,7 +314,7 @@ const mailto = (subject) => `mailto:${MAIL}?subject=${encodeURIComponent(subject
 
   .peek-header { display: flex; align-items: center; gap: 18px; justify-content: center; padding: 0 24px 36px; }
   .peek-header .rule { flex: 1; max-width: 120px; height: 1px; background: var(--rule); }
-  .peek-header .label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.36em; text-transform: uppercase; color: var(--ink-soft); }
+  .peek-header .label { margin: 0; font-weight: 400; font-family: var(--mono); font-size: 10px; letter-spacing: 0.36em; text-transform: uppercase; color: var(--ink-soft); }
   .peek-lede { font-family: var(--serif); font-style: italic; font-weight: 300; font-size: clamp(18px, 2.2vw, 25px); line-height: 1.4; text-align: center; text-wrap: pretty; color: var(--ink); max-width: 30em; margin: 0 auto 48px; }
   .peek-lede .accent { color: var(--gold); font-style: normal; }
 
