@@ -8,34 +8,22 @@ const C = {
   de: {
     tagline: ['Individuelle Instrumente für die Gastronomie.', 'Schweizer Ingenieurskunst.'],
     backdropAlt: 'Das Alpsteinmassiv mit dem Säntis im Morgenlicht.',
-    inspect: 'Leistungen ansehen',
     servicesLabel: 'Drei Leistungen',
     servicesLede: 'Ein Haus zu führen ist mehr als eine Software. Wir arbeiten an drei Stellen —',
     servicesLedeAccent: 'und Sie wählen, wo es klemmt.',
     open: 'Ansehen',
-    peekOpen: 'Instrumente ansehen',
+    peekOpen: 'Leistungen ansehen',
     peekClose: 'Schliessen',
-    instrumentsLabel: 'Die Instrumente',
-    instrumentsLede: 'Vier Instrumente, jedes für eine Stelle im Betrieb gebaut. Und passt keines,',
-    instrumentsLedeAccent: 'bauen wir, was Sie brauchen.',
-    more: 'Mehr erfahren',
-    toAtelier: 'Zum Atelier',
   },
   en: {
     tagline: ['Individual instruments for hospitality.', 'Swiss-engineered.'],
     backdropAlt: 'The Alpstein massif with the Säntis at first light.',
-    inspect: 'See what we do',
     servicesLabel: 'Three services',
     servicesLede: 'Running a house takes more than software. We work at three points —',
     servicesLedeAccent: 'you choose where it hurts.',
     open: 'Open',
-    peekOpen: 'Inspect the instruments',
-    peekClose: 'Close the case',
-    instrumentsLabel: 'The instruments',
-    instrumentsLede: 'Four instruments, each built for one place in the operation. And if none of them fits,',
-    instrumentsLedeAccent: 'we build what you need.',
-    more: 'Read the instrument',
-    toAtelier: 'To the Atelier',
+    peekOpen: 'See the services',
+    peekClose: 'Close',
   },
 };
 
@@ -82,37 +70,6 @@ const services = [
   },
 ];
 
-// The case behind the Software card. The Atelier stands in the row with the
-// four, in house gold and with a plus instead of a numeral — made to order,
-// not a fifth product.
-const instruments = [
-  {
-    accent: 'var(--aurora)', roman: 'I', href: '/aurora', name: 'Aurora',
-    de: { eyebrow: 'Kasse & Umsatz', role: 'Vom Bon bis zum Deckungsbeitrag.', body: 'Bestellen, kassieren, abschliessen. Aurora führt Tische, rechnet Schichten ab und schliesst die Kasse — ruhig, ob das Lokal leer ist oder voll.' },
-    en: { eyebrow: 'Point of sale', role: 'The cash register, reimagined.', body: 'Order, charge, settle. Aurora reads tabs, totals shifts and closes the till — with the same calm whether the room is empty or six-deep.' },
-  },
-  {
-    accent: 'var(--nova)', roman: 'II', href: '/nova', name: 'Nova',
-    de: { eyebrow: 'Dienstplanung', role: 'Der Plan, der die Woche übersteht.', body: 'Schichten, Bewerbungen und das tägliche Organisieren eines Gastro-Teams. Konflikte zeigen sich, bevor sie zubeissen; der Plan hält.' },
-    en: { eyebrow: 'Staffing loop', role: 'The schedule that survives the week.', body: 'Shifts, applications and the daily orchestration of a hospitality team. Conflicts surface before they bite; the calendar holds.' },
-  },
-  {
-    accent: 'var(--zenith)', roman: 'III', href: '/zenith', name: 'Zenith',
-    de: { eyebrow: 'Hygiene & HACCP', role: 'HACCP-Doku, die nicht gegen Sie arbeitet.', body: 'Temperaturen, Reinigungskontrollen, Wareneingänge — ein ruhiger Fluss. Jeden Tag prüfungsbereit, nicht erst am Abend vor der Kontrolle.' },
-    en: { eyebrow: 'Hygiene & compliance', role: 'HACCP logging that doesn’t fight you.', body: 'Temperatures, cleaning checks, supplier batches — one quiet feed. Audit-ready every day, not the night before the inspector arrives.' },
-  },
-  {
-    accent: 'var(--ceres)', roman: 'IV', href: '/ceres', name: 'Ceres',
-    de: { eyebrow: 'Menü & Einkauf', role: 'Die Rechnung vom Plan zur Bestellung.', body: 'Menüs, Rezepte und die Mathematik dazwischen. Pax eintragen — Ceres skaliert jedes Gericht und rechnet die Bestellung pro Lieferant.' },
-    en: { eyebrow: 'Menu & production', role: 'The prep list that counts itself.', body: 'Menus, recipes and the maths between them. Set the cover count and Ceres scales every dish, then writes the supplier order itself.' },
-  },
-  {
-    accent: 'var(--gold)', roman: '+', href: '/software#atelier', name: 'Atelier', atelier: true,
-    de: { eyebrow: 'Individuell gebaut', role: 'Passt keines der vier? Dann bauen wir es.', body: 'Manche Häuser arbeiten anders. Das Atelier baut um Ihren Betrieb herum — auf demselben Fundament wie die vier Instrumente.' },
-    en: { eyebrow: 'Custom-built', role: 'None of the four fits? Then we build it.', body: 'Some houses run differently. The Atelier builds around your operation — on the same foundation as the four instruments.' },
-  },
-];
-
 const t = C[lang];
 const pre = lang === 'en' ? '/en' : '';
 ---
@@ -129,24 +86,28 @@ const pre = lang === 'en' ? '/en' : '';
       </div>
       <p class="tagline">{t.tagline[0]}<br />{t.tagline[1]}</p>
 
-      <a class="scroll-cue" href="#services">
-        <span class="cue-label">{t.inspect}</span>
-        <span class="cue-line" aria-hidden="true"></span>
-      </a>
+      <div class="peek-trigger-row">
+        <span class="rule" aria-hidden="true"></span>
+        <button class="peek-trigger" type="button" aria-expanded="false" aria-controls="peek-panel">
+          <span class="label-open">{t.peekOpen}</span>
+          <span class="label-close">{t.peekClose}</span>
+        </button>
+        <span class="rule" aria-hidden="true"></span>
+      </div>
     </div>
   </section>
 
-  <section id="services" class="services-case" tabindex="-1">
-    <div class="peek-header reveal">
+  <section id="peek-panel" class="peek-panel" tabindex="-1">
+    <div class="peek-header">
       <span class="rule" aria-hidden="true"></span>
       <h2 class="label">{t.servicesLabel}</h2>
       <span class="rule" aria-hidden="true"></span>
     </div>
-    <p class="peek-lede reveal">{t.servicesLede} <span class="accent">{t.servicesLedeAccent}</span></p>
+    <p class="peek-lede">{t.servicesLede} <span class="accent">{t.servicesLedeAccent}</span></p>
 
     <div class="services">
-      {services.map((svc, i) => (
-        <article class="service reveal" style={`--delay:${i * 90}ms`}>
+      {services.map((svc) => (
+        <article class="service" style={`--accent: var(--gold)`}>
           <div class="accent-rule" aria-hidden="true"></div>
           <span class="eyebrow"><span class="roman">{svc.roman}</span>{svc[lang].eyebrow}</span>
           <h3 class="name"><a href={pre + svc.href}>{svc[lang].name}<span class="stop">.</span></a></h3>
@@ -156,64 +117,13 @@ const pre = lang === 'en' ? '/en' : '';
         </article>
       ))}
     </div>
-
-    <div class="peek-trigger-row">
-      <button class="peek-trigger" type="button" aria-expanded="false" aria-controls="peek-panel">
-        <span class="label-open">{t.peekOpen}</span>
-        <span class="label-close">{t.peekClose}</span>
-      </button>
-    </div>
-
-    <div id="peek-panel" class="peek-panel">
-      <div class="peek-header inner">
-        <span class="rule" aria-hidden="true"></span>
-        <h3 class="label">{t.instrumentsLabel}</h3>
-        <span class="rule" aria-hidden="true"></span>
-      </div>
-      <p class="peek-lede inner">{t.instrumentsLede} <span class="accent">{t.instrumentsLedeAccent}</span></p>
-
-      <div class="instruments">
-        {instruments.map((inst) => (
-          <article class="instrument" style={`--accent:${inst.accent}`}>
-            <div class="accent-rule" aria-hidden="true"></div>
-            <span class="eyebrow"><span class="roman">{inst.roman}</span>{inst[lang].eyebrow}</span>
-            <h4 class="name"><a href={pre + inst.href}><span translate="no">{inst.name}</span><span class="stop">.</span></a></h4>
-            <p class="role">{inst[lang].role}</p>
-            <p class="body">{inst[lang].body}</p>
-            <a class="detail-link" href={pre + inst.href}>{inst.atelier ? t.toAtelier : t.more}</a>
-          </article>
-        ))}
-      </div>
-    </div>
   </section>
 </main>
 
 <script>
-  // The cue scrolls to the services; it also fades out once they are in view,
-  // so it never competes with what it pointed at.
-  const cue = document.querySelector('.scroll-cue');
-  const services = document.getElementById('services');
-  if (cue && services) {
-    cue.addEventListener('click', (e) => {
-      e.preventDefault();
-      services.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      // the cue fades out behind us, so hand focus to what it pointed at
-      services.focus({ preventScroll: true });
-    });
-    let queued = false;
-    const sync = () => {
-      queued = false;
-      cue.classList.toggle('gone', window.scrollY > 80);
-    };
-    window.addEventListener('scroll', () => {
-      if (!queued) { queued = true; window.requestAnimationFrame(sync); }
-    }, { passive: true });
-    sync();
-  }
-
-  // The instrument case opens and closes under the three services. It only
-  // collapses once this script runs, so without JS the case is simply open
-  // rather than unreachable.
+  // The three services open and close under the lockup. The panel only
+  // collapses once this script runs, so without JS the services are simply
+  // open rather than unreachable.
   const trigger = document.querySelector('.peek-trigger');
   const panel = document.getElementById('peek-panel');
   if (trigger && panel) {
@@ -223,7 +133,10 @@ const pre = lang === 'en' ? '/en' : '';
       trigger.setAttribute('aria-expanded', String(open));
       panel.setAttribute('aria-hidden', String(!open));
       if (open) {
-        window.setTimeout(() => panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 200);
+        window.setTimeout(() => {
+          panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          panel.focus({ preventScroll: true });
+        }, 220);
       }
     });
   }
@@ -252,42 +165,12 @@ const pre = lang === 'en' ? '/en' : '';
   .est { text-shadow: 0 0 4px var(--paper), 0 0 10px var(--paper), 0 0 22px var(--paper); }
   .tagline { text-shadow: 0 0 6px var(--paper), 0 0 14px var(--paper), 0 0 30px var(--paper), 0 0 50px var(--paper); }
 
-  /* scroll cue — a hairline dropping toward the choice. In normal flow, so the
-     hero never has to reserve empty space underneath it. */
-  .scroll-cue {
-    margin-top: 4px;
-    z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 14px;
-    font-family: var(--mono); font-size: 11px; letter-spacing: 0.36em; text-indent: 0.36em;
-    text-transform: uppercase; color: var(--ink-soft);
-    transition: color 240ms ease, opacity 420ms ease, transform 420ms var(--ease);
-  }
-  /* a halo that hugs the glyphs, so the label stays legible over the massif
-     without putting a box on the photograph */
-  .cue-label { text-shadow: 0 0 2px var(--paper), 0 0 5px var(--paper), 0 0 11px var(--paper), 0 0 22px var(--paper); }
-  /* on paper the massif carries real weight, and this line sits on lit snow */
-  :global(:root[data-theme="light"]) .cue-label { color: var(--ink); }
-  .scroll-cue:hover { color: var(--gold); }
-  .scroll-cue.gone { opacity: 0; transform: translateY(8px); pointer-events: none; }
-  /* the hairline is the actual affordance — it needs the same halo as the
-     label to survive over lit snow */
-  .cue-line { width: 1px; height: 42px; background: linear-gradient(180deg, var(--gold), transparent); opacity: 0.7; transform-origin: top; filter: drop-shadow(0 0 5px var(--paper)) drop-shadow(0 0 10px var(--paper)); animation: cue-drop 2.8s var(--ease) infinite; }
-  @keyframes cue-drop {
-    0%, 100% { transform: scaleY(0.55); opacity: 0.35; }
-    45% { transform: scaleY(1); opacity: 0.9; }
-  }
-
-  /* the case that unfolds under the lockup */
-  .services-case { position: relative; z-index: 1; width: 100%; max-width: 1100px; margin: 0 auto; padding: 0 0 clamp(40px, 7vh, 88px); scroll-margin-top: 24px; }
-  .services-case:focus { outline: none; }
-  .services-case:focus-visible { outline: 1px solid var(--gold); outline-offset: 12px; }
 
   .peek-header { display: flex; align-items: center; gap: 18px; justify-content: center; padding: 0 24px 26px; }
   .peek-header .rule { flex: 1; max-width: 120px; height: 1px; background: var(--rule); }
   .peek-header .label { margin: 0; font-weight: 400; font-family: var(--mono); font-size: 10px; letter-spacing: 0.36em; text-transform: uppercase; color: var(--ink-soft); }
   .peek-lede { font-family: var(--serif); font-style: italic; font-weight: 300; font-size: clamp(18px, 2.2vw, 25px); line-height: 1.4; text-align: center; text-wrap: pretty; color: var(--ink); max-width: 30em; margin: 0 auto 36px; }
   .peek-lede .accent { color: var(--gold); font-style: normal; }
-  /* inside the case the same atoms run a size quieter than the section above */
-  .peek-lede.inner { font-size: clamp(17px, 1.9vw, 21px); margin-bottom: 40px; }
 
   /* the three services — panelled, so the choice reads as the first decision */
   .services { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; padding: 0 24px; align-items: stretch; }
@@ -312,9 +195,14 @@ const pre = lang === 'en' ? '/en' : '';
   .service .action:hover { color: var(--gold); }
 
   /* peek trigger — clean, centered, no arrow */
-  .peek-trigger-row { display: flex; justify-content: center; padding: 40px 24px 0; }
-  .peek-trigger { background: transparent; border: none; padding: 14px 2px 11px; font-family: var(--mono); font-size: 11px; font-weight: 400; letter-spacing: 0.36em; text-indent: 0.36em; text-transform: uppercase; color: var(--ink); cursor: pointer; position: relative; text-align: center; transition: color 240ms ease; }
-  .peek-trigger::after { content: ""; position: absolute; left: 50%; bottom: 0; width: 26px; height: 1px; background: var(--gold); transform: translateX(-50%); opacity: 0.55; transition: width 320ms var(--ease), opacity 240ms ease; }
+  /* the opener carries the same hairline frame as a section header, so it
+     reads as something that opens rather than as a caption */
+  .peek-trigger-row { display: flex; align-items: center; justify-content: center; gap: 20px; width: 100%; max-width: 460px; margin-top: 4px; }
+  .peek-trigger-row .rule { flex: 1; max-width: 150px; height: 1px; background: var(--rule); }
+  /* a halo that hugs the glyphs, so the opener stays legible over the massif
+     without putting a box on the photograph */
+  .peek-trigger { text-shadow: 0 0 2px var(--paper), 0 0 5px var(--paper), 0 0 11px var(--paper), 0 0 22px var(--paper); background: transparent; border: none; padding: 14px 2px 11px; font-family: var(--mono); font-size: 12px; font-weight: 400; letter-spacing: 0.34em; text-indent: 0.34em; text-transform: uppercase; color: var(--ink); cursor: pointer; position: relative; text-align: center; white-space: nowrap; transition: color 240ms ease; }
+  .peek-trigger::after { content: ""; position: absolute; left: 50%; bottom: 0; width: 46px; height: 1px; background: var(--gold); transform: translateX(-50%); opacity: 0.8; transition: width 320ms var(--ease), opacity 240ms ease; }
   .peek-trigger:hover { color: var(--gold); }
   .peek-trigger:hover::after { width: calc(100% - 4px); opacity: 0.9; }
   .peek-trigger[aria-expanded="true"]::after { width: calc(100% - 4px); opacity: 0.8; }
@@ -323,53 +211,33 @@ const pre = lang === 'en' ? '/en' : '';
 
   /* the collapsible instrument case — only collapsed once the script runs, so
      without JS it stays open rather than unreachable */
-  .peek-panel { width: 100%; }
+  .peek-panel { position: relative; z-index: 1; width: 100%; max-width: 1100px; margin: 0 auto; padding-bottom: clamp(40px, 7vh, 88px); scroll-margin-top: 24px; }
+  .peek-panel:focus { outline: none; }
+  .peek-panel:focus-visible { outline: 1px solid var(--gold); outline-offset: 12px; }
   :global(.js) .peek-panel { overflow: hidden; max-height: 0; opacity: 0; transition: max-height 520ms var(--ease), opacity 380ms ease, margin-top 420ms ease; }
-  :global(.js) .peek-panel.open { max-height: 3200px; opacity: 1; margin-top: 52px; }
+  :global(.js) .peek-panel.open { max-height: 2600px; opacity: 1; margin-top: 44px; }
 
-  .instruments { display: grid; grid-template-columns: repeat(5, 1fr); gap: 30px; padding: 0 24px 8px; }
-  .instrument { display: flex; flex-direction: column; gap: 12px; }
-  .instrument .accent-rule { width: 100%; height: 2px; background: var(--accent); margin-bottom: 2px; transform: scaleX(0.16); transform-origin: left center; transition: transform 420ms var(--ease); }
-  .instrument:hover .accent-rule { transform: scaleX(1); }
-  .instrument .eyebrow { font-family: var(--mono); font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--ink-soft); }
-  .instrument .eyebrow .roman { color: var(--accent); margin-right: 8px; }
-  .instrument .name { font-family: var(--serif); font-weight: 300; font-size: clamp(30px, 3.2vw, 42px); line-height: 0.95; letter-spacing: -0.01em; color: var(--ink); margin: 0; }
-  .instrument .name a { transition: opacity 160ms ease; }
-  .instrument .name a:hover { opacity: 0.7; }
-  .instrument .name .stop { color: var(--accent); }
-  .instrument .role { font-family: var(--serif); font-style: italic; font-weight: 300; font-size: 15px; color: var(--ink-soft); margin: 0; line-height: 1.3; text-wrap: balance; }
-  .instrument .body { font-size: 13.5px; line-height: 1.62; color: var(--ink); margin: 2px 0 0; text-wrap: pretty; }
-  .instrument .detail-link { align-self: flex-start; margin-top: auto; padding: 10px 0 3px; border-bottom: 1px solid var(--accent); font-family: var(--mono); font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--ink); transition: color 180ms ease; }
-  .instrument .detail-link:hover { color: var(--accent); }
 
   /* staggered reveal for the three cards */
   :global(.js) .service.reveal { transition-delay: var(--delay, 0ms); }
 
-  @media (max-width: 1100px) {
-    .instruments { grid-template-columns: repeat(3, 1fr); gap: 40px 34px; }
-  }
   @media (max-width: 1080px) {
     .services { grid-template-columns: 1fr; gap: 24px; max-width: 740px; margin: 0 auto; }
-  }
-  @media (max-width: 760px) {
-    .instruments { grid-template-columns: repeat(2, 1fr); gap: 40px 34px; max-width: 740px; margin: 0 auto; }
   }
   @media (max-width: 560px) {
     .home-stage { padding: 0 max(22px, env(safe-area-inset-left)) 16px max(22px, env(safe-area-inset-right)); }
     .composition { min-height: clamp(360px, calc(100svh - 250px), 560px); padding-bottom: 18px; }
     .wordmark { letter-spacing: 0.34em; text-indent: 0.34em; }
-    .scroll-cue { font-size: 10px; letter-spacing: 0.28em; text-indent: 0.28em; }
-    .cue-line { height: 30px; }
     .services { padding: 0 4px; max-width: 420px; }
     .service { padding: 26px 22px 28px; }
-    .peek-trigger { font-size: 10px; letter-spacing: 0.28em; text-indent: 0.28em; }
-    .instruments { grid-template-columns: 1fr; max-width: 420px; gap: 44px; padding: 0 4px 8px; }
+    .peek-trigger { font-size: 11px; letter-spacing: 0.24em; text-indent: 0.24em; }
+    .peek-trigger-row { gap: 12px; }
+    .peek-trigger-row .rule { max-width: 40px; }
     .peek-header { padding: 0 8px 28px; gap: 12px; }
     .peek-header .rule { max-width: 50px; }
   }
   @media (prefers-reduced-motion: reduce) {
-    .cue-line { animation: none; opacity: 0.7; transform: none; }
-    .scroll-cue, .service, .service .accent-rule, .instrument .accent-rule { transition: none; }
+    .service, .service .accent-rule { transition: none; }
     .service:hover { transform: none; }
     :global(.js) .peek-panel { transition: none; }
   }
