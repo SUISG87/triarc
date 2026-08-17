@@ -1,0 +1,110 @@
+---
+import Base from '../../layouts/Base.astro';
+import Mark from '../../components/Mark.astro';
+import '../../styles/detail.css';
+const mailto = "mailto:manuel@triarc.ch?subject=Consulting%20%E2%80%93%20enquiry&body=Business%3A%0AWhat%20it%20is%20about%3A%0ATimeframe%3A%0A";
+---
+<Base
+  title="Consulting for hospitality & hotels | Triarc"
+  description="Consulting for the whole house: operations and costing, digitalisation, openings and concept, leadership and team — from the front desk to the patisserie, out of 20+ years of international practice."
+  lang="en"
+  crumb="Consulting"
+  altHref="/beratung"
+  hreflang={{ de: '/beratung', en: '/en/beratung' }}
+>
+  <main id="main" class="detail" style="--accent: var(--gold); --accent-wash: color-mix(in srgb, var(--gold) 7%, transparent);">
+    <section class="instrument-hero">
+      <div>
+        <Mark size={76} />
+        <p class="d-eyebrow"><span class="roman">II</span>Hospitality &amp; hotels</p>
+        <h1 class="d-h1">Consulting<span class="stop">.</span></h1>
+      </div>
+      <div>
+        <p class="section-kicker">Service II of III</p>
+        <p class="role">From the front desk<br />to the patisserie.</p>
+        <p class="hero-intro">Not only the kitchen — the whole house. Front and back office, operations and costing, openings and concept, leadership and team — advised by someone who has run each of those posts himself, from fine dining to high-volume operations.</p>
+        <div class="btn-row">
+          <a class="btn" href={mailto}>Request a conversation <span class="arr" aria-hidden="true">→</span></a>
+          <a class="btn-ghost" href="#fields">See the fields</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="trust-strip">
+      <span class="who">Advised by <strong>Manuel Bänziger</strong></span>
+      <span class="items"><span>Executive chef &amp; F&amp;B leader</span><span>20+ years international</span><span>Fine dining to high volume</span><span>Awarded houses under his leadership</span></span>
+    </section>
+
+    <section class="split reveal">
+      <div>
+        <p class="section-kicker">Why at all</p>
+        <p class="pull">The problem rarely sits where it hurts.</p>
+      </div>
+      <div>
+        <p class="body">A house that loses money rarely loses it in the kitchen alone. It loses it at the seams: between purchasing and costing, between reception and F&amp;B, between what the concept promises and what the workflows can deliver.</p>
+        <p class="body">Consultants who know only one side optimise a department and move the problem along. <strong>We look at the whole house</strong> — front and back office, numbers and people, system and craft.</p>
+        <p class="body">And we say what we see. Including when the answer is not software, but a different calculation, a different workflow or a different person in the post.</p>
+      </div>
+    </section>
+
+    <section class="block reveal" id="fields">
+      <div class="block-head">
+        <h2 class="section-kicker">Fields</h2>
+        <p class="pull">Where we work.</p>
+      </div>
+      <div class="cap-grid">
+        <div class="cap"><span class="num">01</span><h3>Operations &amp; costing</h3><p>Workflows, kitchen organisation, food cost and menu engineering. Where the margin leaks — and what brings it back without the guest tasting the difference.</p></div>
+        <div class="cap"><span class="num">02</span><h3>Front office &amp; reception</h3><p>Arrival, reservations and the handovers where a stay tips over. Including training on the system — from Opera to the daily shift handover.</p></div>
+        <div class="cap"><span class="num">03</span><h3>Kitchen &amp; patisserie</h3><p>Stations, mise en place, recipes and production. From à la carte to patisserie and banqueting — craft that holds up in daily service.</p></div>
+        <div class="cap"><span class="num">04</span><h3>Digitalisation</h3><p>Which systems a house actually needs and which it merely pays for. Selection, rollout and replacing legacy systems — vendor-neutral, not only Triarc.</p></div>
+        <div class="cap"><span class="num">05</span><h3>Openings &amp; concept</h3><p>From the idea to a working operation: concept, costing basis, workflows, building the team — accompanied through the first service and beyond.</p></div>
+        <div class="cap"><span class="num">06</span><h3>Leadership &amp; team</h3><p>Building teams, coaching leaders and training management and kitchen crew. So that what was introduced is still lived after the consulting ends.</p></div>
+      </div>
+    </section>
+
+    <section class="block reveal">
+      <h2 class="section-kicker">Who it is for</h2>
+      <div class="audience-grid">
+        <div class="aud"><span class="ic">◷</span><h3>Restaurants &amp; bars</h3><p>Owner-run, short on time for theory and long on need for clarity.</p></div>
+        <div class="aud"><span class="ic">❍</span><h3>Hotels</h3><p>Houses where front office and F&amp;B are finally meant to pull in one direction.</p></div>
+        <div class="aud"><span class="ic">▤</span><h3>Staff &amp; care catering</h3><p>High volume, tight budget, strict demands on records and workflow.</p></div>
+        <div class="aud"><span class="ic">✶</span><h3>Openings</h3><p>Projects that have to add up from day one instead of finding their feet.</p></div>
+      </div>
+      <p class="audience-note">No standard package: we first look at how your house actually runs — and shape the work around it, instead of laying a method over the operation.</p>
+    </section>
+
+    <section class="block reveal">
+      <h2 class="section-kicker">How it runs</h2>
+      <p class="pull">The shape of an engagement.</p>
+      <div class="steps">
+        <div class="step"><span class="n">1</span><h3>Assessment</h3><p>A day in the house. We watch, we run the numbers and we listen to the team — before any recommendation.</p></div>
+        <div class="step"><span class="n">2</span><h3>Findings &amp; measures</h3><p>What we saw, unvarnished, with prioritised measures and what they realistically return.</p></div>
+        <div class="step"><span class="n">3</span><h3>Implementation</h3><p>On request we stay through the rollout in the operation — until it runs without us.</p></div>
+      </div>
+      <div class="assurance">
+        <span>First conversation free of charge</span>
+        <span>A clear scope instead of open-ended day rates</span>
+        <span>Confidential — what stays in the house stays in the house</span>
+        <span>Honest even when the answer is not software</span>
+      </div>
+    </section>
+
+    <section class="cta-band reveal">
+      <h2>Tell us where it hurts.</h2>
+      <p>A conversation costs nothing and usually settles whether we are the right people — and if we are not, we will say so.</p>
+      <div class="btn-row" style="justify-content:center"><a class="btn" href={mailto}>Request a conversation <span class="arr" aria-hidden="true">→</span></a></div>
+      <p class="contact-line">Direct: <a href="mailto:manuel@triarc.ch">manuel@triarc.ch</a></p>
+    </section>
+
+    <nav class="instrument-nav" aria-label="Triarc services">
+      <a href="/en/">← Overview</a>
+      <div class="links"><a href="/en/software">Software</a><a href="/en/beratung" aria-current="page">Consulting</a><a href="/en/recruiting">Recruiting</a></div>
+    </nav>
+  </main>
+</Base>
+
+<style>
+  /* the service names are longer words than Aurora/Nova/Zenith/Ceres,
+     so the display size steps down to keep them inside the column */
+  .d-h1 { font-size: clamp(40px, 5.8vw, 74px); }
+</style>

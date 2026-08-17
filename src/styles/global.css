@@ -123,6 +123,12 @@ body {
 .meta .right a { color: var(--ink-soft); transition: color 180ms ease; }
 .meta .right a:hover { color: var(--gold); }
 .meta .year { opacity: 0.7; }
+/* a long crumb (Recruiting, Software) would run into the language toggle on a
+   narrow phone — the page says where you are anyway, so it steps aside */
+@media (max-width: 440px) {
+  .meta { padding: 24px 22px; }
+  .meta .left .sep, .meta .left .crumb { display: none; }
+}
 
 /* ---- toggles (lang + theme) ---- */
 .toggle-btn {
@@ -148,6 +154,8 @@ body {
 
 /* ---- shared section atoms ---- */
 .section-kicker {
+  /* also used as a real <h2> section label on the service pages */
+  font-weight: 400;
   font-family: var(--mono);
   font-size: 10px;
   letter-spacing: 0.34em;

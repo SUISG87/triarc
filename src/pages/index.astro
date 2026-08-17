@@ -9,13 +9,46 @@ const jsonld = {
   url: 'https://triarc.ch/',
   email: 'manuel@triarc.ch',
   founder: { '@type': 'Person', name: 'Manuel Bänziger' },
-  description: 'Digitale Betriebsschicht für die Gastronomie — vier Instrumente für Umsatz, Personal, Hygiene und Küchenplanung.',
+  description: 'Drei Leistungen für Gastronomie und Hotellerie: Software, Beratung und Recruiting.',
   address: { '@type': 'PostalAddress', addressLocality: 'St. Gallen', addressCountry: 'CH' },
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Leistungen',
+    itemListElement: [
+      {
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Service',
+          name: 'Software für die Gastronomie',
+          url: 'https://triarc.ch/software',
+          description: 'Vier Instrumente für Umsatz, Personal, Hygiene und Küchenplanung — dazu individuell gebaute Software aus dem Atelier.',
+        },
+      },
+      {
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Service',
+          name: 'Beratung für Gastronomie und Hotellerie',
+          url: 'https://triarc.ch/beratung',
+          description: 'Front und Back Office, Betrieb und Kalkulation, Neueröffnung und Konzept, Führung und Team.',
+        },
+      },
+      {
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Service',
+          name: 'Recruiting für Gastronomie und Hotellerie',
+          url: 'https://triarc.ch/recruiting',
+          description: 'Kaderstellen und alle Positionen in Küche und Service, inklusive kurzfristiger Vertretungen.',
+        },
+      },
+    ],
+  },
 };
 ---
 <Base
-  title="Triarc — Instrumente für die Gastronomie"
-  description="Triarc baut die digitale Betriebsschicht für die Gastronomie — vier Instrumente für Umsatz, Personal, Hygiene und Küchenplanung. Entwickelt von einem Küchenchef, nicht von einer Software-Firma."
+  title="Triarc — Software, Beratung und Recruiting für die Gastronomie"
+  description="Drei Leistungen für Gastronomie und Hotellerie: Software für den Betrieb, Beratung von der Reception bis zur Patisserie und Recruiting inklusive kurzfristiger Vertretungen. Von einem Küchenchef entwickelt, nicht von einer Software-Firma."
   lang="de"
   crumb="CH"
   altHref="/en/"
