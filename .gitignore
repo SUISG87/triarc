@@ -19,3 +19,4 @@ site-audit.md
 *.pdf
 wall.json
 project-wall.html
+.playwright-mcp/

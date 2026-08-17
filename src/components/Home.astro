@@ -1,13 +1,15 @@
 ---
 import Mark from './Mark.astro';
+// Ridge.astro holds the engraved line-art horizon — the alternative to the photograph.
+import Backdrop from './Backdrop.astro';
 const { lang = 'de' } = Astro.props;
 
 const C = {
   de: {
     tagline: ['Individuelle Instrumente für die Gastronomie.', 'Schweizer Ingenieurskunst.'],
     status: 'Im Aufbau · Anfragen offen',
+    backdropAlt: 'Das Alpsteinmassiv mit dem Säntis im Morgenlicht.',
     inspect: 'Instrumente ansehen',
-    close: 'Schliessen',
     instrumentsLabel: 'Vier Instrumente',
     lede: 'Keine Lösung für alle. Sagen Sie uns, wie Ihr Haus arbeitet — wir finden das richtige Instrument und richten es auf Sie ein. Und passt keines der vier,',
     ledeAccent: 'bauen wir, was Sie brauchen.',
@@ -16,8 +18,8 @@ const C = {
   en: {
     tagline: ['Individual instruments for hospitality.', 'Swiss-engineered.'],
     status: 'In build · Open for enquiries',
+    backdropAlt: 'The Alpstein massif with the Säntis at first light.',
     inspect: 'Inspect the instruments',
-    close: 'Close the case',
     instrumentsLabel: 'Four instruments',
     lede: 'Not one application for everyone. Tell us how your house runs — we find the right instrument and shape it around your work. And if none of the four fits,',
     ledeAccent: 'we build what you need.',
@@ -42,7 +44,7 @@ const instruments = [
     accent: 'var(--zenith)', roman: 'III', href: '/zenith',
     name: 'Zenith',
     de: { eyebrow: 'Hygiene & HACCP', hero: 'Die Kontrolle kommt. Ihr Nachweis ist bereit.', role: 'HACCP-Doku, die nicht gegen Sie arbeitet.', body: 'Temperaturen, Reinigungskontrollen, Wareneingänge — ein ruhiger Fluss. Jeden Tag prüfungsbereit, nicht erst am Abend vor der Kontrolle. Die Doku, ohne den Papierkram.' },
-    en: { eyebrow: 'Hygiene & compliance', hero: "Your kitchen's true north.", role: "HACCP logging that doesn't fight you.", body: 'Temperatures, cleaning checks, supplier batches — one quiet feed. Audit-ready every day, not the night before the inspector arrives. The paperwork, without the paper.' },
+    en: { eyebrow: 'Hygiene & compliance', hero: 'Your kitchen’s true north.', role: 'HACCP logging that doesn’t fight you.', body: 'Temperatures, cleaning checks, supplier batches — one quiet feed. Audit-ready every day, not the night before the inspector arrives. The paperwork, without the paper.' },
   },
   {
     accent: 'var(--ceres)', roman: 'IV', href: '/ceres',
@@ -55,41 +57,44 @@ const instruments = [
 const t = C[lang];
 const pre = lang === 'en' ? '/en' : '';
 ---
-<main class="home-stage">
+<main id="main" class="home-stage">
   <section class="composition">
-    <Mark size={96} />
-    <h1 class="wordmark">TRIARC</h1>
-    <div class="hairline-row">
-      <span class="hairline" aria-hidden="true"></span>
-      <span class="est">EST · CH · MMXXVI</span>
-      <span class="hairline" aria-hidden="true"></span>
-    </div>
-    <p class="tagline">{t.tagline[0]}<br />{t.tagline[1]}</p>
-    <div class="status">
-      <div class="pulse" aria-hidden="true"><span></span><span></span><span></span></div>
-      <span class="status-label">{t.status}</span>
-    </div>
+    <Backdrop alt={t.backdropAlt} />
+    <div class="composition-inner">
+      <Mark size={96} draw={true} />
+      <h1 class="wordmark" translate="no">TRIARC</h1>
+      <div class="hairline-row">
+        <span class="hairline" aria-hidden="true"></span>
+        <span class="est">EST · CH · MMXXVI</span>
+        <span class="hairline" aria-hidden="true"></span>
+      </div>
+      <p class="tagline">{t.tagline[0]}<br />{t.tagline[1]}</p>
+      <div class="status">
+        <div class="pulse" aria-hidden="true"><span></span><span></span><span></span></div>
+        <span class="status-label">{t.status}</span>
+      </div>
 
-    <button class="peek-trigger" type="button" aria-expanded="false" aria-controls="peek-panel">
-      <span class="label-open">{t.inspect}</span>
-      <span class="label-close">{t.close}</span>
-    </button>
+      <a class="scroll-cue" href="#instruments">
+        <span class="cue-label">{t.inspect}</span>
+        <span class="cue-line" aria-hidden="true"></span>
+      </a>
+    </div>
   </section>
 
-  <section id="peek-panel" class="peek-panel" aria-hidden="true">
-    <div class="peek-header">
+  <section id="instruments" class="instrument-case" tabindex="-1">
+    <div class="peek-header reveal">
       <span class="rule" aria-hidden="true"></span>
       <span class="label">{t.instrumentsLabel}</span>
       <span class="rule" aria-hidden="true"></span>
     </div>
-    <p class="peek-lede">{t.lede} <span class="accent">{t.ledeAccent}</span></p>
+    <p class="peek-lede reveal">{t.lede} <span class="accent">{t.ledeAccent}</span></p>
 
     <div class="instruments">
-      {instruments.map((inst) => (
-        <article class="instrument" style={`--accent:${inst.accent}`}>
+      {instruments.map((inst, i) => (
+        <article class="instrument reveal" style={`--accent:${inst.accent}; --delay:${i * 90}ms`}>
           <div class="accent-rule" aria-hidden="true"></div>
           <span class="eyebrow"><span class="roman">{inst.roman}</span>{inst[lang].eyebrow}</span>
-          <h2 class="name"><a href={pre + inst.href}>{inst.name}<span class="stop">.</span></a></h2>
+          <h2 class="name"><a href={pre + inst.href}><span translate="no">{inst.name}</span><span class="stop">.</span></a></h2>
           <p class="hero">{inst[lang].hero}</p>
           <p class="role">{inst[lang].role}</p>
           <p class="body">{inst[lang].body}</p>
@@ -101,28 +106,51 @@ const pre = lang === 'en' ? '/en' : '';
 </main>
 
 <script>
-  const trigger = document.querySelector('.peek-trigger');
-  const panel = document.getElementById('peek-panel');
-  if (trigger && panel) {
-    trigger.addEventListener('click', () => {
-      const open = panel.classList.toggle('open');
-      trigger.setAttribute('aria-expanded', String(open));
-      panel.setAttribute('aria-hidden', String(!open));
-      if (open) {
-        window.setTimeout(() => panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 200);
-      }
+  // The cue scrolls to the case; it also fades out once the case is in view,
+  // so it never competes with what it pointed at.
+  const cue = document.querySelector('.scroll-cue');
+  const case_ = document.getElementById('instruments');
+  if (cue && case_) {
+    cue.addEventListener('click', (e) => {
+      e.preventDefault();
+      case_.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      // the cue fades out behind us, so hand focus to what it pointed at
+      case_.focus({ preventScroll: true });
     });
+    let queued = false;
+    const sync = () => {
+      queued = false;
+      cue.classList.toggle('gone', window.scrollY > 80);
+    };
+    window.addEventListener('scroll', () => {
+      if (!queued) { queued = true; window.requestAnimationFrame(sync); }
+    }, { passive: true });
+    sync();
   }
 </script>
 
 <style>
-  .home-stage { display: flex; flex-direction: column; align-items: center; padding: 24px 32px 8px; }
-  .composition { display: flex; flex-direction: column; align-items: center; gap: 32px; max-width: 540px; width: 100%; padding: 16px 0 8px; }
-  .wordmark { font-family: var(--sans); font-weight: 400; font-size: clamp(40px, 7vw, 64px); letter-spacing: 0.42em; text-indent: 0.42em; color: var(--ink); line-height: 1; margin: 0; }
+  /* the hero runs full-bleed, so respect the notch on landscape iPhones */
+  .home-stage { display: flex; flex-direction: column; align-items: center; padding: 0 max(32px, env(safe-area-inset-left)) 8px max(32px, env(safe-area-inset-right)); }
+
+  /* the hero is a stage: it owns the viewport, with the ridge on its floor */
+  .composition {
+    position: relative;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    width: 100%;
+    min-height: clamp(500px, calc(100svh - 168px), 740px);
+    padding: 8px 0 40px;
+  }
+  .composition-inner { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 32px; max-width: 540px; width: 100%; }
+  .wordmark { font-family: var(--sans); font-weight: 400; font-size: clamp(44px, 8.4vw, 88px); letter-spacing: 0.4em; text-indent: 0.4em; color: var(--ink); line-height: 1; margin: 0; }
   .hairline-row { display: flex; align-items: center; gap: 18px; width: 100%; max-width: 360px; }
   .hairline { flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
   .est { font-family: var(--mono); font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); white-space: nowrap; }
-  .tagline { font-family: var(--serif); font-weight: 300; font-style: italic; font-size: clamp(20px, 2.6vw, 26px); line-height: 1.35; text-align: center; color: var(--ink); margin: 0; max-width: 600px; }
+  .tagline { font-family: var(--serif); font-weight: 300; font-style: italic; font-size: clamp(20px, 2.6vw, 26px); line-height: 1.35; text-align: center; text-wrap: balance; color: var(--ink); margin: 0; max-width: 600px; }
+  /* the lockup now sits on the massif — these three lines carry a paper halo
+     so they read over snow in either theme */
+  .est, .status-label { text-shadow: 0 0 4px var(--paper), 0 0 10px var(--paper), 0 0 22px var(--paper); }
+  .tagline { text-shadow: 0 0 6px var(--paper), 0 0 14px var(--paper), 0 0 30px var(--paper), 0 0 50px var(--paper); }
   .status { display: flex; flex-direction: column; align-items: center; gap: 10px; }
   .status-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--ink-soft); }
   .pulse { display: flex; gap: 6px; align-items: center; }
@@ -131,28 +159,46 @@ const pre = lang === 'en' ? '/en' : '';
   .pulse span:nth-child(3) { animation-delay: 0.6s; }
   @keyframes pulse { 0%, 100% { opacity: 0.25; transform: scaleX(0.7); } 50% { opacity: 1; transform: scaleX(1); } }
 
-  /* peek trigger — clean, centered, no arrow */
-  .peek-trigger { margin-top: 6px; background: transparent; border: none; padding: 14px 2px 11px; font-family: var(--mono); font-size: 11px; font-weight: 400; letter-spacing: 0.36em; text-indent: 0.36em; text-transform: uppercase; color: var(--ink); cursor: pointer; position: relative; text-align: center; transition: color 240ms ease; }
-  .peek-trigger::after { content: ""; position: absolute; left: 50%; bottom: 0; width: 26px; height: 1px; background: var(--gold); transform: translateX(-50%); opacity: 0.55; transition: width 320ms var(--ease), opacity 240ms ease; }
-  .peek-trigger:hover { color: var(--gold); }
-  .peek-trigger:hover::after { width: calc(100% - 4px); opacity: 0.9; }
-  .peek-trigger[aria-expanded="true"]::after { width: calc(100% - 4px); opacity: 0.8; }
-  .peek-trigger[aria-expanded="true"] .label-open { display: none; }
-  .peek-trigger[aria-expanded="false"] .label-close { display: none; }
+  /* scroll cue — a hairline dropping toward the case. In normal flow, so the
+     hero never has to reserve empty space underneath it. */
+  .scroll-cue {
+    margin-top: 4px;
+    z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 14px;
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.36em; text-indent: 0.36em;
+    text-transform: uppercase; color: var(--ink-soft);
+    transition: color 240ms ease, opacity 420ms ease, transform 420ms var(--ease);
+  }
+  /* a halo that hugs the glyphs, so the label stays legible over the massif
+     without putting a box on the photograph */
+  .cue-label { text-shadow: 0 0 3px var(--paper), 0 0 8px var(--paper), 0 0 16px var(--paper), 0 0 30px var(--paper); }
+  .scroll-cue:hover { color: var(--gold); }
+  .scroll-cue.gone { opacity: 0; transform: translateY(8px); pointer-events: none; }
+  /* the hairline is the actual affordance — it needs the same halo as the
+     label to survive over lit snow */
+  .cue-line { width: 1px; height: 42px; background: linear-gradient(180deg, var(--gold), transparent); opacity: 0.7; transform-origin: top; filter: drop-shadow(0 0 5px var(--paper)) drop-shadow(0 0 10px var(--paper)); animation: cue-drop 2.8s var(--ease) infinite; }
+  @keyframes cue-drop {
+    0%, 100% { transform: scaleY(0.55); opacity: 0.35; }
+    45% { transform: scaleY(1); opacity: 0.9; }
+  }
 
-  /* peek panel (collapsible instrument case) */
-  .peek-panel { width: 100%; max-width: 1100px; margin: 0 auto; overflow: hidden; max-height: 0; opacity: 0; transition: max-height 520ms var(--ease), opacity 380ms ease, margin-top 420ms ease; }
-  .peek-panel.open { max-height: 2600px; opacity: 1; margin-top: 56px; }
+  /* the instrument case */
+  .instrument-case { position: relative; z-index: 1; width: 100%; max-width: 1100px; margin: 0 auto; padding-top: clamp(20px, 3vh, 40px); scroll-margin-top: 24px; }
+  .instrument-case:focus { outline: none; }
+  .instrument-case:focus-visible { outline: 1px solid var(--gold); outline-offset: 12px; }
 
   .peek-header { display: flex; align-items: center; gap: 18px; justify-content: center; padding: 0 24px 36px; }
   .peek-header .rule { flex: 1; max-width: 120px; height: 1px; background: var(--rule); }
   .peek-header .label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.36em; text-transform: uppercase; color: var(--ink-soft); }
-  .peek-lede { font-family: var(--serif); font-style: italic; font-weight: 300; font-size: clamp(18px, 2.2vw, 25px); line-height: 1.4; text-align: center; color: var(--ink); max-width: 30em; margin: 0 auto 48px; }
+  .peek-lede { font-family: var(--serif); font-style: italic; font-weight: 300; font-size: clamp(18px, 2.2vw, 25px); line-height: 1.4; text-align: center; text-wrap: pretty; color: var(--ink); max-width: 30em; margin: 0 auto 48px; }
   .peek-lede .accent { color: var(--gold); font-style: normal; }
 
   .instruments { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; padding: 0 24px 24px; }
-  .instrument { display: flex; flex-direction: column; gap: 14px; }
-  .instrument .accent-rule { width: 38px; height: 2px; background: var(--accent); margin-bottom: 4px; }
+  .instrument { display: flex; flex-direction: column; gap: 14px; transition: transform 320ms var(--ease); }
+  .instrument:hover { transform: translateY(-3px); }
+  /* the rule extends on hover via transform, not width — width would relayout
+     the card on every frame */
+  .instrument .accent-rule { width: 100%; height: 2px; background: var(--accent); margin-bottom: 4px; transform: scaleX(0.155); transform-origin: left center; transition: transform 420ms var(--ease); }
+  .instrument:hover .accent-rule { transform: scaleX(1); }
   .instrument .eyebrow { font-family: var(--mono); font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--ink-soft); }
   .instrument .eyebrow .roman { color: var(--accent); margin-right: 8px; }
   .instrument .hero { font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); line-height: 1.4; margin: -4px 0 0; }
@@ -165,18 +211,24 @@ const pre = lang === 'en' ? '/en' : '';
   .instrument .detail-link { align-self: flex-start; margin-top: 4px; padding: 8px 0 3px; border-bottom: 1px solid var(--accent); font-family: var(--mono); font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--ink); transition: color 180ms ease; }
   .instrument .detail-link:hover { color: var(--accent); }
 
+  /* staggered reveal for the four cards */
+  :global(.js) .instrument.reveal { transition-delay: var(--delay, 0ms); }
+
   @media (max-width: 1080px) { .instruments { grid-template-columns: repeat(2, 1fr); gap: 44px; max-width: 740px; margin: 0 auto; } .instrument .body { max-width: 100%; } }
   @media (max-width: 560px) {
-    .home-stage { padding: 16px 22px; }
-    .wordmark { letter-spacing: 0.36em; text-indent: 0.36em; }
+    .home-stage { padding: 0 max(22px, env(safe-area-inset-left)) 16px max(22px, env(safe-area-inset-right)); }
+    .composition { min-height: clamp(480px, calc(100svh - 80px), 720px); padding-bottom: 80px; }
+    .wordmark { letter-spacing: 0.34em; text-indent: 0.34em; }
+    .scroll-cue { font-size: 10px; letter-spacing: 0.28em; text-indent: 0.28em; }
+    .cue-line { height: 30px; }
     .instruments { grid-template-columns: 1fr; max-width: 420px; gap: 48px; }
     .peek-header { padding: 0 8px 28px; gap: 12px; }
     .peek-header .rule { max-width: 50px; }
-    .peek-panel.open { margin-top: 40px; }
   }
   @media (prefers-reduced-motion: reduce) {
     .pulse span { animation: none; opacity: 0.6; }
-    .peek-panel { transition: none; }
-    .peek-trigger::after { transition: none; }
+    .cue-line { animation: none; opacity: 0.7; transform: none; }
+    .scroll-cue, .instrument, .instrument .accent-rule { transition: none; }
+    .instrument:hover { transform: none; }
   }
 </style>

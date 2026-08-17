@@ -1,0 +1,110 @@
+---
+/*
+  Ridge — engraved alpine horizon behind the home hero.
+
+  Drawn the way a banknote or a watch dial is engraved: hairlines only, in
+  --gold, no raster asset, no extra request. Three depth layers with a light
+  parallax on scroll; the whole thing fades out toward the top so the
+  wordmark always sits on clean paper.
+*/
+---
+<div class="ridge" aria-hidden="true">
+  <svg viewBox="0 0 1600 420" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="ridge-fade" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="white" stop-opacity="0" />
+        <stop offset="38%" stop-color="white" stop-opacity="0.55" />
+        <stop offset="100%" stop-color="white" stop-opacity="1" />
+      </linearGradient>
+      <mask id="ridge-mask">
+        <rect x="0" y="0" width="1600" height="420" fill="url(#ridge-fade)" />
+      </mask>
+      <linearGradient id="ridge-wash" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="var(--gold)" stop-opacity="0.07" />
+        <stop offset="100%" stop-color="var(--gold)" stop-opacity="0" />
+      </linearGradient>
+    </defs>
+
+    <g mask="url(#ridge-mask)" fill="none" stroke="var(--gold)" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke">
+      <!-- far range: distant, low amplitude, almost haze -->
+      <g class="layer far" opacity="0.26">
+        <path stroke-width="1" d="M0 300 L118 290 L214 302 L318 276 L410 288 L512 262 L604 280 L698 266 L790 288 L886 270 L982 290 L1084 272 L1188 292 L1292 276 L1396 294 L1500 282 L1600 292" />
+      </g>
+
+      <!-- mid range: the second wall, behind the main massif -->
+      <g class="layer mid" opacity="0.48">
+        <path stroke-width="1" d="M0 344 L78 332 L148 346 L212 318 L282 296 L340 312 L400 274 L452 290 L512 246 L572 224 L622 252 L680 232 L732 264 L792 240 L852 270 L910 244 L962 274 L1032 250 L1092 284 L1152 262 L1222 292 L1292 272 L1362 302 L1432 284 L1504 310 L1562 296 L1600 306" />
+      </g>
+
+      <!-- near range: the reading line — one dominant summit, a secondary massif -->
+      <g class="layer near">
+        <path fill="url(#ridge-wash)" stroke="none"
+          d="M0 420 L0 400 L62 388 L132 372 L192 384 L252 356 L302 366 L362 330 L422 300 L472 262 L522 214 L562 178 L592 198 L612 234 L650 268 L692 250 L722 286 L762 312 L802 300 L842 322 L892 306 L932 268 L982 292 L1022 330 L1072 316 L1112 344 L1162 326 L1212 356 L1272 340 L1332 368 L1402 352 L1472 378 L1542 366 L1600 384 L1600 420 Z" />
+        <path stroke-width="1.25" opacity="0.9"
+          d="M0 400 L62 388 L132 372 L192 384 L252 356 L302 366 L362 330 L422 300 L472 262 L522 214 L562 178 L592 198 L612 234 L650 268 L692 250 L722 286 L762 312 L802 300 L842 322 L892 306 L932 268 L982 292 L1022 330 L1072 316 L1112 344 L1162 326 L1212 356 L1272 340 L1332 368 L1402 352 L1472 378 L1542 366 L1600 384" />
+        <!-- snow line: a broken hairline crossing the two summits, the way an
+             engraver marks the tree line -->
+        <g stroke-width="0.9" opacity="0.4" stroke-dasharray="7 9">
+          <path d="M486 250 L562 178 L606 222" />
+          <path d="M906 296 L932 268 L968 282" />
+        </g>
+      </g>
+    </g>
+  </svg>
+</div>
+
+<script>
+  // Parallax: the three ranges drift apart as the visitor scrolls. Cheap —
+  // one rAF-throttled transform per layer, and off entirely for reduced motion.
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const ridge = document.querySelector('.ridge');
+  if (ridge && !reduce.matches) {
+    const layers = [
+      { el: ridge.querySelector('.far'), rate: 0.02 },
+      { el: ridge.querySelector('.mid'), rate: 0.05 },
+      { el: ridge.querySelector('.near'), rate: 0.09 },
+    ].filter((l) => l.el);
+    let queued = false;
+    const paint = () => {
+      queued = false;
+      const y = window.scrollY;
+      for (const l of layers) l.el.style.transform = `translate3d(0, ${y * l.rate}px, 0)`;
+    };
+    window.addEventListener('scroll', () => {
+      if (!queued) { queued = true; window.requestAnimationFrame(paint); }
+    }, { passive: true });
+    paint();
+  }
+</script>
+
+<style>
+  .ridge {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: clamp(240px, 38vh, 420px);
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+    opacity: 0;
+    animation: ridge-in 1400ms var(--ease) 320ms forwards;
+  }
+  .ridge svg { width: 100%; height: 100%; display: block; }
+  .ridge .layer { will-change: transform; }
+
+  @keyframes ridge-in { to { opacity: 1; } }
+
+  /* dark mode: the horizon reads as a night silhouette, so it carries a touch more weight */
+  :global(:root[data-theme="dark"]) .ridge { opacity: 0; animation-name: ridge-in-dark; }
+  @keyframes ridge-in-dark { to { opacity: 0.82; } }
+
+  @media (max-width: 640px) {
+    .ridge { height: clamp(180px, 28vh, 260px); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ridge { opacity: 1; animation: none; }
+    :global(:root[data-theme="dark"]) .ridge { opacity: 0.82; animation: none; }
+  }
+</style>

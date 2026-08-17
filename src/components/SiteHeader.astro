@@ -13,10 +13,15 @@ const home = lang === 'en' ? '/en/' : '/';
   </div>
   <div class="right">
     {altHref && (
+      <!-- the current language is plain text, not a link to nowhere -->
       <span class="lang-toggle" aria-label="Sprache / Language">
-        <a href={lang === 'de' ? '#' : altHref} data-lang="de" aria-current={lang === 'de' ? 'true' : 'false'}>DE</a>
+        {lang === 'de'
+          ? <span aria-current="true">DE</span>
+          : <a href={altHref} data-lang="de">DE</a>}
         <span class="sep" aria-hidden="true">/</span>
-        <a href={lang === 'en' ? '#' : altHref} data-lang="en" aria-current={lang === 'en' ? 'true' : 'false'}>EN</a>
+        {lang === 'en'
+          ? <span aria-current="true">EN</span>
+          : <a href={altHref} data-lang="en">EN</a>}
       </span>
     )}
     <button class="toggle-btn theme-toggle" type="button" aria-label="Theme wechseln" data-theme-toggle>
