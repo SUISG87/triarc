@@ -20,3 +20,6 @@ site-audit.md
 wall.json
 project-wall.html
 .playwright-mcp/
+
+# stray screenshots from local verification
+/*.png
