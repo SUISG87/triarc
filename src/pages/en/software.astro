@@ -14,6 +14,10 @@ const instruments = [
     body: 'Temperatures, cleaning checks, supplier batches — one quiet feed. Audit-ready every day, not the night before the inspector arrives. The record is made where the work happens.' },
   { accent: 'var(--ceres)', roman: 'IV', href: '/en/ceres', name: 'Ceres', eyebrow: 'Menu & production', role: 'The prep list that counts itself.', status: 'Early phase',
     body: 'Menus, recipes and the maths between them. Set the cover count and Ceres scales every dish, then writes the supplier order itself — nothing over-prepped, nothing over-bought.' },
+  // The Atelier stands in the same row as the four, but keeps the house gold
+  // and a plus instead of a numeral: it is made to order, not a fifth product.
+  { accent: 'var(--gold)', roman: '+', href: '#atelier', name: 'Atelier', eyebrow: 'Custom-built', role: 'None of the four fits? Then we build it.', status: 'On request', link: 'To the Atelier',
+    body: 'Some houses run differently. The Atelier builds around your operation — on the same foundation as the four instruments, at a price that fits a hospitality business.' },
 ];
 ---
 <Base
@@ -34,7 +38,7 @@ const instruments = [
       <div>
         <p class="section-kicker">Service I of III</p>
         <p class="role">Four instruments.<br />Or one that does not exist yet.</p>
-        <p class="hero-intro">Point of sale, scheduling, HACCP self-monitoring and kitchen planning — four instruments, each built for one place in the operation. They work on their own and interlock. And if none of them fits your house, the Atelier builds what you need.</p>
+        <p class="hero-intro">Point of sale, scheduling, HACCP self-monitoring and kitchen planning — four instruments, each built for one place in the operation. They work on their own and interlock. Beside them stands the Atelier: if none of the four fits your house, we build what you need.</p>
         <div class="btn-row">
           <a class="btn" href={mailto}>Request a conversation <span class="arr" aria-hidden="true">→</span></a>
           <a class="btn-ghost" href="#instruments">See the instruments</a>
@@ -62,7 +66,7 @@ const instruments = [
     <section class="block reveal" id="instruments">
       <div class="block-head">
         <h2 class="section-kicker">The instruments</h2>
-        <p class="pull">Four places in the operation. Four instruments.</p>
+        <p class="pull">Four places in the operation. And an open workbench.</p>
       </div>
       <div class="instrument-row">
         {instruments.map((inst) => (
@@ -73,7 +77,7 @@ const instruments = [
             <p class="inst-role">{inst.role}</p>
             <p class="inst-body">{inst.body}</p>
             <p class="inst-status">{inst.status}</p>
-            <a class="inst-link" href={inst.href}>Read the instrument</a>
+            <a class="inst-link" href={inst.href}>{inst.link ?? 'Read the instrument'}</a>
           </article>
         ))}
       </div>
@@ -83,7 +87,7 @@ const instruments = [
       <div>
         <p class="section-kicker">Custom-built</p>
         <h2 translate="no">Atelier.</h2>
-        <p>Some houses run differently — and should not bend themselves to fit a piece of software. The Atelier builds around your operation, on the same foundation as the four instruments. At a price that fits a hospitality business, not a corporation.</p>
+        <p>Where an operation has a quirk no standard product knows, the Atelier starts. It is built on the same foundation as the four instruments — same handling, same data, same support — only shaped to your workflow instead of to the average.</p>
       </div>
       <div>
         <ul class="doc-list">
@@ -144,7 +148,7 @@ const instruments = [
   .d-h1 { font-size: clamp(40px, 5.8vw, 74px); }
 
   /* the four instruments, in the language of the homepage case */
-  .instrument-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; }
+  .instrument-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 30px; }
   .inst { display: flex; flex-direction: column; gap: 12px; }
   .inst .accent-rule { width: 100%; height: 2px; background: var(--accent); transform: scaleX(0.16); transform-origin: left center; transition: transform 420ms var(--ease); }
   .inst:hover .accent-rule { transform: scaleX(1); }
@@ -161,7 +165,8 @@ const instruments = [
   .inst .inst-link { align-self: flex-start; margin-top: auto; padding: 10px 0 3px; border-bottom: 1px solid var(--accent); font-family: var(--mono); font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--ink); transition: color 180ms ease; }
   .inst .inst-link:hover { color: var(--accent); }
 
-  @media (max-width: 920px) { .instrument-row { grid-template-columns: repeat(2, 1fr); gap: 40px 36px; } }
-  @media (max-width: 560px) { .instrument-row { grid-template-columns: 1fr; gap: 44px; } }
+  @media (max-width: 1100px) { .instrument-row { grid-template-columns: repeat(3, 1fr); gap: 40px 34px; } }
+  @media (max-width: 760px) { .instrument-row { grid-template-columns: repeat(2, 1fr); gap: 40px 34px; } }
+  @media (max-width: 520px) { .instrument-row { grid-template-columns: 1fr; gap: 44px; } }
   @media (prefers-reduced-motion: reduce) { .inst .accent-rule { transition: none; } }
 </style>
