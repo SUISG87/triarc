@@ -58,6 +58,10 @@ html, body {
 }
 body {
   min-height: 100vh;
+  /* the home backdrop breaks out to 100vw, which on platforms with classic
+     scrollbars is wider than the content box — clip rather than scroll.
+     `clip` (not `hidden`) so no scroll container is created. */
+  overflow-x: clip;
   background:
     radial-gradient(ellipse at 50% 0%, var(--glow) 0%, transparent 50%),
     var(--paper);
