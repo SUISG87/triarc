@@ -1,0 +1,166 @@
+---
+import Base from '../layouts/Base.astro';
+import Mark from '../components/Mark.astro';
+import '../styles/detail.css';
+const mailto = "mailto:manuel@triarc.ch?subject=Software%20%E2%80%93%20Anfrage&body=Betrieb%3A%0AStandorte%3A%0AHeutiges%20System%3A%0A";
+const atelierMail = "mailto:manuel@triarc.ch?subject=Atelier%20%E2%80%93%20Anfrage&body=Betrieb%3A%0AWas%20fehlt%20heute%3A%0A";
+
+const instruments = [
+  { accent: 'var(--aurora)', roman: 'I', href: '/aurora', name: 'Aurora', eyebrow: 'Kasse & Umsatz', role: 'Vom Bon bis zum Deckungsbeitrag.', status: 'Pilotphase',
+    body: 'Bestellen, kassieren, abschliessen. Aurora führt Tische, rechnet Schichten ab und schliesst die Kasse — ruhig, ob das Lokal leer ist oder voll. Dazu Einkauf, Inventur und die Zahlen, die am Monatsende zählen.' },
+  { accent: 'var(--nova)', roman: 'II', href: '/nova', name: 'Nova', eyebrow: 'Dienstplanung', role: 'Der Plan, der die Woche übersteht.', status: 'Live',
+    body: 'Schichten, Bewerbungen und das tägliche Organisieren eines Gastro-Teams. Konflikte zeigen sich, bevor sie zubeissen; der Plan hält. Für alle, die nie Dienstplaner werden wollten.' },
+  { accent: 'var(--zenith)', roman: 'III', href: '/zenith', name: 'Zenith', eyebrow: 'Hygiene & HACCP', role: 'HACCP-Doku, die nicht gegen Sie arbeitet.', status: 'Live',
+    body: 'Temperaturen, Reinigungskontrollen, Wareneingänge — ein ruhiger Fluss. Jeden Tag prüfungsbereit, nicht erst am Abend vor der Kontrolle. Der Nachweis entsteht dort, wo gearbeitet wird.' },
+  { accent: 'var(--ceres)', roman: 'IV', href: '/ceres', name: 'Ceres', eyebrow: 'Menü & Einkauf', role: 'Die Rechnung vom Plan zur Bestellung.', status: 'Frühe Phase',
+    body: 'Menüs, Rezepte und die Mathematik dazwischen. Pax eintragen — Ceres skaliert jedes Gericht und rechnet die Bestellung pro Lieferant. Nichts zu viel vorbereitet, nichts zu viel bestellt.' },
+];
+---
+<Base
+  title="Software für die Gastronomie — vier Instrumente & individuelle Entwicklung | Triarc"
+  description="Vier Instrumente für Kasse, Dienstplan, HACCP und Küchenplanung — und das Atelier, das baut, was keines davon abdeckt. Für die Gastronomie entwickelt, nicht aus einer Retail-Lösung abgeleitet."
+  lang="de"
+  crumb="Software"
+  altHref="/en/software"
+>
+  <main id="main" class="detail" style="--accent: var(--gold); --accent-wash: rgba(184,148,58,0.07);">
+    <section class="instrument-hero">
+      <div>
+        <Mark size={76} />
+        <p class="d-eyebrow"><span class="roman">I</span>Gastronomie-Software</p>
+        <h1 class="d-h1">Software<span class="stop">.</span></h1>
+      </div>
+      <div>
+        <p class="section-kicker">Leistung I von III</p>
+        <p class="role">Vier Instrumente.<br />Oder eines, das es noch nicht gibt.</p>
+        <p class="hero-intro">Kasse, Dienstplan, HACCP-Selbstkontrolle und Küchenplanung — vier Instrumente, jedes für eine Stelle im Betrieb gebaut. Sie arbeiten einzeln und greifen ineinander. Und passt keines zu Ihrem Haus, baut das Atelier, was Sie brauchen.</p>
+        <div class="btn-row">
+          <a class="btn" href={mailto}>Gespräch anfragen <span class="arr" aria-hidden="true">→</span></a>
+          <a class="btn-ghost" href="#instrumente">Die Instrumente ansehen</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="trust-strip">
+      <span class="who">Entwickelt von <strong>Manuel Bänziger</strong></span>
+      <span class="items"><span>Executive Chef &amp; F&amp;B-Leader</span><span>20+ Jahre Gastronomie</span><span>HACCP Level 4</span><span>Gebaut aus dem Betrieb heraus</span></span>
+    </section>
+
+    <section class="split reveal">
+      <div>
+        <p class="section-kicker">Das Problem</p>
+        <p class="pull">Software, die den Betrieb nicht kennt.</p>
+      </div>
+      <div>
+        <p class="body">Die meisten Systeme für die Gastronomie kommen aus dem Retail oder aus einer Konzern-IT. Sie können alles — nur nicht das, was an einem Freitagabend um 20 Uhr wirklich passiert.</p>
+        <p class="body">Also arbeitet der Betrieb um die Software herum: Excel neben der Kasse, WhatsApp neben dem Dienstplan, ein Ordner neben der Hygiene-Doku. <strong>Der Aufwand bleibt, die Zahlen bleiben ungenau.</strong></p>
+        <p class="body">Triarc dreht das um. Jedes Instrument ist für eine Stelle im Betrieb gebaut — von jemandem, der dort gestanden hat. Und wo ein Haus anders arbeitet, wird die Software angepasst, nicht der Betrieb.</p>
+      </div>
+    </section>
+
+    <section class="block reveal" id="instrumente">
+      <div class="block-head">
+        <p class="section-kicker">Die Instrumente</p>
+        <p class="pull">Vier Stellen im Betrieb. Vier Instrumente.</p>
+      </div>
+      <div class="instrument-row">
+        {instruments.map((inst) => (
+          <article class="inst" style={`--accent:${inst.accent}`}>
+            <div class="accent-rule" aria-hidden="true"></div>
+            <p class="eyebrow"><span class="roman">{inst.roman}</span>{inst.eyebrow}</p>
+            <h3 class="name"><a href={inst.href}><span translate="no">{inst.name}</span><span class="stop">.</span></a></h3>
+            <p class="inst-role">{inst.role}</p>
+            <p class="inst-body">{inst.body}</p>
+            <p class="inst-status">{inst.status}</p>
+            <a class="inst-link" href={inst.href}>Mehr erfahren</a>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="nachweis reveal" id="atelier">
+      <div>
+        <p class="section-kicker">Individuell gebaut</p>
+        <h2 translate="no">Atelier.</h2>
+        <p>Manche Häuser arbeiten anders — und sollen sich nicht verbiegen, damit eine Software passt. Das Atelier baut um Ihren Betrieb herum, auf demselben Fundament wie die vier Instrumente. Zu einem Preis, der zu einem Gastrobetrieb passt, nicht zu einem Konzern.</p>
+      </div>
+      <div>
+        <ul class="doc-list">
+          <p class="lbl">Typische Aufträge</p>
+          <li>Eine Auswertung, die es so nirgends gibt</li>
+          <li>Ein Ablauf, den kein Standardprodukt abbildet</li>
+          <li>Eine Brücke zu einem System, das Sie behalten wollen</li>
+          <li>Ein Instrument, auf Ihre Stationen und Eigenheiten eingestellt</li>
+        </ul>
+        <div class="btn-row" style="margin-top:26px"><a class="btn" href={atelierMail}>Idee besprechen <span class="arr" aria-hidden="true">→</span></a></div>
+      </div>
+    </section>
+
+    <section class="block reveal">
+      <p class="section-kicker">Wie sie zusammenspielen</p>
+      <p class="body" style="max-width:44rem">Die Instrumente teilen eine Designsprache und sind so gebaut, dass sie ineinandergreifen — Daten einmal erfassen, mehrfach nutzen. Schritt für Schritt verbinden sie sich zu einer durchgängigen Betriebsschicht. Was heute schon verbunden ist und was noch kommt, sagen wir offen:</p>
+      <div class="wiring" style="margin-top:24px">
+        <div class="wire"><span class="pair"><b>Aurora</b> → Nova</span><span class="desc">Gearbeitete Stunden und Trinkgeld fliessen aus der Kasse in die Lohnvorbereitung.</span><span class="tag">Geplant</span></div>
+        <div class="wire"><span class="pair"><b>Zenith</b> → Nova</span><span class="desc">Erledigte Aufgaben belegen Anwesenheit und stützen die Schichtplanung.</span><span class="tag">Geplant</span></div>
+        <div class="wire"><span class="pair">Ceres → <b>Zenith</b></span><span class="desc">Bestellungen und Lieferantenkatalog wachsen mit der Beschaffung zusammen.</span><span class="tag">Geplant</span></div>
+        <div class="wire"><span class="pair">Alle vier</span><span class="desc">Gemeinsame Designsprache und ein Login-Gedanke über alle Instrumente hinweg.</span><span class="tag">Architektur</span></div>
+      </div>
+    </section>
+
+    <section class="block reveal">
+      <p class="section-kicker">Einführung</p>
+      <p class="pull">So läuft die Einführung ab.</p>
+      <div class="steps">
+        <div class="step"><span class="n">1</span><h3>Gespräch</h3><p>Sie zeigen uns, wie Ihr Haus arbeitet — Abläufe, heutige Systeme, was weh tut.</p></div>
+        <div class="step"><span class="n">2</span><h3>Einrichtung</h3><p>Wir richten das passende Instrument auf Ihren Betrieb ein — oder bauen, was fehlt.</p></div>
+        <div class="step"><span class="n">3</span><h3>Start</h3><p>Sie arbeiten damit ab Tag eins, wir begleiten die ersten Wochen persönlich.</p></div>
+      </div>
+      <div class="assurance">
+        <span>Schweizer Datenschutz — Daten in CH/EU, revDSG- &amp; DSGVO-konform</span>
+        <span>Kein Knebelvertrag, monatlich kündbar</span>
+        <span>Ihre Daten jederzeit exportierbar</span>
+        <span>Einrichtung begleiten wir persönlich</span>
+      </div>
+    </section>
+
+    <section class="cta-band reveal">
+      <h2>Sagen Sie uns, wie Ihr Haus arbeitet.</h2>
+      <p>Wir finden das richtige Instrument, richten es auf Ihren Betrieb ein — und bauen den Rest, wenn nötig.</p>
+      <div class="btn-row" style="justify-content:center"><a class="btn" href={mailto}>Gespräch anfragen <span class="arr" aria-hidden="true">→</span></a></div>
+      <p class="contact-line">Direkt: <a href="mailto:manuel@triarc.ch">manuel@triarc.ch</a></p>
+    </section>
+
+    <nav class="instrument-nav" aria-label="Triarc Leistungen">
+      <a href="/">← Übersicht</a>
+      <div class="links"><a href="/software" aria-current="page">Software</a><a href="/beratung">Beratung</a><a href="/recruiting">Recruiting</a></div>
+    </nav>
+  </main>
+</Base>
+
+<style>
+  /* the service names are longer words than Aurora/Nova/Zenith/Ceres,
+     so the display size steps down to keep them inside the column */
+  .d-h1 { font-size: clamp(40px, 5.8vw, 74px); }
+
+  /* the four instruments, in the language of the homepage case */
+  .instrument-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; }
+  .inst { display: flex; flex-direction: column; gap: 12px; }
+  .inst .accent-rule { width: 100%; height: 2px; background: var(--accent); transform: scaleX(0.16); transform-origin: left center; transition: transform 420ms var(--ease); }
+  .inst:hover .accent-rule { transform: scaleX(1); }
+  .inst .eyebrow { font-family: var(--mono); font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--ink-soft); margin: 0; }
+  .inst .eyebrow .roman { color: var(--accent); margin-right: 8px; }
+  .inst .name { font-family: var(--serif); font-weight: 300; font-size: clamp(32px, 3.4vw, 44px); line-height: 0.95; margin: 0; color: var(--ink); }
+  .inst .name a { transition: opacity 160ms ease; }
+  .inst .name a:hover { opacity: 0.7; }
+  .inst .name .stop { color: var(--accent); }
+  .inst .inst-role { font-family: var(--serif); font-style: italic; font-weight: 300; font-size: 16px; color: var(--ink-soft); margin: 0; line-height: 1.3; text-wrap: balance; }
+  .inst .inst-body { font-size: 14px; line-height: 1.65; color: var(--ink); margin: 0; text-wrap: pretty; }
+  .inst .inst-status { margin: 0; font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-soft); display: inline-flex; align-items: center; gap: 9px; }
+  .inst .inst-status::before { content: ""; width: 5px; height: 5px; background: var(--accent); transform: rotate(45deg); }
+  .inst .inst-link { align-self: flex-start; margin-top: auto; padding: 10px 0 3px; border-bottom: 1px solid var(--accent); font-family: var(--mono); font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--ink); transition: color 180ms ease; }
+  .inst .inst-link:hover { color: var(--accent); }
+
+  @media (max-width: 920px) { .instrument-row { grid-template-columns: repeat(2, 1fr); gap: 40px 36px; } }
+  @media (max-width: 560px) { .instrument-row { grid-template-columns: 1fr; gap: 44px; } }
+  @media (prefers-reduced-motion: reduce) { .inst .accent-rule { transition: none; } }
+</style>

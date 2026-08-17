@@ -1,0 +1,118 @@
+---
+import Base from '../layouts/Base.astro';
+import Mark from '../components/Mark.astro';
+import '../styles/detail.css';
+const mailto = "mailto:manuel@triarc.ch?subject=Recruiting%20%E2%80%93%20Anfrage&body=Betrieb%3A%0AGesuchte%20Position%3A%0AAb%20wann%3A%0A";
+const urgentMail = "mailto:manuel@triarc.ch?subject=Kurzfristige%20Vertretung%20%E2%80%93%20dringend&body=Betrieb%3A%0AAusgefallene%20Position%3A%0AAb%20wann%20und%20wie%20lange%3A%0A";
+---
+<Base
+  title="Recruiting für Gastronomie & Hotellerie | Triarc"
+  description="Kaderstellen und jede Position in Küche und Service — vermittelt, eingearbeitet und im Dienstplan angekommen. Dazu kurzfristige Vertretungen bei Krankheit, Unfall und plötzlichen Ausfällen."
+  lang="de"
+  crumb="Recruiting"
+  altHref="/en/recruiting"
+>
+  <main id="main" class="detail" style="--accent: var(--gold); --accent-wash: rgba(184,148,58,0.07);">
+    <section class="instrument-hero">
+      <div>
+        <Mark size={76} />
+        <p class="d-eyebrow"><span class="roman">III</span>Personal &amp; Vermittlung</p>
+        <h1 class="d-h1">Recruiting<span class="stop">.</span></h1>
+      </div>
+      <div>
+        <p class="section-kicker">Leistung III von III</p>
+        <p class="role">Besetzt.<br />Auch übermorgen.</p>
+        <p class="hero-intro">Kaderstellen und jede Position in Küche und Service — vermittelt von jemandem, der die Arbeit selbst gemacht hat und im Gespräch merkt, ob jemand sie kann. Und wenn kurzfristig jemand ausfällt: erfahrene Fachkräfte, die einspringen, so lange es nötig ist.</p>
+        <div class="btn-row">
+          <a class="btn" href={mailto}>Stelle besprechen <span class="arr" aria-hidden="true">→</span></a>
+          <a class="btn-ghost" href="#vertretung">Kurzfristige Vertretung</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="trust-strip">
+      <span class="who">Vermittelt von <strong>Manuel Bänziger</strong></span>
+      <span class="items"><span>Executive Chef &amp; F&amp;B-Leader</span><span>20+ Jahre international</span><span>Teams von der Brigade bis zur Leitung geführt</span></span>
+    </section>
+
+    <section class="split reveal">
+      <div>
+        <p class="section-kicker">Warum wir</p>
+        <p class="pull">Ein Lebenslauf sagt nicht, ob jemand den Freitagabend hält.</p>
+      </div>
+      <div>
+        <p class="body">Die meisten Vermittler in der Gastronomie haben nie in einer Küche gestanden. Sie prüfen Stationen im Lebenslauf und hoffen, dass es passt — Sie merken erst im ersten Service, ob es das tut.</p>
+        <p class="body">Wir haben diese Posten selbst besetzt und geführt. <strong>Wir wissen, welche Frage im Gespräch trennt</strong>, wer den Druck aushält und wer nur davon erzählt — und wir kennen den Unterschied zwischen einem Haus mit 40 Plätzen und einem Bankett für 400.</p>
+        <p class="body">Und weil wir Betriebe auch beraten und für sie bauen, kennen wir das Haus, in das jemand kommt. Vermittlung ist dann keine Adresse, sondern eine Passung.</p>
+      </div>
+    </section>
+
+    <section class="block reveal">
+      <div class="block-head">
+        <p class="section-kicker">Was wir besetzen</p>
+        <p class="pull">Vom Commis bis zur Betriebsleitung.</p>
+      </div>
+      <div class="cap-grid">
+        <div class="cap"><span class="num">01</span><h3>Kaderstellen</h3><p>Küchenchef, Sous-Chef, Betriebsleitung, F&amp;B-Leitung. Die Besetzungen, bei denen ein Fehlgriff ein Jahr kostet — entsprechend gründlich geprüft.</p></div>
+        <div class="cap"><span class="num">02</span><h3>Küche &amp; Service</h3><p>Jede Position in Brigade und Service, vom Commis über die Patisserie bis zur Restaurationsfachkraft und zur Bar.</p></div>
+        <div class="cap"><span class="num">03</span><h3>Front &amp; Back Office</h3><p>Reception, Reservation und Administration — die Posten, an denen der Aufenthalt beginnt und die Abrechnung endet.</p></div>
+        <div class="cap"><span class="num">04</span><h3>Temporär &amp; Saison</h3><p>Aushilfen und Saisonkräfte für Spitzen, Bankette und die Monate, in denen ein Haus doppelt so viel leistet.</p></div>
+        <div class="cap"><span class="num">05</span><h3>Vermittlung + Einarbeitung</h3><p>Wer kommt, landet nicht im kalten Wasser: Wir begleiten die Einarbeitung und bringen neue Leute direkt in den geplanten Dienstplan — auf Wunsch in Nova.</p></div>
+        <div class="cap"><span class="num">06</span><h3>Kurzfristige Vertretung</h3><p>Krankheit, Unfall, eine Kündigung von heute auf morgen: erfahrene Fachkräfte, die einspringen, bis die Stelle wieder ordentlich besetzt ist.</p></div>
+      </div>
+    </section>
+
+    <section class="nachweis reveal" id="vertretung">
+      <div>
+        <p class="section-kicker">Kurzfristige Vertretung</p>
+        <h2>Wenn ein Ausfall den Service kippt.</h2>
+        <p>Ein Küchenchef fällt aus, die Saison läuft, und der Betrieb kann nicht zwei Monate warten. Wir greifen auf ein internationales Netz erfahrener Fachkräfte zurück, die kurzfristig einspringen — und so lange bleiben, wie es nötig ist. Nicht als Notlösung, sondern als jemand, der die Position wirklich ausfüllt.</p>
+        <div class="btn-row" style="margin-top:26px"><a class="btn" href={urgentMail}>Vertretung anfragen <span class="arr" aria-hidden="true">→</span></a></div>
+      </div>
+      <div>
+        <ul class="doc-list">
+          <p class="lbl">Typische Fälle</p>
+          <li>Krankheit oder Unfall in der Küchenleitung</li>
+          <li>Kündigung mitten in der Saison</li>
+          <li>Mutterschaft, Militärdienst, längerer Ausfall</li>
+          <li>Ein Bankett oder Event, für das die Brigade nicht reicht</li>
+          <li>Überbrückung, bis die Stelle ordentlich besetzt ist</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="block reveal">
+      <p class="section-kicker">Ablauf</p>
+      <p class="pull">Wie eine Besetzung läuft.</p>
+      <div class="steps">
+        <div class="step"><span class="n">1</span><h3>Das Haus verstehen</h3><p>Wir klären, wie Ihr Betrieb wirklich arbeitet — Team, Küche, Erwartung an die Position.</p></div>
+        <div class="step"><span class="n">2</span><h3>Vorstellen</h3><p>Sie bekommen wenige, geprüfte Kandidaten statt eines Stapels Lebensläufe — mit unserer ehrlichen Einschätzung.</p></div>
+        <div class="step"><span class="n">3</span><h3>Ankommen</h3><p>Wir begleiten die ersten Wochen: Einarbeitung, Dienstplan, und ein Anruf nach dem ersten Monat.</p></div>
+      </div>
+      <div class="assurance">
+        <span>Wenige geprüfte Kandidaten statt Masse</span>
+        <span>Ehrliche Einschätzung — auch wenn sie gegen eine Vermittlung spricht</span>
+        <span>Vertraulich gegenüber Betrieb und Kandidat</span>
+        <span>Kurzfristige Vertretungen möglich</span>
+      </div>
+    </section>
+
+    <section class="cta-band reveal">
+      <h2>Welche Position ist offen?</h2>
+      <p>Sagen Sie uns, wen Sie suchen und ab wann — bei einem dringenden Ausfall am besten heute.</p>
+      <div class="btn-row" style="justify-content:center"><a class="btn" href={mailto}>Stelle besprechen <span class="arr" aria-hidden="true">→</span></a></div>
+      <p class="contact-line">Direkt: <a href="mailto:manuel@triarc.ch">manuel@triarc.ch</a></p>
+    </section>
+
+    <nav class="instrument-nav" aria-label="Triarc Leistungen">
+      <a href="/">← Übersicht</a>
+      <div class="links"><a href="/software">Software</a><a href="/beratung">Beratung</a><a href="/recruiting" aria-current="page">Recruiting</a></div>
+    </nav>
+  </main>
+</Base>
+
+<style>
+  /* the service names are longer words than Aurora/Nova/Zenith/Ceres,
+     so the display size steps down to keep them inside the column */
+  .d-h1 { font-size: clamp(40px, 5.8vw, 74px); }
+</style>

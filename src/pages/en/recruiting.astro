@@ -1,0 +1,118 @@
+---
+import Base from '../../layouts/Base.astro';
+import Mark from '../../components/Mark.astro';
+import '../../styles/detail.css';
+const mailto = "mailto:manuel@triarc.ch?subject=Recruiting%20%E2%80%93%20enquiry&body=Business%3A%0APosition%3A%0AStart%20date%3A%0A";
+const urgentMail = "mailto:manuel@triarc.ch?subject=Cover%20at%20short%20notice%20%E2%80%93%20urgent&body=Business%3A%0APosition%20lost%3A%0AFrom%20when%20and%20how%20long%3A%0A";
+---
+<Base
+  title="Recruiting for hospitality & hotels | Triarc"
+  description="Head-of roles and every position in kitchen and service — placed, settled in and on the rota. Plus cover at short notice for illness, accidents and sudden absences."
+  lang="en"
+  crumb="Recruiting"
+  altHref="/recruiting"
+>
+  <main id="main" class="detail" style="--accent: var(--gold); --accent-wash: rgba(184,148,58,0.07);">
+    <section class="instrument-hero">
+      <div>
+        <Mark size={76} />
+        <p class="d-eyebrow"><span class="roman">III</span>People &amp; placement</p>
+        <h1 class="d-h1">Recruiting<span class="stop">.</span></h1>
+      </div>
+      <div>
+        <p class="section-kicker">Service III of III</p>
+        <p class="role">Covered.<br />The day after tomorrow, too.</p>
+        <p class="hero-intro">Head-of roles and every position in kitchen and service — placed by someone who has done the work and can tell in conversation whether a candidate can too. And when someone drops out at short notice: experienced professionals who step in for as long as it takes.</p>
+        <div class="btn-row">
+          <a class="btn" href={mailto}>Discuss a position <span class="arr" aria-hidden="true">→</span></a>
+          <a class="btn-ghost" href="#cover">Cover at short notice</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="trust-strip">
+      <span class="who">Placed by <strong>Manuel Bänziger</strong></span>
+      <span class="items"><span>Executive chef &amp; F&amp;B leader</span><span>20+ years international</span><span>Led teams from brigade to management</span></span>
+    </section>
+
+    <section class="split reveal">
+      <div>
+        <p class="section-kicker">Why us</p>
+        <p class="pull">A CV doesn’t tell you who holds a Friday night.</p>
+      </div>
+      <div>
+        <p class="body">Most hospitality recruiters have never stood in a kitchen. They check the stations on a CV and hope it fits — you find out in the first service whether it does.</p>
+        <p class="body">We have held and staffed those posts ourselves. <strong>We know which question separates people in an interview</strong>, who carries the pressure and who only talks about it — and we know the difference between a forty-cover room and a banquet for four hundred.</p>
+        <p class="body">And because we also advise operations and build for them, we know the house someone is walking into. Placement then isn’t an address; it’s a fit.</p>
+      </div>
+    </section>
+
+    <section class="block reveal">
+      <div class="block-head">
+        <p class="section-kicker">What we place</p>
+        <p class="pull">From commis to general management.</p>
+      </div>
+      <div class="cap-grid">
+        <div class="cap"><span class="num">01</span><h3>Head-of roles</h3><p>Head chef, sous chef, general management, F&amp;B management. The appointments where a wrong call costs a year — checked accordingly.</p></div>
+        <div class="cap"><span class="num">02</span><h3>Kitchen &amp; service</h3><p>Every position in brigade and service, from commis through patisserie to waiting staff and bar.</p></div>
+        <div class="cap"><span class="num">03</span><h3>Front &amp; back office</h3><p>Reception, reservations and administration — the posts where the stay begins and the accounting ends.</p></div>
+        <div class="cap"><span class="num">04</span><h3>Temporary &amp; seasonal</h3><p>Extra hands and seasonal staff for peaks, banquets and the months when a house does twice the work.</p></div>
+        <div class="cap"><span class="num">05</span><h3>Placement + settling in</h3><p>Nobody is dropped in cold: we accompany the first weeks and put new people straight onto the planned rota — in Nova if you like.</p></div>
+        <div class="cap"><span class="num">06</span><h3>Cover at short notice</h3><p>Illness, an accident, a resignation from one day to the next: experienced professionals who step in until the post is properly filled again.</p></div>
+      </div>
+    </section>
+
+    <section class="nachweis reveal" id="cover">
+      <div>
+        <p class="section-kicker">Cover at short notice</p>
+        <h2>When one absence tips the service.</h2>
+        <p>A head chef drops out, the season is running, and the operation cannot wait two months. We draw on an international network of experienced professionals who step in at short notice — and stay for as long as it takes. Not as a stopgap, but as someone who genuinely fills the post.</p>
+        <div class="btn-row" style="margin-top:26px"><a class="btn" href={urgentMail}>Request cover <span class="arr" aria-hidden="true">→</span></a></div>
+      </div>
+      <div>
+        <ul class="doc-list">
+          <p class="lbl">Typical cases</p>
+          <li>Illness or an accident in the kitchen leadership</li>
+          <li>A resignation in the middle of the season</li>
+          <li>Maternity, service duty, a longer absence</li>
+          <li>A banquet or event the brigade cannot carry alone</li>
+          <li>Bridging until the post is properly filled</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="block reveal">
+      <p class="section-kicker">How it runs</p>
+      <p class="pull">The shape of a placement.</p>
+      <div class="steps">
+        <div class="step"><span class="n">1</span><h3>Understand the house</h3><p>We work out how your operation actually runs — team, kitchen, what the post really demands.</p></div>
+        <div class="step"><span class="n">2</span><h3>Introduce</h3><p>You get a few vetted candidates instead of a stack of CVs — with our honest read on each.</p></div>
+        <div class="step"><span class="n">3</span><h3>Arrive</h3><p>We stay through the first weeks: settling in, the rota, and a call after the first month.</p></div>
+      </div>
+      <div class="assurance">
+        <span>A few vetted candidates instead of volume</span>
+        <span>An honest read — even when it argues against a placement</span>
+        <span>Confidential towards operation and candidate alike</span>
+        <span>Cover at short notice available</span>
+      </div>
+    </section>
+
+    <section class="cta-band reveal">
+      <h2>Which position is open?</h2>
+      <p>Tell us who you are looking for and from when — if someone has just dropped out, today is the right day.</p>
+      <div class="btn-row" style="justify-content:center"><a class="btn" href={mailto}>Discuss a position <span class="arr" aria-hidden="true">→</span></a></div>
+      <p class="contact-line">Direct: <a href="mailto:manuel@triarc.ch">manuel@triarc.ch</a></p>
+    </section>
+
+    <nav class="instrument-nav" aria-label="Triarc services">
+      <a href="/en/">← Overview</a>
+      <div class="links"><a href="/en/software">Software</a><a href="/en/beratung">Consulting</a><a href="/en/recruiting" aria-current="page">Recruiting</a></div>
+    </nav>
+  </main>
+</Base>
+
+<style>
+  /* the service names are longer words than Aurora/Nova/Zenith/Ceres,
+     so the display size steps down to keep them inside the column */
+  .d-h1 { font-size: clamp(40px, 5.8vw, 74px); }
+</style>

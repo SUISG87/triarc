@@ -8,8 +8,8 @@ const home = lang === 'en' ? '/en/' : '/';
   <div class="left">
     <span class="dot" aria-hidden="true"></span>
     <a href={home}>Triarc</a>
-    <span aria-hidden="true">·</span>
-    <span>{crumb}</span>
+    <span class="sep" aria-hidden="true">·</span>
+    <span class="crumb">{crumb}</span>
   </div>
   <div class="right">
     {altHref && (

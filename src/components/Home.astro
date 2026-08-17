@@ -4,8 +4,6 @@ import Mark from './Mark.astro';
 import Backdrop from './Backdrop.astro';
 const { lang = 'de' } = Astro.props;
 
-const MAIL = 'manuel@triarc.ch';
-
 const C = {
   de: {
     tagline: ['Individuelle Instrumente für die Gastronomie.', 'Schweizer Ingenieurskunst.'],
@@ -15,9 +13,7 @@ const C = {
     servicesLabel: 'Drei Leistungen',
     servicesLede: 'Ein Haus zu führen ist mehr als eine Software. Wir arbeiten an drei Stellen —',
     servicesLedeAccent: 'und Sie wählen, wo es klemmt.',
-    instrumentsLabel: 'Vier Instrumente',
-    lede: 'Keine Lösung für alle. Sagen Sie uns, wie Ihr Haus arbeitet — wir finden das richtige Instrument und richten es auf Sie ein.',
-    more: 'Mehr erfahren',
+    open: 'Ansehen',
   },
   en: {
     tagline: ['Individual instruments for hospitality.', 'Swiss-engineered.'],
@@ -27,112 +23,55 @@ const C = {
     servicesLabel: 'Three services',
     servicesLede: 'Running a house takes more than software. We work at three points —',
     servicesLedeAccent: 'you choose where it hurts.',
-    instrumentsLabel: 'Four instruments',
-    lede: 'Not one application for everyone. Tell us how your house runs — we find the right instrument and shape it around your work.',
-    more: 'Read the instrument',
+    open: 'Open',
   },
 };
 
-// The three services. Software opens into the instrument case below; the other
-// two lead to a plain enquiry — no thin pages promising more than exists.
+// The three services. Each opens its own page.
 const services = [
   {
-    roman: 'I', key: 'software', href: '#instruments',
+    roman: 'I', href: '/software',
     de: {
       eyebrow: 'Gastronomie-Software', name: 'Software',
       role: 'Vier Instrumente. Oder eines, das es noch nicht gibt.',
       body: 'Kasse, Dienstplan, HACCP, Küchenplanung — vier Instrumente, für die Gastronomie gebaut. Passt keines davon zu Ihrem Haus, baut das Atelier, was Sie brauchen.',
-      action: 'Instrumente ansehen',
     },
     en: {
       eyebrow: 'Hospitality software', name: 'Software',
       role: 'Four instruments. Or one that does not exist yet.',
       body: 'Point of sale, scheduling, HACCP, kitchen planning — four instruments, built for hospitality. If none of them fits your house, the Atelier builds what you need.',
-      action: 'Inspect the instruments',
     },
   },
   {
-    roman: 'II', key: 'beratung', subject: { de: 'Anfrage Beratung', en: 'Consulting enquiry' },
+    roman: 'II', href: '/beratung',
     de: {
       eyebrow: 'Gastronomie & Hotellerie', name: 'Beratung',
       role: 'Von der Reception bis zur Patisserie.',
-      body: 'Nicht nur Küche, sondern das ganze Haus: Front und Back Office, Betrieb und Kalkulation, Neueröffnung und Konzept, Führung und Team. Von der Opera-Schulung an der Reception bis zur Organisation von Küche und Patisserie — und zur Frage, welche Systeme ein Haus wirklich braucht.',
-      action: 'Anfrage senden',
+      body: 'Nicht nur Küche, sondern das ganze Haus: Front und Back Office, Betrieb und Kalkulation, Neueröffnung und Konzept, Führung und Team.',
     },
     en: {
       eyebrow: 'Hospitality consulting', name: 'Consulting',
       role: 'From the front desk to the patisserie.',
-      body: 'Not only the kitchen — the whole house: front and back office, operations and costing, openings and concept, leadership and team. From Opera training at reception to organising a kitchen or a patisserie — and to the question of which systems a house actually needs.',
-      action: 'Send an enquiry',
+      body: 'Not only the kitchen — the whole house: front and back office, operations and costing, openings and concept, leadership and team.',
     },
   },
   {
-    roman: 'III', key: 'recruiting', subject: { de: 'Anfrage Recruiting', en: 'Recruiting enquiry' },
+    roman: 'III', href: '/recruiting',
     de: {
       eyebrow: 'Personal & Vermittlung', name: 'Recruiting',
       role: 'Besetzt. Auch übermorgen.',
-      body: 'Kaderstellen und jede Position in Küche und Service — vermittelt und eingearbeitet, direkt im Dienstplan. Und wenn Krankheit, Unfall oder ein kurzfristiger Ausfall ein Loch reisst: erfahrene Fachkräfte, international abrufbar, die einspringen — so lange, wie es nötig ist.',
-      action: 'Anfrage senden',
+      body: 'Kaderstellen und jede Position in Küche und Service — vermittelt und eingearbeitet. Und wenn Krankheit oder Unfall ein Loch reisst: Fachkräfte, die kurzfristig einspringen.',
     },
     en: {
       eyebrow: 'People & placement', name: 'Recruiting',
       role: 'Covered. The day after tomorrow, too.',
-      body: 'Head-of roles and every position in kitchen and service — placed and settled in, straight into the schedule. And when illness, an accident or a sudden absence tears a hole: experienced professionals, available internationally at short notice, stepping in for as long as it takes.',
-      action: 'Send an enquiry',
+      body: 'Head-of roles and every position in kitchen and service — placed and settled in. And when illness or an accident tears a hole: professionals who step in at short notice.',
     },
   },
 ];
 
-// Atelier — the custom build. Deliberately not numbered: it is not a fifth
-// instrument, it is the workshop behind the four.
-const atelier = {
-  de: {
-    eyebrow: 'Individuell gebaut',
-    role: 'Passt keines der vier? Dann bauen wir es.',
-    body: 'Manche Häuser arbeiten anders — und sollen sich nicht verbiegen, damit eine Software passt. Das Atelier baut um Ihren Betrieb herum, auf demselben Fundament wie die vier Instrumente. Zu einem Preis, der zu einem Gastrobetrieb passt, nicht zu einem Konzern.',
-    action: 'Gespräch anfragen',
-    subject: 'Anfrage Atelier',
-  },
-  en: {
-    eyebrow: 'Custom-built',
-    role: 'None of the four fits? Then we build it.',
-    body: 'Some houses run differently — and should not bend themselves to fit a piece of software. The Atelier builds around your operation, on the same foundation as the four instruments. At a price that fits a hospitality business, not a corporation.',
-    action: 'Request a conversation',
-    subject: 'Atelier enquiry',
-  },
-};
-
-const instruments = [
-  {
-    accent: 'var(--aurora)', roman: 'I', href: '/aurora',
-    name: 'Aurora',
-    de: { eyebrow: 'Kasse & Umsatz', hero: 'Kasse, die mitdenkt.', role: 'Vom Bon bis zum Deckungsbeitrag.', body: 'Bestellen, kassieren, abschliessen. Aurora führt Tische, rechnet Schichten ab und schliesst die Kasse — ruhig, ob das Lokal leer ist oder voll. Für die Gastronomie gebaut, nicht aus einer Retail-Kasse abgeleitet.' },
-    en: { eyebrow: 'Point of sale', hero: 'Next-gen revenue & sales POS.', role: 'The cash register, reimagined.', body: 'Order, charge, settle. Aurora reads tabs, totals shifts, and closes the till — with the same calm whether the room is empty or six-deep. Built for hospitality first, not adapted from a retail POS.' },
-  },
-  {
-    accent: 'var(--nova)', roman: 'II', href: '/nova',
-    name: 'Nova',
-    de: { eyebrow: 'Dienstplanung', hero: 'Der Plan, der sich selbst tauscht.', role: 'Der Plan, der die Woche übersteht.', body: 'Schichten, Bewerbungen und das tägliche Organisieren eines Gastro-Teams. Konflikte zeigen sich, bevor sie zubeissen; der Plan hält. Für alle, die nie Dienstplaner werden wollten.' },
-    en: { eyebrow: 'Staffing loop', hero: 'Every shift in its orbit.', role: 'The schedule that survives the week.', body: 'Shifts, applications, and the daily orchestration of a hospitality team. Conflicts surface before they bite; the calendar holds. For managers who never wanted to be schedulers.' },
-  },
-  {
-    accent: 'var(--zenith)', roman: 'III', href: '/zenith',
-    name: 'Zenith',
-    de: { eyebrow: 'Hygiene & HACCP', hero: 'Die Kontrolle kommt. Ihr Nachweis ist bereit.', role: 'HACCP-Doku, die nicht gegen Sie arbeitet.', body: 'Temperaturen, Reinigungskontrollen, Wareneingänge — ein ruhiger Fluss. Jeden Tag prüfungsbereit, nicht erst am Abend vor der Kontrolle. Die Doku, ohne den Papierkram.' },
-    en: { eyebrow: 'Hygiene & compliance', hero: 'Your kitchen’s true north.', role: 'HACCP logging that doesn’t fight you.', body: 'Temperatures, cleaning checks, supplier batches — one quiet feed. Audit-ready every day, not the night before the inspector arrives. The paperwork, without the paper.' },
-  },
-  {
-    accent: 'var(--ceres)', roman: 'IV', href: '/ceres',
-    name: 'Ceres',
-    de: { eyebrow: 'Menü & Einkauf', hero: 'Plan für 200. Bestellung für genau 200.', role: 'Die Rechnung vom Plan zur Bestellung.', body: 'Menüs, Rezepte und die Mathematik dazwischen. Pax eintragen — Ceres skaliert jedes Gericht und rechnet die Bestellung pro Lieferant. Nichts zu viel vorbereitet, nichts zu viel bestellt.' },
-    en: { eyebrow: 'Menu & production', hero: 'From harvest to plate, planned.', role: 'The prep list that counts itself.', body: 'Menus, recipes, and the maths between them. Set the cover count and Ceres scales every dish, then writes the supplier order itself — nothing over-prepped, nothing over-bought.' },
-  },
-];
-
 const t = C[lang];
-const a = atelier[lang];
 const pre = lang === 'en' ? '/en' : '';
-const mailto = (subject) => `mailto:${MAIL}?subject=${encodeURIComponent(subject)}`;
 ---
 <main id="main" class="home-stage">
   <section class="composition">
@@ -171,73 +110,28 @@ const mailto = (subject) => `mailto:${MAIL}?subject=${encodeURIComponent(subject
         <article class="service reveal" style={`--delay:${i * 90}ms`}>
           <div class="accent-rule" aria-hidden="true"></div>
           <span class="eyebrow"><span class="roman">{svc.roman}</span>{svc[lang].eyebrow}</span>
-          <h3 class="name">{svc[lang].name}<span class="stop">.</span></h3>
+          <h3 class="name"><a href={pre + svc.href}>{svc[lang].name}<span class="stop">.</span></a></h3>
           <p class="role">{svc[lang].role}</p>
           <p class="body">{svc[lang].body}</p>
-          <a
-            class="action"
-            href={svc.href ?? mailto(svc.subject[lang])}
-            data-jump={svc.href ? 'instruments' : undefined}
-          >{svc[lang].action}</a>
+          <a class="action" href={pre + svc.href}>{t.open}</a>
         </article>
       ))}
-    </div>
-  </section>
-
-  <section id="instruments" class="instrument-case" tabindex="-1">
-    <div class="peek-header reveal">
-      <span class="rule" aria-hidden="true"></span>
-      <h2 class="label">{t.instrumentsLabel}</h2>
-      <span class="rule" aria-hidden="true"></span>
-    </div>
-    <p class="peek-lede reveal">{t.lede}</p>
-
-    <div class="instruments">
-      {instruments.map((inst, i) => (
-        <article class="instrument reveal" style={`--accent:${inst.accent}; --delay:${i * 90}ms`}>
-          <div class="accent-rule" aria-hidden="true"></div>
-          <span class="eyebrow"><span class="roman">{inst.roman}</span>{inst[lang].eyebrow}</span>
-          <h3 class="name"><a href={pre + inst.href}><span translate="no">{inst.name}</span><span class="stop">.</span></a></h3>
-          <p class="hero">{inst[lang].hero}</p>
-          <p class="role">{inst[lang].role}</p>
-          <p class="body">{inst[lang].body}</p>
-          <a class="detail-link" href={pre + inst.href}>{t.more}</a>
-        </article>
-      ))}
-    </div>
-
-    <div class="atelier reveal">
-      <div class="atelier-head">
-        <span class="eyebrow">{a.eyebrow}</span>
-        <h3 class="name" translate="no">Atelier<span class="stop">.</span></h3>
-      </div>
-      <div class="atelier-body">
-        <p class="role">{a.role}</p>
-        <p class="body">{a.body}</p>
-        <a class="detail-link" href={mailto(a.subject)}>{a.action}</a>
-      </div>
     </div>
   </section>
 </main>
 
 <script>
   // The cue scrolls to the services; it also fades out once they are in view,
-  // so it never competes with what it pointed at. The Software card jumps on
-  // down to the instrument case with the same smooth-scroll + focus handoff.
-  const smoothJump = (el, targetId) => {
-    const target = document.getElementById(targetId);
-    if (!target) return;
-    el.addEventListener('click', (e) => {
-      e.preventDefault();
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      // hand focus to what the link pointed at, so keyboard users follow along
-      target.focus({ preventScroll: true });
-    });
-  };
-
+  // so it never competes with what it pointed at.
   const cue = document.querySelector('.scroll-cue');
-  if (cue) {
-    smoothJump(cue, 'services');
+  const services = document.getElementById('services');
+  if (cue && services) {
+    cue.addEventListener('click', (e) => {
+      e.preventDefault();
+      services.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      // the cue fades out behind us, so hand focus to what it pointed at
+      services.focus({ preventScroll: true });
+    });
     let queued = false;
     const sync = () => {
       queued = false;
@@ -248,10 +142,6 @@ const mailto = (subject) => `mailto:${MAIL}?subject=${encodeURIComponent(subject
     }, { passive: true });
     sync();
   }
-
-  document.querySelectorAll('[data-jump]').forEach((el) => {
-    smoothJump(el, el.getAttribute('data-jump'));
-  });
 </script>
 
 <style>
@@ -263,8 +153,8 @@ const mailto = (subject) => `mailto:${MAIL}?subject=${encodeURIComponent(subject
     position: relative;
     display: flex; flex-direction: column; align-items: center; justify-content: center;
     width: 100%;
-    min-height: clamp(500px, calc(100svh - 168px), 740px);
-    padding: 8px 0 40px;
+    min-height: clamp(360px, calc(100svh - 340px), 545px);
+    padding: 8px 0 10px;
   }
   .composition-inner { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 32px; max-width: 540px; width: 100%; }
   .wordmark { font-family: var(--sans); font-weight: 400; font-size: clamp(44px, 8.4vw, 88px); letter-spacing: 0.4em; text-indent: 0.4em; color: var(--ink); line-height: 1; margin: 0; }
@@ -306,20 +196,18 @@ const mailto = (subject) => `mailto:${MAIL}?subject=${encodeURIComponent(subject
     45% { transform: scaleY(1); opacity: 0.9; }
   }
 
-  /* the two cases share the frame; only their contents differ */
-  .services-case, .instrument-case { position: relative; z-index: 1; width: 100%; max-width: 1100px; margin: 0 auto; padding-top: clamp(20px, 3vh, 40px); scroll-margin-top: 24px; }
-  .instrument-case { padding-top: clamp(64px, 9vh, 120px); }
-  .services-case:focus, .instrument-case:focus { outline: none; }
-  .services-case:focus-visible, .instrument-case:focus-visible { outline: 1px solid var(--gold); outline-offset: 12px; }
+  /* the case that unfolds under the lockup */
+  .services-case { position: relative; z-index: 1; width: 100%; max-width: 1100px; margin: 0 auto; padding: 0 0 clamp(40px, 7vh, 88px); scroll-margin-top: 24px; }
+  .services-case:focus { outline: none; }
+  .services-case:focus-visible { outline: 1px solid var(--gold); outline-offset: 12px; }
 
-  .peek-header { display: flex; align-items: center; gap: 18px; justify-content: center; padding: 0 24px 36px; }
+  .peek-header { display: flex; align-items: center; gap: 18px; justify-content: center; padding: 0 24px 26px; }
   .peek-header .rule { flex: 1; max-width: 120px; height: 1px; background: var(--rule); }
   .peek-header .label { margin: 0; font-weight: 400; font-family: var(--mono); font-size: 10px; letter-spacing: 0.36em; text-transform: uppercase; color: var(--ink-soft); }
-  .peek-lede { font-family: var(--serif); font-style: italic; font-weight: 300; font-size: clamp(18px, 2.2vw, 25px); line-height: 1.4; text-align: center; text-wrap: pretty; color: var(--ink); max-width: 30em; margin: 0 auto 48px; }
+  .peek-lede { font-family: var(--serif); font-style: italic; font-weight: 300; font-size: clamp(18px, 2.2vw, 25px); line-height: 1.4; text-align: center; text-wrap: pretty; color: var(--ink); max-width: 30em; margin: 0 auto 36px; }
   .peek-lede .accent { color: var(--gold); font-style: normal; }
 
-  /* the three services — panelled, so the choice reads as the first decision;
-     the instruments below stay borderless and lighter */
+  /* the three services — panelled, so the choice reads as the first decision */
   .services { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; padding: 0 24px; align-items: stretch; }
   .service {
     display: flex; flex-direction: column; gap: 14px;
@@ -333,73 +221,35 @@ const mailto = (subject) => `mailto:${MAIL}?subject=${encodeURIComponent(subject
   .service .eyebrow { font-family: var(--mono); font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--ink-soft); }
   .service .eyebrow .roman { color: var(--gold); margin-right: 8px; }
   .service .name { font-family: var(--serif); font-weight: 300; font-size: clamp(32px, 3.4vw, 42px); line-height: 0.98; letter-spacing: -0.01em; color: var(--ink); margin: 0; }
+  .service .name a { transition: opacity 160ms ease; }
+  .service .name a:hover { opacity: 0.7; }
   .service .name .stop { color: var(--gold); }
   .service .role { font-family: var(--serif); font-style: italic; font-weight: 300; font-size: 17px; color: var(--gold); margin: 0; line-height: 1.3; text-wrap: balance; }
   .service .body { font-size: 14px; line-height: 1.65; color: var(--ink); margin: 2px 0 0; text-wrap: pretty; }
   .service .action { align-self: flex-start; margin-top: auto; padding: 12px 0 3px; border-bottom: 1px solid var(--gold); font-family: var(--mono); font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--ink); transition: color 180ms ease; }
   .service .action:hover { color: var(--gold); }
 
-  .instruments { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; padding: 0 24px 24px; }
-  .instrument { display: flex; flex-direction: column; gap: 14px; transition: transform 320ms var(--ease); }
-  .instrument:hover { transform: translateY(-3px); }
-  /* the rule extends on hover via transform, not width — width would relayout
-     the card on every frame */
-  .instrument .accent-rule { width: 100%; height: 2px; background: var(--accent); margin-bottom: 4px; transform: scaleX(0.155); transform-origin: left center; transition: transform 420ms var(--ease); }
-  .instrument:hover .accent-rule { transform: scaleX(1); }
-  .instrument .eyebrow { font-family: var(--mono); font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--ink-soft); }
-  .instrument .eyebrow .roman { color: var(--accent); margin-right: 8px; }
-  .instrument .hero { font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); line-height: 1.4; margin: -4px 0 0; }
-  .instrument .name { font-family: var(--serif); font-weight: 300; font-size: clamp(36px, 4vw, 48px); line-height: 0.95; letter-spacing: -0.01em; color: var(--ink); margin: 0; }
-  .instrument .name a { transition: opacity 160ms ease; }
-  .instrument .name a:hover { opacity: 0.7; }
-  .instrument .name .stop { color: var(--accent); }
-  .instrument .role { font-family: var(--serif); font-style: italic; font-weight: 300; font-size: 16px; color: var(--ink-soft); margin: 0; line-height: 1.3; }
-  .instrument .body { font-size: 14px; line-height: 1.65; color: var(--ink); margin: 6px 0 0; max-width: 32ch; }
-  .instrument .detail-link { align-self: flex-start; margin-top: 4px; padding: 8px 0 3px; border-bottom: 1px solid var(--accent); font-family: var(--mono); font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--ink); transition: color 180ms ease; }
-  .instrument .detail-link:hover { color: var(--accent); }
-
-  /* the atelier closes the case: no roman numeral, no accent colour of its own —
-     it is the workshop behind the four, not a fifth instrument */
-  .atelier {
-    display: grid; grid-template-columns: minmax(200px, 1fr) 2fr; gap: 32px 48px;
-    margin: 12px 24px clamp(28px, 5vh, 64px); padding: 34px 0 0; border-top: 1px solid var(--rule);
-  }
-  .atelier .eyebrow { display: block; font-family: var(--mono); font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
-  .atelier .name { font-family: var(--serif); font-weight: 300; font-size: clamp(34px, 3.6vw, 44px); line-height: 0.95; letter-spacing: -0.01em; color: var(--ink); margin: 0; }
-  .atelier .name .stop { color: var(--gold); }
-  .atelier-body { display: flex; flex-direction: column; gap: 12px; }
-  .atelier .role { font-family: var(--serif); font-style: italic; font-weight: 300; font-size: 19px; color: var(--ink); margin: 0; line-height: 1.3; }
-  .atelier .body { font-size: 14px; line-height: 1.7; color: var(--ink-soft); margin: 0; max-width: 62ch; }
-  .atelier .detail-link { align-self: flex-start; margin-top: 6px; padding: 8px 0 3px; border-bottom: 1px solid var(--gold); font-family: var(--mono); font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--ink); transition: color 180ms ease; }
-  .atelier .detail-link:hover { color: var(--gold); }
-
-  /* staggered reveal for the cards */
-  :global(.js) .service.reveal,
-  :global(.js) .instrument.reveal { transition-delay: var(--delay, 0ms); }
+  /* staggered reveal for the three cards */
+  :global(.js) .service.reveal { transition-delay: var(--delay, 0ms); }
 
   @media (max-width: 1080px) {
     .services { grid-template-columns: 1fr; gap: 24px; max-width: 740px; margin: 0 auto; }
-    .instruments { grid-template-columns: repeat(2, 1fr); gap: 44px; max-width: 740px; margin: 0 auto; }
-    .instrument .body { max-width: 100%; }
-    .atelier { grid-template-columns: 1fr; gap: 18px; max-width: 740px; margin: 12px auto clamp(28px, 5vh, 56px); }
   }
   @media (max-width: 560px) {
     .home-stage { padding: 0 max(22px, env(safe-area-inset-left)) 16px max(22px, env(safe-area-inset-right)); }
-    .composition { min-height: clamp(480px, calc(100svh - 80px), 720px); padding-bottom: 80px; }
+    .composition { min-height: clamp(360px, calc(100svh - 250px), 560px); padding-bottom: 18px; }
     .wordmark { letter-spacing: 0.34em; text-indent: 0.34em; }
     .scroll-cue { font-size: 10px; letter-spacing: 0.28em; text-indent: 0.28em; }
     .cue-line { height: 30px; }
     .services { padding: 0 4px; max-width: 420px; }
     .service { padding: 26px 22px 28px; }
-    .instruments { grid-template-columns: 1fr; max-width: 420px; gap: 48px; }
-    .atelier { margin: 12px 4px 32px; max-width: 420px; padding-top: 30px; }
     .peek-header { padding: 0 8px 28px; gap: 12px; }
     .peek-header .rule { max-width: 50px; }
   }
   @media (prefers-reduced-motion: reduce) {
     .pulse span { animation: none; opacity: 0.6; }
     .cue-line { animation: none; opacity: 0.7; transform: none; }
-    .scroll-cue, .instrument, .instrument .accent-rule, .service, .service .accent-rule { transition: none; }
-    .instrument:hover, .service:hover { transform: none; }
+    .scroll-cue, .service, .service .accent-rule { transition: none; }
+    .service:hover { transform: none; }
   }
 </style>
