@@ -56,13 +56,16 @@ const { alt } = Astro.props;
   .backdrop {
     /* the sky reaches up past the meta register, so the page opens in it */
     --bleed: 104px;
+    /* room below the hero for the frame's fade to finish INSIDE the box: a
+       mask that is still painting when the box clips it ends on a cut */
+    --tail: 150px;
     --band: clamp(210px, 30vh, 320px);
     --sky: rgb(58, 57, 52);
 
     position: absolute;
     left: 50%;
     top: calc(-1 * var(--bleed));
-    height: calc(100% + var(--bleed));
+    height: calc(100% + var(--bleed) + var(--tail));
     width: 100vw;
     transform: translateX(-50%);
     z-index: 0;
@@ -84,24 +87,23 @@ const { alt } = Astro.props;
     inset: 0;
     /* it dissolves at both ends — into the page above the register, and below
        the ridge, so the hero never closes on an edge */
-    background: linear-gradient(to bottom, transparent 0%, var(--sky) 24%, var(--sky) 58%, color-mix(in srgb, var(--sky) 45%, transparent) 78%, transparent 96%);
+    background: linear-gradient(to bottom, transparent 0%, var(--sky) 20%, var(--sky) 50%, color-mix(in srgb, var(--sky) 40%, transparent) 66%, transparent 82%);
   }
 
   .backdrop :global(img) {
     position: absolute;
     /* the ridge sits low enough that the scroll cue keeps clear of lit snow */
-    left: 0; bottom: -38px;
+    left: 0; bottom: calc(var(--tail) - 38px);
     width: 100%;
     height: var(--band);
     object-fit: cover;
     object-position: 50% 30%;
     display: block;
     will-change: transform;
-    /* the top dissolves into the continued sky it matches; the bottom has to
-       be gone BEFORE the frame is clipped by the box, or the fade ends on a
-       cut instead of on nothing */
-    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 12%, #000 54%, rgba(0,0,0,0.55) 70%, transparent 86%);
-    mask-image: linear-gradient(to bottom, transparent 0%, #000 12%, #000 54%, rgba(0,0,0,0.55) 70%, transparent 86%);
+    /* the top dissolves into the continued sky it matches; the bottom runs
+       all the way to nothing inside the tail, so no edge is ever clipped */
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 12%, #000 52%, rgba(0,0,0,0.45) 70%, rgba(0,0,0,0.12) 84%, transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0%, #000 12%, #000 52%, rgba(0,0,0,0.45) 70%, rgba(0,0,0,0.12) 84%, transparent 100%);
   }
 
   /* on paper the frame was held so far back that the massif nearly vanished;
@@ -118,8 +120,8 @@ const { alt } = Astro.props;
      into the pale extension instead of meeting it on a line. */
   :global(:root[data-theme="light"]) .sky { opacity: 0.34; }
   :global(:root[data-theme="light"]) .backdrop :global(img) {
-    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 40%, #000 58%, rgba(0,0,0,0.5) 72%, transparent 88%);
-    mask-image: linear-gradient(to bottom, transparent 0%, #000 40%, #000 58%, rgba(0,0,0,0.5) 72%, transparent 88%);
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 40%, #000 56%, rgba(0,0,0,0.42) 70%, rgba(0,0,0,0.1) 84%, transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0%, #000 40%, #000 56%, rgba(0,0,0,0.42) 70%, rgba(0,0,0,0.1) 84%, transparent 100%);
   }
 
   @keyframes backdrop-in { to { opacity: 1; } }
@@ -134,11 +136,7 @@ const { alt } = Astro.props;
     /* a narrow viewport crops the panorama hard, so the band is kept shorter
        (less zoom on the peak) and sits lower, clear of the status line */
     .backdrop { --bleed: 88px; --band: clamp(160px, 22vh, 200px); }
-    .backdrop :global(img) {
-      bottom: -52px;
-      -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 14%, #000 46%, rgba(0,0,0,0.5) 60%, transparent 74%);
-      mask-image: linear-gradient(to bottom, transparent 0%, #000 14%, #000 46%, rgba(0,0,0,0.5) 60%, transparent 74%);
-    }
+    .backdrop :global(img) { bottom: calc(var(--tail) - 52px); }
   }
 
   @media (prefers-reduced-motion: reduce) {
