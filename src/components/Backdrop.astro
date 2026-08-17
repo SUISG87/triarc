@@ -89,7 +89,8 @@ const { alt } = Astro.props;
 
   .backdrop :global(img) {
     position: absolute;
-    left: 0; bottom: 0;
+    /* the ridge sits low enough that the scroll cue keeps clear of lit snow */
+    left: 0; bottom: -38px;
     width: 100%;
     height: var(--band);
     object-fit: cover;
