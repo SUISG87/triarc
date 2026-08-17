@@ -102,6 +102,9 @@ body {
 
 /* ---- top meta register ---- */
 .meta {
+  /* the home backdrop bleeds up behind this register — keep the text above it */
+  position: relative;
+  z-index: 2;
   padding: 28px 40px;
   display: flex;
   justify-content: space-between;

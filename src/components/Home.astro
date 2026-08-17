@@ -164,8 +164,16 @@ const pre = lang === 'en' ? '/en' : '';
   .tagline { font-family: var(--serif); font-weight: 300; font-style: italic; font-size: clamp(20px, 2.6vw, 26px); line-height: 1.35; text-align: center; text-wrap: balance; color: var(--ink); margin: 0; max-width: 600px; }
   /* the lockup now sits on the massif — these three lines carry a paper halo
      so they read over snow in either theme */
-  .est, .status-label { text-shadow: 0 0 4px var(--paper), 0 0 10px var(--paper), 0 0 22px var(--paper); }
+  .est { text-shadow: 0 0 4px var(--paper), 0 0 10px var(--paper), 0 0 22px var(--paper); }
+  .status-label { text-shadow: 0 0 2px var(--paper), 0 0 5px var(--paper), 0 0 11px var(--paper), 0 0 20px var(--paper); }
   .tagline { text-shadow: 0 0 6px var(--paper), 0 0 14px var(--paper), 0 0 30px var(--paper), 0 0 50px var(--paper); }
+  /* on paper the massif now carries real weight, and these two lines sit
+     right on lit snow — they get a denser halo and the full ink */
+  :global(:root[data-theme="light"]) .status-label,
+  :global(:root[data-theme="light"]) .cue-label {
+    color: var(--ink);
+    text-shadow: 0 0 2px var(--paper), 0 0 5px var(--paper), 0 0 10px var(--paper), 0 0 18px var(--paper);
+  }
   .status { display: flex; flex-direction: column; align-items: center; gap: 10px; }
   .status-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--ink-soft); }
   .pulse { display: flex; gap: 6px; align-items: center; }
@@ -185,7 +193,7 @@ const pre = lang === 'en' ? '/en' : '';
   }
   /* a halo that hugs the glyphs, so the label stays legible over the massif
      without putting a box on the photograph */
-  .cue-label { text-shadow: 0 0 3px var(--paper), 0 0 8px var(--paper), 0 0 16px var(--paper), 0 0 30px var(--paper); }
+  .cue-label { text-shadow: 0 0 2px var(--paper), 0 0 5px var(--paper), 0 0 11px var(--paper), 0 0 22px var(--paper); }
   .scroll-cue:hover { color: var(--gold); }
   .scroll-cue.gone { opacity: 0; transform: translateY(8px); pointer-events: none; }
   /* the hairline is the actual affordance — it needs the same halo as the

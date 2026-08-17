@@ -2,12 +2,15 @@
 /*
   Backdrop — the Alpstein at alpenglow behind the home hero.
 
-  The photograph sits in the same slot the engraved ridge occupied (see
-  Ridge.astro, kept as the line-art alternative): anchored to the floor of the
-  hero, masked so the sky dissolves into the page rather than ending on an
-  edge. Light and dark carry different weight — on paper the frame is held
-  back so only the silhouette reads; on dark the alpenglow is already the
-  brand's gold, so it runs close to full strength.
+  The photograph is a 2400×500 panorama: almost all massif, with only a thin
+  band of sky above the ridge. So the sky is continued upward in its own
+  colour (sampled from the top of the frame, rgb(58,57,52) — it varies by less
+  than two values over the whole band), which lets the lockup stand *in* the
+  sky instead of on the page above it. The extension carries the same opacity
+  and filter as the photograph, so the two stay matched in both themes, and it
+  dissolves at the very top rather than ending on an edge.
+
+  Ridge.astro keeps the engraved line-art alternative.
 */
 import { Image } from 'astro:assets';
 import alpstein from '../assets/alpstein-saentis.jpg';
@@ -15,6 +18,8 @@ import alpstein from '../assets/alpstein-saentis.jpg';
 const { alt } = Astro.props;
 ---
 <div class="backdrop" role="img" aria-label={alt}>
+  <div class="frame">
+  <div class="sky" aria-hidden="true"></div>
   <Image
     src={alpstein}
     alt=""
@@ -26,10 +31,12 @@ const { alt } = Astro.props;
     fetchpriority="high"
     decoding="async"
   />
+  </div>
 </div>
 
 <script>
-  // A slow drift as the hero scrolls away — the horizon lingers.
+  // A slow drift as the hero scrolls away — the horizon lingers. Only the
+  // massif moves; the sky it sits in is flat, so the seam stays invisible.
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
   const backdrop = document.querySelector('.backdrop img');
   if (backdrop && !reduce.matches) {
@@ -47,48 +54,85 @@ const { alt } = Astro.props;
 
 <style>
   .backdrop {
+    /* the sky reaches up past the meta register, so the page opens in it */
+    --bleed: 104px;
+    --band: clamp(210px, 30vh, 320px);
+    --sky: rgb(58, 57, 52);
+
     position: absolute;
     left: 50%;
-    /* anchored to the wordmark, not to the floor: the massif rises to meet
-       the logo rather than sitting in its own band far below */
-    top: var(--backdrop-top, 45%);
-    height: clamp(210px, 30vh, 320px);
+    top: calc(-1 * var(--bleed));
+    height: calc(100% + var(--bleed));
     width: 100vw;
     transform: translateX(-50%);
     z-index: 0;
     pointer-events: none;
     overflow: hidden;
-    /* the frame has no edges: it dissolves into the page at both ends, so
-       only the lit ridge survives */
-    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 34%, #000 78%, transparent 100%);
-    mask-image: linear-gradient(to bottom, transparent 0%, #000 34%, #000 78%, transparent 100%);
     opacity: 0;
     /* kept short: the backdrop is the largest element above the fold, so a
        long fade would land straight in the reported LCP */
     animation: backdrop-in 900ms var(--ease) 80ms forwards;
   }
+
+  /* the continued sky — flat, because the photograph's own sky is */
+  /* one layer carries the whole treatment, so the sky and the photograph
+     never stack their alpha against each other and no seam appears */
+  .frame { position: absolute; inset: 0; }
+
+  .sky {
+    position: absolute;
+    inset: 0;
+    /* it dissolves at both ends — into the page above the register, and below
+       the ridge, so the hero never closes on an edge */
+    background: linear-gradient(to bottom, transparent 0%, var(--sky) 24%, var(--sky) 66%, transparent 100%);
+  }
+
   .backdrop :global(img) {
+    position: absolute;
+    left: 0; bottom: 0;
     width: 100%;
-    height: 100%;
+    height: var(--band);
     object-fit: cover;
     object-position: 50% 30%;
     display: block;
     will-change: transform;
-    /* on paper: hold the frame back and let the silhouette do the work */
-    opacity: 0.30;
-    filter: saturate(0.65) contrast(1.14);
+    /* the top dissolves into the continued sky it matches; the bottom
+       dissolves into the page, so only the lit ridge survives */
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 12%, #000 62%, transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0%, #000 12%, #000 62%, transparent 100%);
+  }
+
+  /* on paper the frame was held so far back that the massif nearly vanished;
+     it now carries real weight, with the alpenglow left warm rather than
+     desaturated into grey */
+  .frame {
+    opacity: 0.62;
+    filter: saturate(0.88) contrast(1.04);
+  }
+
+  /* on paper the massif carries the weight, but the sky above it stays pale —
+     the lockup and the gold register have to stay readable on it. The frame's
+     top fade is stretched to match, so the photograph's own darker sky washes
+     into the pale extension instead of meeting it on a line. */
+  :global(:root[data-theme="light"]) .sky { opacity: 0.34; }
+  :global(:root[data-theme="light"]) .backdrop :global(img) {
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 40%, #000 66%, transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0%, #000 40%, #000 66%, transparent 100%);
   }
 
   @keyframes backdrop-in { to { opacity: 1; } }
 
   /* on dark the alpenglow is already the brand gold — let it run */
-  :global(:root[data-theme="dark"]) .backdrop :global(img) {
+  :global(:root[data-theme="dark"]) .frame {
     opacity: 0.78;
     filter: saturate(0.92) contrast(1.02);
   }
 
   @media (max-width: 640px) {
-    .backdrop { top: var(--backdrop-top, 52%); }
+    /* a narrow viewport crops the panorama hard, so the band is kept shorter
+       (less zoom on the peak) and sits lower, clear of the status line */
+    .backdrop { --bleed: 88px; --band: clamp(160px, 22vh, 200px); }
+    .backdrop :global(img) { bottom: -52px; }
   }
 
   @media (prefers-reduced-motion: reduce) {
