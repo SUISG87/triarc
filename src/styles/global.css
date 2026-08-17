@@ -197,29 +197,6 @@ body {
 .btn-ghost:hover { border-color: var(--accent, var(--gold)); color: var(--accent, var(--gold)); }
 
 /* ---- site footer (legal) ---- */
-/* ---- founders, at the foot of every page above the legal line ---- */
-.foot-founders {
-  width: min(1120px, calc(100% - 64px));
-  margin: clamp(40px, 7vh, 88px) auto 0;
-  padding-top: 30px;
-  border-top: 1px solid var(--rule);
-}
-.foot-founders .ff-label {
-  font-family: var(--mono); font-size: 10px; letter-spacing: 0.36em;
-  text-transform: uppercase; color: var(--ink-soft); margin: 0 0 24px;
-}
-.foot-founders .ff-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px 48px; }
-.foot-founders .ff-person { display: flex; flex-direction: column; gap: 7px; }
-.foot-founders .ff-rule { width: 38px; height: 2px; background: var(--gold); margin-bottom: 5px; }
-.foot-founders .ff-name { font-family: var(--serif); font-weight: 300; font-size: clamp(24px, 2.4vw, 30px); line-height: 1.05; color: var(--ink); margin: 0; }
-.foot-founders .ff-role { font-family: var(--serif); font-style: italic; font-weight: 300; font-size: 16px; line-height: 1.3; color: var(--gold); margin: 0; text-wrap: balance; }
-.foot-founders .ff-regions { font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-soft); margin: 4px 0 0; }
-.foot-founders .ff-regions .ff-years::before { content: "◆"; color: var(--gold); font-size: 6px; margin: 0 10px; transform: translateY(-1px); display: inline-block; }
-@media (max-width: 720px) {
-  .foot-founders { width: min(100% - 44px, 660px); }
-  .foot-founders .ff-grid { grid-template-columns: 1fr; gap: 26px; }
-}
-
 .site-foot {
   width: min(1120px, calc(100% - 64px));
   margin: 8px auto 0;
@@ -228,7 +205,8 @@ body {
   display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px;
   font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-soft);
 }
-.site-foot .links { display: flex; gap: 18px; flex-wrap: wrap; }
+.site-foot .links { display: flex; gap: 18px; flex-wrap: wrap; align-items: baseline; }
+.site-foot .founders { color: var(--ink-soft); opacity: 0.85; }
 .site-foot a { transition: color 180ms ease; }
 .site-foot a.legal { border-bottom: 1px solid var(--gold); padding-bottom: 2px; }
 .site-foot a:hover { color: var(--gold); }
