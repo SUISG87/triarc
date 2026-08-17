@@ -154,6 +154,8 @@ body {
 
 /* ---- shared section atoms ---- */
 .section-kicker {
+  /* also used as a real <h2> section label on the service pages */
+  font-weight: 400;
   font-family: var(--mono);
   font-size: 10px;
   letter-spacing: 0.34em;

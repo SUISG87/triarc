@@ -22,8 +22,9 @@ const instruments = [
   lang="en"
   crumb="Software"
   altHref="/software"
+  hreflang={{ de: '/software', en: '/en/software' }}
 >
-  <main id="main" class="detail" style="--accent: var(--gold); --accent-wash: rgba(184,148,58,0.07);">
+  <main id="main" class="detail" style="--accent: var(--gold); --accent-wash: color-mix(in srgb, var(--gold) 7%, transparent);">
     <section class="instrument-hero">
       <div>
         <Mark size={76} />
@@ -60,7 +61,7 @@ const instruments = [
 
     <section class="block reveal" id="instruments">
       <div class="block-head">
-        <p class="section-kicker">The instruments</p>
+        <h2 class="section-kicker">The instruments</h2>
         <p class="pull">Four places in the operation. Four instruments.</p>
       </div>
       <div class="instrument-row">
@@ -108,7 +109,7 @@ const instruments = [
     </section>
 
     <section class="block reveal">
-      <p class="section-kicker">Getting started</p>
+      <h2 class="section-kicker">Getting started</h2>
       <p class="pull">How a rollout runs.</p>
       <div class="steps">
         <div class="step"><span class="n">1</span><h3>Conversation</h3><p>You show us how your house runs — workflows, current systems, what hurts.</p></div>

@@ -22,8 +22,9 @@ const instruments = [
   lang="de"
   crumb="Software"
   altHref="/en/software"
+  hreflang={{ de: '/software', en: '/en/software' }}
 >
-  <main id="main" class="detail" style="--accent: var(--gold); --accent-wash: rgba(184,148,58,0.07);">
+  <main id="main" class="detail" style="--accent: var(--gold); --accent-wash: color-mix(in srgb, var(--gold) 7%, transparent);">
     <section class="instrument-hero">
       <div>
         <Mark size={76} />
@@ -60,7 +61,7 @@ const instruments = [
 
     <section class="block reveal" id="instrumente">
       <div class="block-head">
-        <p class="section-kicker">Die Instrumente</p>
+        <h2 class="section-kicker">Die Instrumente</h2>
         <p class="pull">Vier Stellen im Betrieb. Vier Instrumente.</p>
       </div>
       <div class="instrument-row">
@@ -108,7 +109,7 @@ const instruments = [
     </section>
 
     <section class="block reveal">
-      <p class="section-kicker">Einführung</p>
+      <h2 class="section-kicker">Einführung</h2>
       <p class="pull">So läuft die Einführung ab.</p>
       <div class="steps">
         <div class="step"><span class="n">1</span><h3>Gespräch</h3><p>Sie zeigen uns, wie Ihr Haus arbeitet — Abläufe, heutige Systeme, was weh tut.</p></div>

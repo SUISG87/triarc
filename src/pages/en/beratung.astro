@@ -10,8 +10,9 @@ const mailto = "mailto:manuel@triarc.ch?subject=Consulting%20%E2%80%93%20enquiry
   lang="en"
   crumb="Consulting"
   altHref="/beratung"
+  hreflang={{ de: '/beratung', en: '/en/beratung' }}
 >
-  <main id="main" class="detail" style="--accent: var(--gold); --accent-wash: rgba(184,148,58,0.07);">
+  <main id="main" class="detail" style="--accent: var(--gold); --accent-wash: color-mix(in srgb, var(--gold) 7%, transparent);">
     <section class="instrument-hero">
       <div>
         <Mark size={76} />
@@ -48,7 +49,7 @@ const mailto = "mailto:manuel@triarc.ch?subject=Consulting%20%E2%80%93%20enquiry
 
     <section class="block reveal" id="fields">
       <div class="block-head">
-        <p class="section-kicker">Fields</p>
+        <h2 class="section-kicker">Fields</h2>
         <p class="pull">Where we work.</p>
       </div>
       <div class="cap-grid">
@@ -62,7 +63,7 @@ const mailto = "mailto:manuel@triarc.ch?subject=Consulting%20%E2%80%93%20enquiry
     </section>
 
     <section class="block reveal">
-      <p class="section-kicker">Who it is for</p>
+      <h2 class="section-kicker">Who it is for</h2>
       <div class="audience-grid">
         <div class="aud"><span class="ic">◷</span><h3>Restaurants &amp; bars</h3><p>Owner-run, short on time for theory and long on need for clarity.</p></div>
         <div class="aud"><span class="ic">❍</span><h3>Hotels</h3><p>Houses where front office and F&amp;B are finally meant to pull in one direction.</p></div>
@@ -73,7 +74,7 @@ const mailto = "mailto:manuel@triarc.ch?subject=Consulting%20%E2%80%93%20enquiry
     </section>
 
     <section class="block reveal">
-      <p class="section-kicker">How it runs</p>
+      <h2 class="section-kicker">How it runs</h2>
       <p class="pull">The shape of an engagement.</p>
       <div class="steps">
         <div class="step"><span class="n">1</span><h3>Assessment</h3><p>A day in the house. We watch, we run the numbers and we listen to the team — before any recommendation.</p></div>
