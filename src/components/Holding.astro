@@ -1,6 +1,6 @@
 ---
-// The maintenance holding page. Served for every route except the two legal
-// pages, which stay live for the Swiss disclosure obligation.
+// The maintenance holding page. Served for every route except /impressum and
+// /datenschutz (DE + EN), which stay reachable at their own URLs.
 // Both languages sit on one page: the DE/EN pair is the structure, not a toggle.
 import Mark from './Mark.astro';
 
@@ -9,17 +9,11 @@ const C = {
     marker: 'DE',
     head: 'Die Seite wird überarbeitet.',
     body: 'Triarc arbeitet weiter — Software, Beratung, Recruiting. Nur die Website steht im Umbau.',
-    write: 'Schreiben Sie uns:',
-    impressum: 'Impressum',
-    privacy: 'Datenschutz',
   },
   en: {
     marker: 'EN',
     head: 'The site is being rebuilt.',
     body: 'Triarc is still working — software, consulting, recruiting. Only the website is under construction.',
-    write: 'Write to us:',
-    impressum: 'Imprint',
-    privacy: 'Privacy',
   },
 };
 ---
@@ -44,28 +38,6 @@ const C = {
         <p lang="en">{C.en.body}</p>
       </div>
     </div>
-
-    <p class="hg-write">
-      <span class="hg-say-de">{C.de.write}</span>
-      <span class="hg-sep" aria-hidden="true">/</span>
-      <span class="hg-say-en" lang="en">{C.en.write}</span>
-      <a class="hg-mail" href="mailto:manuel@triarc.ch">manuel@triarc.ch</a>
-    </p>
-
-    <footer class="hg-foot">
-      <span class="hg-legal">
-        <a href="/impressum">{C.de.impressum}</a>
-        <span class="hg-dot" aria-hidden="true">·</span>
-        <a href="/datenschutz">{C.de.privacy}</a>
-      </span>
-      <span class="hg-sep" aria-hidden="true">/</span>
-      <span class="hg-legal" lang="en">
-        <a href="/en/impressum">{C.en.impressum}</a>
-        <span class="hg-dot" aria-hidden="true">·</span>
-        <a href="/en/datenschutz">{C.en.privacy}</a>
-      </span>
-      <span class="hg-year">2026</span>
-    </footer>
   </div>
 </main>
 
@@ -127,52 +99,8 @@ const C = {
     max-width: 38rem;
   }
 
-  .hg-write {
-    margin: 34px 0 0;
-    padding-top: 30px;
-    border-top: 1px solid var(--rule);
-    font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: 0.14em;
-    color: var(--ink-soft);
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    gap: 0 10px;
-  }
-  .hg-write .hg-sep { color: var(--rule); }
-  .hg-mail {
-    font-family: var(--sans);
-    font-size: 16px;
-    letter-spacing: 0;
-    color: var(--ink);
-    border-bottom: 1px solid var(--gold);
-    padding-bottom: 1px;
-    transition: color 180ms var(--ease);
-  }
-  .hg-mail:hover { color: var(--gold); }
-
-  .hg-foot {
-    margin-top: 56px;
-    display: flex;
-    align-items: baseline;
-    gap: 10px;
-    font-family: var(--mono);
-    font-size: 10px;
-    letter-spacing: 0.24em;
-    text-transform: uppercase;
-    color: var(--ink-soft);
-  }
-  .hg-foot { flex-wrap: wrap; }
-  .hg-legal { display: inline-flex; align-items: baseline; gap: 10px; }
-  .hg-foot .hg-sep { color: var(--rule); }
-  .hg-foot a { transition: color 180ms var(--ease); }
-  .hg-foot a:hover { color: var(--gold); }
-  .hg-foot .hg-dot { color: var(--rule); }
-  .hg-foot .hg-year { margin-left: auto; }
-
   /* one quiet entrance, staggered behind the mark's own draw */
-  .hg-eyebrow, .hg-block, .hg-write, .hg-foot {
+  .hg-eyebrow, .hg-block {
     opacity: 0;
     transform: translateY(8px);
     animation: rise 700ms var(--ease) forwards;
@@ -180,22 +108,15 @@ const C = {
   .hg-eyebrow { animation-delay: 420ms; }
   .hg-block-de { animation-delay: 560ms; }
   .hg-block-en { animation-delay: 660ms; }
-  .hg-write { animation-delay: 760ms; }
-  .hg-foot { animation-delay: 860ms; }
 
   @keyframes rise { to { opacity: 1; transform: none; } }
 
   @media (prefers-reduced-motion: reduce) {
-    .hg-eyebrow, .hg-block, .hg-write, .hg-foot { opacity: 1; transform: none; animation: none; }
+    .hg-eyebrow, .hg-block { opacity: 1; transform: none; animation: none; }
   }
 
   @media (max-width: 560px) {
     .hg-block { grid-template-columns: 1fr; gap: 8px; }
     .hg-marker { padding-top: 0; }
-    /* the DE and EN legal pairs stack instead of splitting mid-pair */
-    .hg-foot { row-gap: 8px; }
-    .hg-foot .hg-sep { display: none; }
-    .hg-legal { width: 100%; }
-    .hg-foot .hg-year { margin-left: 0; width: 100%; }
   }
 </style>
