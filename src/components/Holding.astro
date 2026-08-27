@@ -1,0 +1,187 @@
+---
+// The maintenance holding page. Served for every route except the two legal
+// pages, which stay live for the Swiss disclosure obligation.
+// Both languages sit on one page: the DE/EN pair is the structure, not a toggle.
+import Mark from './Mark.astro';
+
+const C = {
+  de: {
+    marker: 'DE',
+    head: 'Die Seite wird überarbeitet.',
+    body: 'Triarc arbeitet weiter — Software, Beratung, Recruiting. Nur die Website steht im Umbau.',
+    write: 'Schreiben Sie uns:',
+    impressum: 'Impressum',
+    privacy: 'Datenschutz',
+  },
+  en: {
+    marker: 'EN',
+    head: 'The site is being rebuilt.',
+    body: 'Triarc is still working — software, consulting, recruiting. Only the website is under construction.',
+    write: 'Write to us:',
+    impressum: 'Imprint',
+    privacy: 'Privacy',
+  },
+};
+---
+<main id="main" class="hg-holding">
+  <div class="hg-stack">
+    <div class="hg-markwrap"><Mark size={84} draw={true} /></div>
+
+    <p class="hg-eyebrow"><span translate="no">Triarc</span> · St. Gallen · CH</p>
+
+    <div class="hg-block hg-block-de">
+      <span class="hg-marker" aria-hidden="true">{C.de.marker}</span>
+      <div class="hg-say">
+        <h1>{C.de.head}</h1>
+        <p>{C.de.body}</p>
+      </div>
+    </div>
+
+    <div class="hg-block hg-block-en">
+      <span class="hg-marker" aria-hidden="true">{C.en.marker}</span>
+      <div class="hg-say">
+        <h2 lang="en">{C.en.head}</h2>
+        <p lang="en">{C.en.body}</p>
+      </div>
+    </div>
+
+    <p class="hg-write">
+      <span class="hg-say-de">{C.de.write}</span>
+      <span class="hg-sep" aria-hidden="true">/</span>
+      <span class="hg-say-en" lang="en">{C.en.write}</span>
+      <a class="hg-mail" href="mailto:manuel@triarc.ch">manuel@triarc.ch</a>
+    </p>
+
+    <footer class="hg-foot">
+      <a href="/impressum">{C.de.impressum}</a>
+      <span class="hg-dot" aria-hidden="true">·</span>
+      <a href="/datenschutz">{C.de.privacy}</a>
+      <span class="hg-year">2026</span>
+    </footer>
+  </div>
+</main>
+
+<style>
+  .hg-holding {
+    min-height: 100svh;
+    display: grid;
+    place-items: center;
+    padding: 56px calc(28px + env(safe-area-inset-right)) 56px calc(28px + env(safe-area-inset-left));
+  }
+
+  .hg-stack { width: min(620px, 100%); }
+
+  .hg-markwrap { margin: 0 0 40px; }
+
+  .hg-eyebrow {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.34em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin: 0 0 40px;
+  }
+
+  /* the mono marker in the left margin — the DE/EN pair carries the structure */
+  .hg-block {
+    display: grid;
+    grid-template-columns: 44px 1fr;
+    gap: 0 16px;
+    padding: 26px 0;
+  }
+  .hg-block-en { border-top: 1px solid var(--rule); }
+
+  .hg-marker {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.24em;
+    color: var(--ink-soft);
+    padding-top: 0.65em;
+  }
+
+  h1, h2 {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: clamp(30px, 4.6vw, 44px);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+    margin: 0 0 12px;
+    color: var(--ink);
+  }
+
+  .hg-say p {
+    font-size: 16px;
+    line-height: 1.7;
+    text-wrap: pretty;
+    color: var(--ink-soft);
+    margin: 0;
+    max-width: 38rem;
+  }
+
+  .hg-write {
+    margin: 34px 0 0;
+    padding-top: 30px;
+    border-top: 1px solid var(--rule);
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    color: var(--ink-soft);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0 10px;
+  }
+  .hg-write .hg-sep { color: var(--rule); }
+  .hg-mail {
+    font-family: var(--sans);
+    font-size: 16px;
+    letter-spacing: 0;
+    color: var(--ink);
+    border-bottom: 1px solid var(--gold);
+    padding-bottom: 1px;
+    transition: color 180ms var(--ease);
+  }
+  .hg-mail:hover { color: var(--gold); }
+
+  .hg-foot {
+    margin-top: 56px;
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  .hg-foot a { transition: color 180ms var(--ease); }
+  .hg-foot a:hover { color: var(--gold); }
+  .hg-foot .hg-dot { color: var(--rule); }
+  .hg-foot .hg-year { margin-left: auto; }
+
+  /* one quiet entrance, staggered behind the mark's own draw */
+  .hg-eyebrow, .hg-block, .hg-write, .hg-foot {
+    opacity: 0;
+    transform: translateY(8px);
+    animation: rise 700ms var(--ease) forwards;
+  }
+  .hg-eyebrow { animation-delay: 420ms; }
+  .hg-block-de { animation-delay: 560ms; }
+  .hg-block-en { animation-delay: 660ms; }
+  .hg-write { animation-delay: 760ms; }
+  .hg-foot { animation-delay: 860ms; }
+
+  @keyframes rise { to { opacity: 1; transform: none; } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hg-eyebrow, .hg-block, .hg-write, .hg-foot { opacity: 1; transform: none; animation: none; }
+  }
+
+  @media (max-width: 560px) {
+    .hg-block { grid-template-columns: 1fr; gap: 8px; }
+    .hg-marker { padding-top: 0; }
+    .hg-foot { flex-wrap: wrap; }
+    .hg-foot .hg-year { margin-left: 0; width: 100%; }
+  }
+</style>
