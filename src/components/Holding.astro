@@ -53,9 +53,17 @@ const C = {
     </p>
 
     <footer class="hg-foot">
-      <a href="/impressum">{C.de.impressum}</a>
-      <span class="hg-dot" aria-hidden="true">·</span>
-      <a href="/datenschutz">{C.de.privacy}</a>
+      <span class="hg-legal">
+        <a href="/impressum">{C.de.impressum}</a>
+        <span class="hg-dot" aria-hidden="true">·</span>
+        <a href="/datenschutz">{C.de.privacy}</a>
+      </span>
+      <span class="hg-sep" aria-hidden="true">/</span>
+      <span class="hg-legal" lang="en">
+        <a href="/en/impressum">{C.en.impressum}</a>
+        <span class="hg-dot" aria-hidden="true">·</span>
+        <a href="/en/datenschutz">{C.en.privacy}</a>
+      </span>
       <span class="hg-year">2026</span>
     </footer>
   </div>
@@ -155,6 +163,9 @@ const C = {
     text-transform: uppercase;
     color: var(--ink-soft);
   }
+  .hg-foot { flex-wrap: wrap; }
+  .hg-legal { display: inline-flex; align-items: baseline; gap: 10px; }
+  .hg-foot .hg-sep { color: var(--rule); }
   .hg-foot a { transition: color 180ms var(--ease); }
   .hg-foot a:hover { color: var(--gold); }
   .hg-foot .hg-dot { color: var(--rule); }
@@ -181,7 +192,10 @@ const C = {
   @media (max-width: 560px) {
     .hg-block { grid-template-columns: 1fr; gap: 8px; }
     .hg-marker { padding-top: 0; }
-    .hg-foot { flex-wrap: wrap; }
+    /* the DE and EN legal pairs stack instead of splitting mid-pair */
+    .hg-foot { row-gap: 8px; }
+    .hg-foot .hg-sep { display: none; }
+    .hg-legal { width: 100%; }
     .hg-foot .hg-year { margin-left: 0; width: 100%; }
   }
 </style>
