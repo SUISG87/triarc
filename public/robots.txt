@@ -1,7 +1,4 @@
+# Maintenance mode — the site is serving a holding page.
+# Restore the full policy (Allow: / plus the sitemap) when the site comes back.
 User-agent: *
-Allow: /
-
-Disallow: /impressum
-Disallow: /datenschutz
-
-Sitemap: https://triarc.ch/sitemap-index.xml
+Disallow: /

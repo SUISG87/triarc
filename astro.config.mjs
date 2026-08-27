@@ -1,6 +1,8 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
-import sitemap from '@astrojs/sitemap';
+// Maintenance mode: the sitemap is off so it stops advertising the hidden pages.
+// Restore with the rest of the site.
+// import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
@@ -13,7 +15,7 @@ export default defineConfig({
       prefixDefaultLocale: false, // de at "/", en at "/en/"
     },
   },
-  integrations: [sitemap()],
+  integrations: [],
   build: {
     inlineStylesheets: 'auto',
   },

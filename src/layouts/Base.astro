@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
+import Holding from '../components/Holding.astro';
 
 const {
   title,
@@ -14,6 +15,16 @@ const {
   showFooter = true,
 } = Astro.props;
 
+// --- Maintenance mode (holding page) ------------------------------------
+// Every route serves the bilingual holding page except the two legal pages,
+// which stay live for the Swiss disclosure obligation.
+// To bring the site back: revert this PR (or flip MAINTENANCE to false and
+// restore the sitemap integration + robots.txt).
+const MAINTENANCE = true;
+const LEGAL = ['/impressum', '/datenschutz', '/en/impressum', '/en/datenschutz'];
+const path = Astro.url.pathname.replace(/\/+$/, '') || '/';
+const holding = MAINTENANCE && !LEGAL.includes(path);
+
 const site = Astro.site ?? new URL('https://triarc.ch');
 const canonical = new URL(Astro.url.pathname, site).href;
 // gold arcs on the dark paper, matching the house theme
@@ -25,13 +36,13 @@ const favicon = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>{title}</title>
-  <meta name="description" content={description} />
+  <title>{holding ? 'Triarc — Die Seite wird überarbeitet' : title}</title>
+  <meta name="description" content={holding ? 'Die Website von Triarc wird überarbeitet. Triarc arbeitet weiter — Software, Beratung, Recruiting. Kontakt: manuel@triarc.ch' : description} />
   <link rel="canonical" href={canonical} />
   <link rel="icon" type="image/svg+xml" href={favicon} />
   <meta name="theme-color" content="#14120d" />
 
-  {hreflang && (
+  {!holding && hreflang && (
     <>
       <link rel="alternate" hreflang="de" href={new URL(hreflang.de, site).href} />
       <link rel="alternate" hreflang="en" href={new URL(hreflang.en, site).href} />
@@ -39,8 +50,8 @@ const favicon = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'
     </>
   )}
 
-  <meta property="og:title" content={title} />
-  <meta property="og:description" content={description} />
+  <meta property="og:title" content={holding ? 'Triarc — Die Seite wird überarbeitet' : title} />
+  <meta property="og:description" content={holding ? 'Die Website von Triarc wird überarbeitet. Triarc arbeitet weiter — Software, Beratung, Recruiting.' : description} />
   <meta property="og:type" content={ogType} />
   <meta property="og:url" content={canonical} />
   <meta property="og:site_name" content="Triarc" />
@@ -50,9 +61,10 @@ const favicon = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Newsreader:ital,wght@0,300;0,400;1,300;1,400&family=Geist+Mono:wght@300;400&display=swap" rel="stylesheet" />
 
-  <slot name="head" />
+  <!-- page-level head content (JSON-LD, OG images) stays off the holding page -->
+  {!holding && <slot name="head" />}
 
-  <script is:inline define:vars={{ pageLang: lang, altHref }}>
+  <script is:inline define:vars={{ pageLang: lang, altHref: holding ? null : altHref }}>
     // Carry-over: if the visitor has a stored language preference and a
     // counterpart page exists, send them to their language before paint.
     (function () {
@@ -84,9 +96,15 @@ const favicon = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'
 </head>
 <body>
   <a class="skip-link" href="#main">{lang === 'en' ? 'Skip to content' : 'Zum Inhalt springen'}</a>
-  <SiteHeader crumb={crumb} lang={lang} altHref={altHref} />
-  <slot />
-  {showFooter && <SiteFooter lang={lang} />}
+  {holding ? (
+    <Holding />
+  ) : (
+    <>
+      <SiteHeader crumb={crumb} lang={lang} altHref={altHref} />
+      <slot />
+      {showFooter && <SiteFooter lang={lang} />}
+    </>
+  )}
 
   <script>
     // Persist language choice when the visitor uses the DE/EN toggle
